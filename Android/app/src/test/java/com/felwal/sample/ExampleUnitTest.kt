@@ -1,4 +1,4 @@
-package com.felwal.android
+package com.felwal.sample
 
 import org.junit.Test
 
