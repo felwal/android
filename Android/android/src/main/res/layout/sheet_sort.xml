@@ -2,47 +2,46 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/spacing_tiny">
+    android:background="?attr/colorSurface"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="@dimen/height_sheet_peek"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/sv"
+    <TextView
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/v_divider_bottom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TableLayout
-            android:id="@+id/tl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/spacing_dialog_horizontal_minus_4"
-            android:stretchColumns="*"
-            android:shrinkColumns="*" />
-
-    </androidx.core.widget.NestedScrollView>
-
-    <View
-        android:id="@+id/v_divider_top"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_divider"
+        android:layout_marginHorizontal="@dimen/spacing_small"
+        android:layout_marginVertical="@dimen/spacing_small"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.Felwal.Dialog.Title"
+        app:layout_constraintBottom_toTopOf="@id/div"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        style="@style/Widget.Felwal.Divider" />
+        tools:text="Sort by" />
 
     <View
-        android:id="@+id/v_divider_bottom"
+        android:id="@+id/div"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_divider"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         style="@style/Widget.Felwal.Divider" />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/spacing_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

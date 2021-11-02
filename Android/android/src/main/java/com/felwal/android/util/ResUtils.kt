@@ -43,9 +43,9 @@ fun Context.getStyle(@StyleRes id: Int): Int = resources.getIdentifier("CustomDi
 fun Context.getIdAttr(@AttrRes id: Int): Int {
     val attrs = intArrayOf(id)
     val typedArray = obtainStyledAttributes(attrs)
-    val backgroundResource = typedArray.getResourceId(0, 0)
+    val resId = typedArray.getResourceId(0, 0)
     typedArray.recycle()
-    return backgroundResource
+    return resId
 }
 
 @ColorInt
@@ -55,7 +55,12 @@ fun Context.getColorAttr(@AttrRes id: Int): Int {
     return typedValue.data
 }
 
-fun Context.getDrawableAttr(@AttrRes id: Int): Drawable? = getDrawableCompat(getIdAttr(id))
+fun Context.getDrawableAttr(@AttrRes id: Int): Drawable? {
+    val typedValue = TypedValue()
+    theme.resolveAttribute(id, typedValue, true)
+    val resId = typedValue.resourceId
+    return getDrawableCompat(resId)
+}
 
 fun Context.getBooleanAttr(@AttrRes id: Int): Boolean = getBoolean(getIdAttr(id))
 
@@ -76,6 +81,9 @@ fun Context.getStyleAttr(@AttrRes id: Int): Int = getStyle(getIdAttr(id))
 
 fun Context.getDrawableCompat(@DrawableRes id: Int, @AttrRes colorId: Int): Drawable? =
     getDrawableCompat(id)?.withTint(getColorAttr(colorId))
+
+fun Context.getDrawableAttr(@AttrRes id: Int, @AttrRes colorId: Int): Drawable? =
+    getDrawableAttr(id)?.withTint(getColorAttr(colorId))
 
 fun Context.getDrawableCompatFilter(@DrawableRes id: Int, @AttrRes colorId: Int): Drawable? =
     getDrawableCompat(id)?.withFilter(getColorAttr(colorId))

@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
@@ -52,6 +54,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         super.onAttach(c)
 
         listener = try {
+            @Suppress("UNCHECKED_CAST")
             c as L
         }
         catch (e: ClassCastException) {
@@ -82,7 +85,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         message = getString(ARG_MESSAGE, "")
         posBtnTxtRes = getInt(ARG_POSITIVE_BUTTON_RES, posBtnTxtRes)
         negBtnTxtRes = getInt(ARG_NEGATIVE_BUTTON_RES, negBtnTxtRes)
-        dialogTag = getString(ARG_TAG, "dialog")
+        dialogTag = getString(ARG_TAG, dialogTag)
     }
 
     // build
