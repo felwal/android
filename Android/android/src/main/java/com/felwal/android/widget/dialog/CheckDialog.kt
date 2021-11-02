@@ -10,31 +10,31 @@ import com.felwal.android.util.orEmpty
 import com.felwal.android.util.seconds
 
 private const val ARG_ITEMS = "items"
-private const val ARG_CHECKED_ITEMS = "checkedItems"
+private const val ARG_ITEM_STATES = "itemStates"
 
 class CheckDialog : BaseDialog<CheckDialog.DialogListener>() {
 
     // args
     private lateinit var items: Array<out String>
-    private lateinit var checkedItems: BooleanArray
+    private lateinit var itemStates: BooleanArray
 
     // BaseDialog
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
             items = getStringArray(ARG_ITEMS).orEmpty()
-            checkedItems = getBooleanArray(ARG_CHECKED_ITEMS).orEmpty()
+            itemStates = getBooleanArray(ARG_ITEM_STATES).orEmpty()
         }
     }
 
     override fun buildDialog(): AlertDialog = builder.run {
         setTitle(title)
 
-        setMultiChoiceItems(items, checkedItems) { _, which, isChecked ->
-            checkedItems[which] = isChecked
+        setMultiChoiceItems(items, itemStates) { _, which, isChecked ->
+            itemStates[which] = isChecked
         }
         setPositiveButton(posBtnTxtRes) { _, _ ->
-            listener.onCheckDialogPositiveClick(checkedItems, dialogTag)
+            listener.onCheckDialogPositiveClick(itemStates, dialogTag)
         }
         setCancelButton(negBtnTxtRes)
 
@@ -84,14 +84,14 @@ class CheckDialog : BaseDialog<CheckDialog.DialogListener>() {
             title: String,
             message: String = "",
             items: Array<String>,
-            checkedItems: BooleanArray,
+            itemStates: BooleanArray,
             @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
             tag: String
         ): CheckDialog = CheckDialog().apply {
             arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag).apply {
                 putStringArray(ARG_ITEMS, items)
-                putBooleanArray(ARG_CHECKED_ITEMS, checkedItems)
+                putBooleanArray(ARG_ITEM_STATES, itemStates)
             }
         }
     }
@@ -121,12 +121,12 @@ fun checkDialog(
     title: String,
     message: String = "",
     items: Array<String>,
-    checkedItems: BooleanArray,
+    itemStates: BooleanArray,
     @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
     tag: String
 ): CheckDialog = CheckDialog.newInstance(
     title, message,
-    items, checkedItems,
+    items, itemStates,
     posBtnTxtRes = posBtnTxtRes, negBtnTxtRes = negBtnTxtRes, tag = tag
 )

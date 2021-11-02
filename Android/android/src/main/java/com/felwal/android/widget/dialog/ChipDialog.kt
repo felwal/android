@@ -13,20 +13,20 @@ import com.felwal.android.util.seconds
 import com.google.android.material.chip.Chip
 
 private const val ARG_ITEMS = "items"
-private const val ARG_CHECKED_ITEMS = "checkedItems"
+private const val ARG_ITEM_STATES = "itemStates"
 
 class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
 
     // args
     private lateinit var items: Array<out String>
-    private lateinit var checkedItems: BooleanArray
+    private lateinit var itemStates: BooleanArray
 
     // BaseDialog
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
             items = getStringArray(ARG_ITEMS).orEmpty()
-            checkedItems = getBooleanArray(ARG_CHECKED_ITEMS).orEmpty()
+            itemStates = getBooleanArray(ARG_ITEM_STATES).orEmpty()
         }
     }
 
@@ -44,15 +44,15 @@ class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
                 val chip: Chip = ComponentChipBinding.inflate(inflater, chipGroup, false).root
                 chipGroup.addView(chip)
                 chip.text = items[i]
-                chip.isChecked = checkedItems[i]
+                chip.isChecked = itemStates[i]
 
                 chip.setOnCheckedChangeListener { _, isChecked ->
-                    checkedItems[i] = isChecked
+                    itemStates[i] = isChecked
                 }
             }
 
             setPositiveButton(posBtnTxtRes) { _, _ ->
-                listener.onChipDialogPositiveClick(checkedItems, dialogTag)
+                listener.onChipDialogPositiveClick(itemStates, dialogTag)
             }
             setCancelButton(negBtnTxtRes)
 
@@ -105,14 +105,14 @@ class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
             title: String,
             message: String = "",
             items: Array<String>,
-            checkedItems: BooleanArray,
+            itemStates: BooleanArray,
             @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
             tag: String
         ): ChipDialog = ChipDialog().apply {
             arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag).apply {
                 putStringArray(ARG_ITEMS, items)
-                putBooleanArray(ARG_CHECKED_ITEMS, checkedItems)
+                putBooleanArray(ARG_ITEM_STATES, itemStates)
             }
         }
     }
@@ -142,8 +142,8 @@ fun chipDialog(
     title: String,
     message: String = "",
     items: Array<String>,
-    checkedItems: BooleanArray,
+    itemStates: BooleanArray,
     @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
     tag: String
-): ChipDialog = ChipDialog.newInstance(title, message, items, checkedItems, posBtnTxtRes, negBtnTxtRes, tag)
+): ChipDialog = ChipDialog.newInstance(title, message, items, itemStates, posBtnTxtRes, negBtnTxtRes, tag)
