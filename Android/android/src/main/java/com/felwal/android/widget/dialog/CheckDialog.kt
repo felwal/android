@@ -125,8 +125,4 @@ fun checkDialog(
     @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
     tag: String
-): CheckDialog = CheckDialog.newInstance(
-    title, message,
-    items, itemStates,
-    posBtnTxtRes = posBtnTxtRes, negBtnTxtRes = negBtnTxtRes, tag = tag
-)
+): CheckDialog = CheckDialog.newInstance(title, message, items, itemStates, posBtnTxtRes, negBtnTxtRes, tag)

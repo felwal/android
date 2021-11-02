@@ -92,13 +92,11 @@ class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
             @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
             tag: String
-        ): ChipDialog {
-            return newInstance(
-                title, message,
-                items, checkedItems.asIndicesOfTrueBooleans(items.size),
-                posBtnTxtRes, negBtnTxtRes, tag
-            )
-        }
+        ): ChipDialog = newInstance(
+            title, message,
+            items, checkedItems.asIndicesOfTrueBooleans(items.size),
+            posBtnTxtRes, negBtnTxtRes, tag
+        )
 
         @JvmStatic
         fun newInstance(
