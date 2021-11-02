@@ -3,6 +3,7 @@ package com.felwal.android.widget.dialog
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isInvisible
 import com.felwal.android.R
 import com.felwal.android.databinding.ComponentChipBinding
 import com.felwal.android.databinding.DialogChipBinding
@@ -36,7 +37,14 @@ class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
         return builder.run {
             setView(binding.root)
             setTitle(title)
-            binding.tv.text = message
+
+            // scrollview borders
+            binding.vDividerTop.isInvisible = !binding.sv.canScrollVertically(-1)
+            binding.vDividerBottom.isInvisible = !binding.sv.canScrollVertically(1)
+            binding.sv.setOnScrollChangeListener { _, _, _, _, _ ->
+                binding.vDividerTop.isInvisible = !binding.sv.canScrollVertically(-1)
+                binding.vDividerBottom.isInvisible = !binding.sv.canScrollVertically(1)
+            }
 
             // set chips
             val chipGroup = binding.cg

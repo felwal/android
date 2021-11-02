@@ -38,6 +38,8 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
     override fun buildDialog(): AlertDialog = builder.run {
         val binding = DialogColorBinding.inflate(inflater)
         setView(binding.root)
+        setTitle(title)
+        if (message != "") setMessage(message)
 
         // scrollview borders
         binding.vDividerTop.isInvisible = !binding.sv.canScrollVertically(-1)
@@ -76,9 +78,6 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
 
             tr.addView(itemBinding.root)
         }
-
-        setTitle(title)
-        if (message != "") setMessage(message)
 
         setCancelButton(negBtnTxtRes)
 
