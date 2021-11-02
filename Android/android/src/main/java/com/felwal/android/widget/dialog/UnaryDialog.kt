@@ -1,27 +1,11 @@
 package com.felwal.android.widget.dialog
 
-import android.content.Context
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.R
 
-class UnaryDialog : BaseDialog() {
-
-    private lateinit var listener: DialogListener
-
-    // DialogFragment
-
-    override fun onAttach(c: Context) {
-        super.onAttach(c)
-
-        listener = try {
-            c as DialogListener
-        }
-        catch (e: ClassCastException) {
-            throw ClassCastException("Activity must implement DialogListener")
-        }
-    }
+class UnaryDialog : BaseDialog<UnaryDialog.DialogListener>() {
 
     // BaseDialog
 
@@ -42,7 +26,7 @@ class UnaryDialog : BaseDialog() {
 
     //
 
-    interface DialogListener {
+    interface DialogListener : BaseDialog.DialogListener {
         fun onUnaryDialogClick(tag: String)
     }
 

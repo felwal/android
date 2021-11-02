@@ -1,6 +1,7 @@
 package com.felwal.android.widget.dialog
 
 import android.app.Dialog
+import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,10 +23,11 @@ private const val ARG_POSITIVE_BUTTON_RES = "positiveButtonText"
 private const val ARG_NEGATIVE_BUTTON_RES = "negativeButtonText"
 private const val ARG_TAG = "tag"
 
-abstract class BaseDialog : DialogFragment() {
+abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     protected lateinit var builder: MaterialAlertDialogBuilder
     protected lateinit var inflater: LayoutInflater
+    protected lateinit var listener: L
 
     // args
     protected lateinit var title: String
@@ -44,6 +46,17 @@ abstract class BaseDialog : DialogFragment() {
         unpackBundle(unpackBaseBundle())
 
         return buildDialog()
+    }
+
+    override fun onAttach(c: Context) {
+        super.onAttach(c)
+
+        listener = try {
+            c as L
+        }
+        catch (e: ClassCastException) {
+            throw ClassCastException("Activity must implement DialogListener")
+        }
     }
 
     // bundle
@@ -84,6 +97,10 @@ abstract class BaseDialog : DialogFragment() {
     fun show(fm: FragmentManager) {
         if (!isAdded) super.show(fm, dialogTag)
     }
+
+    //
+
+    interface DialogListener
 }
 
 fun AlertDialog.Builder.setCancelButton(@StringRes resId: Int): AlertDialog.Builder =

@@ -1,6 +1,5 @@
 package com.felwal.android.widget.dialog
 
-import android.content.Context
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
@@ -12,26 +11,11 @@ import com.felwal.android.util.seconds
 private const val ARG_ITEMS = "items"
 private const val ARG_CHECKED_ITEMS = "checkedItems"
 
-class CheckDialog : BaseDialog() {
-
-    private lateinit var listener: DialogListener
+class CheckDialog : BaseDialog<CheckDialog.DialogListener>() {
 
     // args
     private lateinit var items: Array<out String>
     private lateinit var checkedItems: BooleanArray
-
-    // DialogFragment
-
-    override fun onAttach(c: Context) {
-        super.onAttach(c)
-
-        listener = try {
-            c as DialogListener
-        }
-        catch (e: ClassCastException) {
-            throw ClassCastException("Activity must implement DialogListener")
-        }
-    }
 
     // BaseDialog
 
@@ -58,7 +42,7 @@ class CheckDialog : BaseDialog() {
 
     //
 
-    interface DialogListener {
+    interface DialogListener : BaseDialog.DialogListener {
         fun onCheckDialogPositiveClick(checkedItems: BooleanArray, tag: String)
     }
 

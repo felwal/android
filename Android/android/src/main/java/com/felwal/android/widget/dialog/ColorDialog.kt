@@ -1,6 +1,5 @@
 package com.felwal.android.widget.dialog
 
-import android.content.Context
 import android.os.Bundle
 import android.widget.TableRow
 import androidx.annotation.ColorInt
@@ -21,26 +20,11 @@ private const val ARG_CHECKED_ITEM = "checkedItem"
 private const val COLUMN_COUNT_PORTRAIT = 4
 private const val COLUMN_COUNT_LANDSCAPE = 5
 
-class ColorDialog : BaseDialog() {
-
-    private lateinit var listener: DialogListener
+class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
 
     // args
     @ColorInt private lateinit var items: IntArray
     private var checkedItem = 0
-
-    // DialogFragment
-
-    override fun onAttach(c: Context) {
-        super.onAttach(c)
-
-        listener = try {
-            c as DialogListener
-        }
-        catch (e: ClassCastException) {
-            throw ClassCastException("Activity must implement DialogListener")
-        }
-    }
 
     // BaseDialog
 
@@ -103,7 +87,7 @@ class ColorDialog : BaseDialog() {
 
     //
 
-    interface DialogListener {
+    interface DialogListener : BaseDialog.DialogListener {
         fun onColorDialogItemClick(checkedItem: Int, tag: String)
     }
 

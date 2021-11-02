@@ -1,6 +1,5 @@
 package com.felwal.android.widget.dialog
 
-import android.content.Context
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
@@ -9,26 +8,11 @@ import com.felwal.android.R
 private const val ARG_ITEMS = "items"
 private const val ARG_CHECKED_ITEM = "checkedItem"
 
-class RadioDialog : BaseDialog() {
-
-    private lateinit var listener: DialogListener
+class RadioDialog : BaseDialog<RadioDialog.DialogListener>() {
 
     // args
     private lateinit var items: Array<out String>
     private var checkedItem = 0
-
-    // DialogFragment
-
-    override fun onAttach(c: Context) {
-        super.onAttach(c)
-
-        listener = try {
-            c as DialogListener
-        }
-        catch (e: ClassCastException) {
-            throw ClassCastException("Activity must implement DialogListener")
-        }
-    }
 
     // BaseDialog
 
@@ -54,7 +38,7 @@ class RadioDialog : BaseDialog() {
 
     //
 
-    interface DialogListener {
+    interface DialogListener : BaseDialog.DialogListener {
         fun onRadioDialogItemClick(checkedItem: Int, tag: String)
     }
 

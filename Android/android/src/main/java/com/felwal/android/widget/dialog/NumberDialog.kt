@@ -1,6 +1,5 @@
 package com.felwal.android.widget.dialog
 
-import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.annotation.StringRes
@@ -15,26 +14,11 @@ const val NO_INT_TEXT = -1
 private const val ARG_TEXT = "text"
 private const val ARG_HINT = "hint"
 
-class NumberDialog : BaseDialog() {
-
-    private lateinit var listener: DialogListener
+class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
 
     // args
     private var text = 0
     private lateinit var hint: String
-
-    // DialogFragment
-
-    override fun onAttach(c: Context) {
-        super.onAttach(c)
-
-        listener = try {
-            c as DialogListener
-        }
-        catch (e: ClassCastException) {
-            throw ClassCastException("Activity must implement DialogListener")
-        }
-    }
 
     // BaseDialog
 
@@ -74,7 +58,7 @@ class NumberDialog : BaseDialog() {
 
     //
 
-    interface DialogListener {
+    interface DialogListener : BaseDialog.DialogListener {
         fun onNumberDialogPositiveClick(input: Int, tag: String?)
     }
 

@@ -1,6 +1,5 @@
 package com.felwal.android.widget.dialog
 
-import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.annotation.StringRes
@@ -15,26 +14,11 @@ const val NO_FLOAT_TEXT = -1f
 private const val ARG_TEXT = "text"
 private const val ARG_HINT = "hint"
 
-class DecimalDialog : BaseDialog() {
-
-    private lateinit var listener: DialogListener
+class DecimalDialog : BaseDialog<DecimalDialog.DialogListener>() {
 
     // args
     private var text = 0f
     private lateinit var hint: String
-
-    // DialogFragment
-
-    override fun onAttach(c: Context) {
-        super.onAttach(c)
-
-        listener = try {
-            c as DialogListener
-        }
-        catch (e: ClassCastException) {
-            throw ClassCastException("Activity must implement DialogListener")
-        }
-    }
 
     // BaseDialog
 
@@ -74,7 +58,7 @@ class DecimalDialog : BaseDialog() {
 
     //
 
-    interface DialogListener {
+    interface DialogListener : BaseDialog.DialogListener {
         fun onDecimalDialogPositiveClick(input: Float, tag: String?)
     }
 

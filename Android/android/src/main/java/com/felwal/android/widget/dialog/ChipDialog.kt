@@ -1,6 +1,5 @@
 package com.felwal.android.widget.dialog
 
-import android.content.Context
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
@@ -16,26 +15,11 @@ import com.google.android.material.chip.Chip
 private const val ARG_ITEMS = "items"
 private const val ARG_CHECKED_ITEMS = "checkedItems"
 
-class ChipDialog : BaseDialog() {
-
-    private lateinit var listener: DialogListener
+class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
 
     // args
     private lateinit var items: Array<out String>
     private lateinit var checkedItems: BooleanArray
-
-    // DialogFragment
-
-    override fun onAttach(c: Context) {
-        super.onAttach(c)
-
-        listener = try {
-            c as DialogListener
-        }
-        catch (e: ClassCastException) {
-            throw ClassCastException("Activity must implement DialogListener")
-        }
-    }
 
     // BaseDialog
 
@@ -67,9 +51,6 @@ class ChipDialog : BaseDialog() {
                 }
             }
 
-            /*setMultiChoiceItems(items, checkedItems) { _, which, isChecked ->
-                checkedItems[which] = isChecked
-            }*/
             setPositiveButton(posBtnTxtRes) { _, _ ->
                 listener.onChipDialogPositiveClick(checkedItems, dialogTag)
             }
@@ -81,7 +62,7 @@ class ChipDialog : BaseDialog() {
 
     //
 
-    interface DialogListener {
+    interface DialogListener : BaseDialog.DialogListener {
         fun onChipDialogPositiveClick(checkedItems: BooleanArray, tag: String)
     }
 
