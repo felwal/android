@@ -59,7 +59,7 @@ class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
     //
 
     interface DialogListener : BaseDialog.DialogListener {
-        fun onNumberDialogPositiveClick(input: Int, tag: String?)
+        fun onNumberDialogPositiveClick(input: Int, tag: String)
     }
 
     //

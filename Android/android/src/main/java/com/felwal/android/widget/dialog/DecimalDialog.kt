@@ -59,7 +59,7 @@ class DecimalDialog : BaseDialog<DecimalDialog.DialogListener>() {
     //
 
     interface DialogListener : BaseDialog.DialogListener {
-        fun onDecimalDialogPositiveClick(input: Float, tag: String?)
+        fun onDecimalDialogPositiveClick(input: Float, tag: String)
     }
 
     //
