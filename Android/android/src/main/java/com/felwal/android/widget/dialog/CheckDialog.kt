@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.R
+import com.felwal.android.util.asIndicesOfTrueBooleans
 import com.felwal.android.util.firsts
 import com.felwal.android.util.orEmpty
 import com.felwal.android.util.seconds
@@ -68,6 +69,21 @@ class CheckDialog : BaseDialog<CheckDialog.DialogListener>() {
             title: String,
             message: String = "",
             items: Array<String>,
+            checkedItems: IntArray,
+            @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
+            @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+            tag: String
+        ): CheckDialog = newInstance(
+            title, message,
+            items, checkedItems.asIndicesOfTrueBooleans(items.size),
+            posBtnTxtRes, negBtnTxtRes, tag
+        )
+
+        @JvmStatic
+        fun newInstance(
+            title: String,
+            message: String = "",
+            items: Array<String>,
             checkedItems: BooleanArray,
             @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
@@ -90,6 +106,16 @@ fun checkDialog(
     tag: String
 ): CheckDialog =
     CheckDialog.newInstance(title, message, *items, posBtnTxtRes = posBtnTxtRes, negBtnTxtRes = negBtnTxtRes, tag = tag)
+
+fun checkDialog(
+    title: String,
+    message: String = "",
+    items: Array<String>,
+    checkedItems: IntArray,
+    @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
+    @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+    tag: String
+): CheckDialog = CheckDialog.newInstance(title, message, items, checkedItems, posBtnTxtRes, negBtnTxtRes, tag)
 
 fun checkDialog(
     title: String,
