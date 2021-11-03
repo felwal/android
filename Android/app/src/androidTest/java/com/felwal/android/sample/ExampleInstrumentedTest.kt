@@ -1,4 +1,4 @@
-package com.felwal.sample
+package com.felwal.android.sample
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.felwal.sample", appContext.packageName)
+        assertEquals("com.felwal.android.sample", appContext.packageName)
     }
 }

@@ -1,4 +1,4 @@
-package com.felwal.sample
+package com.felwal.android.sample
 
 import android.os.Bundle
 import android.view.View
@@ -14,7 +14,7 @@ import com.felwal.android.widget.dialog.chipDialog
 import com.felwal.android.widget.sheet.SortMode
 import com.felwal.android.widget.sheet.SortSheet
 import com.felwal.android.widget.sheet.Sorter
-import com.felwal.sample.databinding.ActivityMainBinding
+import com.felwal.android.sample.databinding.ActivityMainBinding
 
 class MainActivity: AppCompatActivity(),
     CheckDialog.DialogListener,

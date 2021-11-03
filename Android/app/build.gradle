@@ -7,7 +7,7 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId "com.felwal.sample"
+        applicationId "com.felwal.android.sample"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
