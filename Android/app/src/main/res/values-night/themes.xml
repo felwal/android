@@ -7,14 +7,22 @@
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
 
-        <!-- Primary brand color -->
-        <item name="colorPrimary">@color/material_purple_200</item>
-        <item name="colorPrimaryVariant">@color/material_purple_700</item>
+        <!-- background -->
+        <item name="android:colorBackground">@color/felwal_background_dk</item>
+        <item name="colorOnBackground">@color/white</item>
+
+        <!-- surface -->
+        <item name="colorSurface">@color/felwal_surface_dk</item>
+        <item name="colorOnSurface">@color/white</item>
+
+        <!-- primary -->
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/black</item>
 
-        <!-- Secondary brand color -->
-        <item name="colorSecondary">@color/material_teal_200</item>
-        <item name="colorSecondaryVariant">@color/material_teal_200</item>
+        <!-- secondary -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
     </style>
 
