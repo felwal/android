@@ -110,6 +110,8 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
 
 class Sorter<M : Enum<M>>(vararg val sortModes: SortMode<M>) {
 
+    private val arrows = charArrayOf('↓', '↑')
+
     var orderReversed = false
         private set
     var selectedIndex = 0
@@ -127,6 +129,9 @@ class Sorter<M : Enum<M>>(vararg val sortModes: SortMode<M>) {
     val labels: List<String>
         get() = sortModes.map { it.label }
 
+    val layoutString: String
+        get() = sortMode.label + " " + arrows[if (ascending) 1 else 0]
+
     //
 
     fun select(index: Int) {
@@ -142,7 +147,6 @@ class Sorter<M : Enum<M>>(vararg val sortModes: SortMode<M>) {
         this.selectedIndex = selectedIndex
         this.orderReversed = orderReversed
     }
-
 }
 
 data class SortMode<M : Enum<M>>(val label: String, val mode: M, val ascendingByDefault: Boolean)

@@ -64,4 +64,10 @@
         <item name="android:textSize">@dimen/type_dialog_item</item>
     </style>
 
+    <style name="TextAppearance.Felwal.Sorter">
+        <item name="android:textSize">@dimen/type_sorter</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

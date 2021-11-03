@@ -22,6 +22,7 @@
 
     <dimen name="height_sheet_item">45dp</dimen>
     <dimen name="height_sheet_peek">120dp</dimen>
+    <dimen name="height_sorter">50dp</dimen>
     <dimen name="height_divider">1dp</dimen>
 
     <!-- corner -->
@@ -33,5 +34,6 @@
     <dimen name="type_dialog_title">20sp</dimen>
     <dimen name="type_dialog_body">16sp</dimen>
     <dimen name="type_dialog_item">16sp</dimen>
+    <dimen name="type_sorter">14sp</dimen>
 
 </resources>
