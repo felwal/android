@@ -2,6 +2,9 @@
 <resources>
 
     <style name="Theme.Felwal" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:navigationBarColor">?android:colorBackground</item>
+
+        <!-- custom attrs -->
         <item name="sortSheetUpArrow">@drawable/ic_arrow_up_24</item>
         <item name="sortSheetDownArrow">@drawable/ic_arrow_down_24</item>
         <item name="sortSheetHighlightColor">?colorPrimary</item>

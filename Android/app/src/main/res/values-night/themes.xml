@@ -1,7 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.Android" parent="Theme.Felwal">
-        <item tools:targetApi="l" name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+    <style name="Theme.Sample" parent="Theme.Felwal">
+        <item name="android:statusBarColor" tools:targetApi="l">?android:colorBackground</item>
+
+        <!-- action bar -->
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
 
         <!-- Primary brand color -->
         <item name="colorPrimary">@color/purple_200</item>
