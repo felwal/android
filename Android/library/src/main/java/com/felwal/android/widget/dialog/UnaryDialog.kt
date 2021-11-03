@@ -18,7 +18,7 @@ class UnaryDialog : BaseDialog<UnaryDialog.DialogListener>() {
         if (message != "") setMessage(message)
 
         setPositiveButton(posBtnTxtRes) { _, _ ->
-            listener.onUnaryDialogClick(dialogTag)
+            listener?.onUnaryDialogClick(dialogTag)
         }
 
         show()

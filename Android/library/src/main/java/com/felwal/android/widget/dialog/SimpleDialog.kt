@@ -24,7 +24,7 @@ class SimpleDialog : BaseDialog<SimpleDialog.DialogListener>() {
         setTitle(title)
 
         setItems(items) { _, selectedIndex: Int ->
-            listener.onSimpleDialogItemClick(selectedIndex, dialogTag)
+            listener?.onSimpleDialogItemClick(selectedIndex, dialogTag)
         }
 
         show()

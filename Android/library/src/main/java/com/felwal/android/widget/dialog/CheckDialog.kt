@@ -34,7 +34,7 @@ class CheckDialog : BaseDialog<CheckDialog.DialogListener>() {
             itemStates[which] = isChecked
         }
         setPositiveButton(posBtnTxtRes) { _, _ ->
-            listener.onCheckDialogPositiveClick(itemStates, dialogTag)
+            listener?.onCheckDialogPositiveClick(itemStates, dialogTag)
         }
         setCancelButton(negBtnTxtRes)
 

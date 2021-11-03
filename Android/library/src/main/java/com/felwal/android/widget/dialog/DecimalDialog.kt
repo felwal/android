@@ -44,7 +44,7 @@ class DecimalDialog : BaseDialog<DecimalDialog.DialogListener>() {
             setPositiveButton(posBtnTxtRes) { _, _ ->
                 try {
                     val input = binding.et.string.toFloat()
-                    listener.onDecimalDialogPositiveClick(input, dialogTag)
+                    listener?.onDecimalDialogPositiveClick(input, dialogTag)
                 }
                 catch (e: NumberFormatException) {
                     activity?.toast(R.string.toast_e_input)

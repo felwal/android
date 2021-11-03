@@ -29,7 +29,7 @@ class RadioDialog : BaseDialog<RadioDialog.DialogListener>() {
 
         setSingleChoiceItems(items, checkedItem) { dialog, which ->
             dialog.cancel()
-            listener.onRadioDialogItemClick(which, dialogTag)
+            listener?.onRadioDialogItemClick(which, dialogTag)
         }
         setCancelButton(negBtnTxtRes)
 

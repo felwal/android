@@ -60,7 +60,7 @@ class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
             }
 
             setPositiveButton(posBtnTxtRes) { _, _ ->
-                listener.onChipDialogPositiveClick(itemStates, dialogTag)
+                listener?.onChipDialogPositiveClick(itemStates, dialogTag)
             }
             setCancelButton(negBtnTxtRes)
 

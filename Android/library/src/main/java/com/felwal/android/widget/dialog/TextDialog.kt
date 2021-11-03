@@ -40,7 +40,7 @@ class TextDialog : BaseDialog<TextDialog.DialogListener>() {
 
             setPositiveButton(posBtnTxtRes) { _, _ ->
                 val input = binding.et.string.trim { it <= ' ' }
-                listener.onTextDialogPositiveClick(input, dialogTag)
+                listener?.onTextDialogPositiveClick(input, dialogTag)
             }
             setCancelButton(negBtnTxtRes)
 

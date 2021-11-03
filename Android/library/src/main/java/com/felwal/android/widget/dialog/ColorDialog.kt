@@ -42,6 +42,7 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
         if (message != "") setMessage(message)
 
         // scrollview borders
+        // TODO: show on open, hide on height/item update
         binding.vDividerTop.isInvisible = !binding.sv.canScrollVertically(-1)
         binding.vDividerBottom.isInvisible = !binding.sv.canScrollVertically(1)
         binding.sv.setOnScrollChangeListener { _, _, _, _, _ ->
@@ -72,7 +73,7 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
             }
 
             itemBinding.iv.setOnClickListener {
-                listener.onColorDialogItemClick(i, dialogTag)
+                listener?.onColorDialogItemClick(i, dialogTag)
                 dialog?.cancel()
             }
 

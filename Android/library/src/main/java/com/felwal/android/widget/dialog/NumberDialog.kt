@@ -44,7 +44,7 @@ class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
             setPositiveButton(posBtnTxtRes) { _, _ ->
                 try {
                     val input = binding.et.string.toInt()
-                    listener.onNumberDialogPositiveClick(input, dialogTag)
+                    listener?.onNumberDialogPositiveClick(input, dialogTag)
                 }
                 catch (e: NumberFormatException) {
                     activity?.toast(R.string.toast_e_input)

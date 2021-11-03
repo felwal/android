@@ -18,11 +18,7 @@ import com.felwal.android.sample.databinding.ActivityMainBinding
 import com.felwal.android.util.repeated
 import com.felwal.android.widget.dialog.colorDialog
 
-class MainActivity: AppCompatActivity(),
-    CheckDialog.DialogListener,
-    ChipDialog.DialogListener,
-    SimpleDialog.DialogListener,
-    SortSheet.SheetListener{
+class MainActivity: AppCompatActivity(), SortSheet.SheetListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -83,15 +79,6 @@ class MainActivity: AppCompatActivity(),
     }
 
     //
-
-    override fun onCheckDialogPositiveClick(checkedItems: BooleanArray, tag: String) {
-    }
-
-    override fun onSimpleDialogItemClick(selectedItem: Int, tag: String) {
-    }
-
-    override fun onChipDialogPositiveClick(checkedItems: BooleanArray, tag: String) {
-    }
 
     override fun onSortSheetItemClick(checkedIndex: Int) {
         sorter.select(checkedIndex)

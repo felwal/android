@@ -25,7 +25,7 @@ class BinaryDialog : BaseDialog<BinaryDialog.DialogListener>() {
         if (message != "") setMessage(message)
 
         setPositiveButton(posBtnTxtRes) { _, _ ->
-            listener.onBinaryDialogPositiveClick(passValue, dialogTag)
+            listener?.onBinaryDialogPositiveClick(passValue, dialogTag)
         }
         setCancelButton(negBtnTxtRes)
 

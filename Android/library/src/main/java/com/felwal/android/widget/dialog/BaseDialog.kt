@@ -29,7 +29,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     protected lateinit var builder: MaterialAlertDialogBuilder
     protected lateinit var inflater: LayoutInflater
-    protected lateinit var listener: L
+    protected var listener: L? = null
 
     // args
     protected lateinit var title: String
@@ -53,13 +53,8 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     override fun onAttach(c: Context) {
         super.onAttach(c)
 
-        listener = try {
-            @Suppress("UNCHECKED_CAST")
-            c as L
-        }
-        catch (e: ClassCastException) {
-            throw ClassCastException("Activity must implement DialogListener")
-        }
+        @Suppress("UNCHECKED_CAST")
+        listener = c as? L
     }
 
     // bundle
