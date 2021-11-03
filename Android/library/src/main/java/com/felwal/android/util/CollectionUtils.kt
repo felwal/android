@@ -8,6 +8,9 @@ fun <E> MutableList<E>.replace(oldElement: E, newElement: E) =
 
 fun <E> List<E>.repeated(times: Int): List<E> = toMutableList().also { ml -> repeat(times - 1) { ml.addAll(this) } }
 
+inline fun <reified E> Array<E>.repeated(times: Int): Array<E> =
+    toMutableList().also { ml -> repeat(times - 1) { ml.addAll(this) } }.toTypedArray()
+
 fun <E> MutableCollection<E>.removeAll() = removeAll(this)
 
 fun <E> MutableList<E>.removeAll(range: IntRange) = range.reversed().forEach { removeAt(it) }

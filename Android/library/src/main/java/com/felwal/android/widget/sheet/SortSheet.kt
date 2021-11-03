@@ -9,8 +9,6 @@ import com.felwal.android.databinding.ItemSheetSortBinding
 import com.felwal.android.databinding.SheetSortBinding
 import com.felwal.android.util.getColorAttr
 import com.felwal.android.util.getDrawableAttr
-import com.felwal.android.util.getDrawableCompat
-import com.felwal.android.util.withTint
 
 private const val ARG_ITEMS = "items"
 private const val ARG_CHECKED_ITEM = "checkedItem"

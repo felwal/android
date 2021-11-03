@@ -6,17 +6,16 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.felwal.android.lang.Trilean
 import com.felwal.android.util.toast
-import com.felwal.android.widget.dialog.CheckDialog
-import com.felwal.android.widget.dialog.ChipDialog
-import com.felwal.android.widget.dialog.SimpleDialog
 import com.felwal.android.widget.dialog.checkDialog
 import com.felwal.android.widget.dialog.chipDialog
 import com.felwal.android.widget.sheet.SortMode
 import com.felwal.android.widget.sheet.SortSheet
 import com.felwal.android.widget.sheet.Sorter
 import com.felwal.android.sample.databinding.ActivityMainBinding
+import com.felwal.android.util.getColorAttr
 import com.felwal.android.util.repeated
 import com.felwal.android.widget.dialog.colorDialog
+import com.felwal.android.widget.dialog.simpleDialog
 
 class MainActivity: AppCompatActivity(), SortSheet.SheetListener {
 
@@ -37,25 +36,25 @@ class MainActivity: AppCompatActivity(), SortSheet.SheetListener {
             toast("Hello World!")
         }
 
+        btn("Simple dialog") {
+            simpleDialog("Simple dialog", arrayOf("Item").repeated(10), tag = "")
+                .show(supportFragmentManager)
+        }
+
         btn("Check dialog") {
-            checkDialog("Check dialog", "", arrayOf("Hej", "Då", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej",
-                "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej"
-            ), intArrayOf(1), tag = "tag")
+            checkDialog("Check dialog", "", arrayOf("Hej").repeated(20), intArrayOf(1), tag = "tag")
                 .show(supportFragmentManager)
         }
 
         btn("Color dialog") {
             colorDialog("Color dialog", "",
-                mutableListOf(getColor(R.color.material_purple_100)).repeated(32).toIntArray(),
-                0, tag = "tag"
+                mutableListOf(getColorAttr(android.R.attr.colorSecondary)).repeated(32).toIntArray(), 0, tag = "tag"
             )
                 .show(supportFragmentManager)
         }
 
         btn("Chip dialog") {
-            chipDialog("Chip dialog", "", arrayOf("Hej", "Då", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej",
-                "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej"
-            ), intArrayOf(1), tag = "tag")
+            chipDialog("Chip dialog", "", arrayOf("Hej").repeated(20), intArrayOf(1), tag = "tag")
                 .show(supportFragmentManager)
         }
 
