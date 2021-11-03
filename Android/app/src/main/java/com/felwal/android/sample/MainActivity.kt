@@ -15,6 +15,8 @@ import com.felwal.android.widget.sheet.SortMode
 import com.felwal.android.widget.sheet.SortSheet
 import com.felwal.android.widget.sheet.Sorter
 import com.felwal.android.sample.databinding.ActivityMainBinding
+import com.felwal.android.util.repeated
+import com.felwal.android.widget.dialog.colorDialog
 
 class MainActivity: AppCompatActivity(),
     CheckDialog.DialogListener,
@@ -43,6 +45,14 @@ class MainActivity: AppCompatActivity(),
             checkDialog("Check dialog", "", arrayOf("Hej", "Då", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej",
                 "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej", "Hej"
             ), intArrayOf(1), tag = "tag")
+                .show(supportFragmentManager)
+        }
+
+        btn("Color dialog") {
+            colorDialog("Color dialog", "",
+                mutableListOf(getColor(R.color.material_purple_100)).repeated(32).toIntArray(),
+                0, tag = "tag"
+            )
                 .show(supportFragmentManager)
         }
 
@@ -75,15 +85,12 @@ class MainActivity: AppCompatActivity(),
     //
 
     override fun onCheckDialogPositiveClick(checkedItems: BooleanArray, tag: String) {
-        toast(checkedItems.toString())
     }
 
     override fun onSimpleDialogItemClick(selectedItem: Int, tag: String) {
-        toast(selectedItem.toString())
     }
 
     override fun onChipDialogPositiveClick(checkedItems: BooleanArray, tag: String) {
-        toast(checkedItems.toString())
     }
 
     override fun onSortSheetItemClick(checkedIndex: Int) {

@@ -6,6 +6,8 @@ fun <E> MutableCollection<E>.toggleInclusion(element: E) =
 fun <E> MutableList<E>.replace(oldElement: E, newElement: E) =
     set(indexOf(oldElement), newElement)
 
+fun <E> List<E>.repeated(times: Int): List<E> = toMutableList().also { ml -> repeat(times - 1) { ml.addAll(this) } }
+
 fun <E> MutableCollection<E>.removeAll() = removeAll(this)
 
 fun <E> MutableList<E>.removeAll(range: IntRange) = range.reversed().forEach { removeAt(it) }
