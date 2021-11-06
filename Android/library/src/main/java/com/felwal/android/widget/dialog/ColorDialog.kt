@@ -1,14 +1,10 @@
 package com.felwal.android.widget.dialog
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.TableRow
 import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isInvisible
-import androidx.core.widget.NestedScrollView
 import com.felwal.android.R
 import com.felwal.android.databinding.DialogColorBinding
 import com.felwal.android.databinding.ItemDialogColorBinding
@@ -16,7 +12,6 @@ import com.felwal.android.util.backgroundTint
 import com.felwal.android.util.getDrawableCompat
 import com.felwal.android.util.isPortrait
 import com.felwal.android.util.orEmpty
-import java.lang.ClassCastException
 
 private const val ARG_ITEMS = "items"
 private const val ARG_CHECKED_ITEM = "checkedItem"
@@ -42,17 +37,18 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
     override fun buildDialog(): AlertDialog = builder.run {
         val binding = DialogColorBinding.inflate(inflater)
         setView(binding.root)
-        setTitle(title)
-        if (message != "") setMessage(message)
 
-        // scrollview borders
+        // title & message
+        setTitleIfNonEmpty(title)
+        setMessageIfNonEmpty(message)
+
+        // widget
         setDividers(binding.sv, binding.vDividerTop, binding.vDividerBottom)
 
-        val columnCount = if (context.isPortrait) COLUMN_COUNT_PORTRAIT else COLUMN_COUNT_LANDSCAPE
-
+        // items
         var tr = TableRow(binding.tl.context)
         binding.tl.addView(tr)
-
+        val columnCount = if (context.isPortrait) COLUMN_COUNT_PORTRAIT else COLUMN_COUNT_LANDSCAPE
         for ((i, color) in items.withIndex()) {
             // inflate row
             if (i != 0 && i % columnCount == 0) {
@@ -71,13 +67,8 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
             }
 
             itemBinding.ivColor.setOnClickListener {
-                try {
+                catchClassCast {
                     listener?.onColorDialogItemClick(i, dialogTag)
-                }
-                catch (e: ClassCastException) {
-                    // listener was not successfully safe-casted to L.
-                    // all we need to do here is prevent a crash if the listener was not implemented.
-                    Log.d("Dialog", "Conext was not successfully safe-casted as DialogListener")
                 }
                 dialog?.cancel()
             }
@@ -85,6 +76,7 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
             tr.addView(itemBinding.root)
         }
 
+        // button
         setCancelButton(negBtnTxtRes)
 
         show()

@@ -1,10 +1,8 @@
 package com.felwal.android.widget.dialog
 
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isInvisible
 import com.felwal.android.R
 import com.felwal.android.databinding.ComponentChipBinding
 import com.felwal.android.databinding.DialogChipBinding
@@ -13,7 +11,6 @@ import com.felwal.android.util.firsts
 import com.felwal.android.util.orEmpty
 import com.felwal.android.util.seconds
 import com.google.android.material.chip.Chip
-import java.lang.ClassCastException
 
 private const val ARG_ITEMS = "items"
 private const val ARG_ITEM_STATES = "itemStates"
@@ -38,12 +35,14 @@ class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
 
         return builder.run {
             setView(binding.root)
-            setTitle(title)
 
-            // scrollview borders
+            // title & message
+            setTitleIfNonEmpty(title)
+
+            // widget
             setDividers(binding.sv, binding.vDividerTop, binding.vDividerBottom)
 
-            // set chips
+            // items
             val chipGroup = binding.cg
             for (i in items.indices) {
                 val chip: Chip = ComponentChipBinding.inflate(inflater, chipGroup, false).root
@@ -56,14 +55,10 @@ class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
                 }
             }
 
+            // buttons
             setPositiveButton(posBtnTxtRes) { _, _ ->
-                try {
+                catchClassCast {
                     listener?.onChipDialogPositiveClick(itemStates, dialogTag)
-                }
-                catch (e: ClassCastException) {
-                    // listener was not successfully safe-casted to L.
-                    // all we need to do here is prevent a crash if the listener was not implemented.
-                    Log.d("Dialog", "Conext was not successfully safe-casted as DialogListener")
                 }
             }
             setCancelButton(negBtnTxtRes)

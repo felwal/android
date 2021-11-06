@@ -1,11 +1,9 @@
 package com.felwal.android.widget.dialog
 
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.R
-import java.lang.ClassCastException
 
 class UnaryDialog : BaseDialog<UnaryDialog.DialogListener>() {
 
@@ -16,17 +14,14 @@ class UnaryDialog : BaseDialog<UnaryDialog.DialogListener>() {
     }
 
     override fun buildDialog(): AlertDialog = builder.run {
-        setTitle(title)
-        if (message != "") setMessage(message)
+        // title & message
+        setTitleIfNonEmpty(title)
+        setMessageIfNonEmpty(message)
 
+        // button
         setPositiveButton(posBtnTxtRes) { _, _ ->
-            try {
+            catchClassCast {
                 listener?.onUnaryDialogClick(dialogTag)
-            }
-            catch (e: ClassCastException) {
-                // listener was not successfully safe-casted to L.
-                // all we need to do here is prevent a crash if the listener was not implemented.
-                Log.d("Dialog", "Conext was not successfully safe-casted as DialogListener")
             }
         }
 

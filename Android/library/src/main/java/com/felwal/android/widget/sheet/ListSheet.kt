@@ -1,12 +1,10 @@
 package com.felwal.android.widget.sheet
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.annotation.DrawableRes
 import com.felwal.android.databinding.SheetListBinding
 import com.felwal.android.util.orEmpty
-import java.lang.ClassCastException
 
 private const val ARG_ITEMS = "items"
 private const val ARG_ICONS = "icons"
@@ -26,16 +24,13 @@ class ListSheet : BaseSheet<ListSheet.SheetListener>() {
     override fun buildSheet(): View {
         val binding = SheetListBinding.inflate(inflater)
 
-        setTitle(title, binding)
+        // title
+        setTitleIfNonEmpty(title, binding)
 
+        // items
         setItems(items, iconsRes, binding.ll) { selectedIndex ->
-            try {
+            catchClassCast {
                 listener?.onListSheetItemClick(selectedIndex)
-            }
-            catch (e: ClassCastException) {
-                // listener was not successfully safe-casted to L.
-                // all we need to do here is prevent a crash if the listener was not implemented.
-                Log.d("Dialog", "Conext was not successfully safe-casted as SheetListener")
             }
         }
 

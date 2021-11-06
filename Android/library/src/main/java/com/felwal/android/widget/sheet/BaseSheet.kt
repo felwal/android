@@ -2,6 +2,7 @@ package com.felwal.android.widget.sheet
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.felwal.android.databinding.SheetListBinding
 import com.felwal.android.util.getDrawableCompat
 import com.felwal.android.widget.dialog.NO_RES
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.lang.ClassCastException
 
 private const val ARG_TITLE = "title"
 private const val ARG_TAG = "tag"
@@ -71,7 +73,7 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
 
     // tool
 
-    protected fun setTitle(title: String, binding: SheetListBinding) {
+    protected fun setTitleIfNonEmpty(title: String, binding: SheetListBinding) {
         if (title == "") {
             binding.tvTitle.isGone = true
             binding.div.isGone = true
@@ -111,6 +113,17 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
                 listener(i)
                 dismiss()
             }
+        }
+    }
+
+    protected fun catchClassCast(action: () -> Unit) {
+        try {
+            action()
+        }
+        catch (e: ClassCastException) {
+            // listener was not successfully safe-casted to L.
+            // all we need to do here is prevent a crash if the listener was not implemented.
+            Log.d("Sheet", "Conext was not successfully safe-casted as SheetListener")
         }
     }
 

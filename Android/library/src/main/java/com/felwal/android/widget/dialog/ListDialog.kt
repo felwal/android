@@ -1,12 +1,10 @@
 package com.felwal.android.widget.dialog
 
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.databinding.DialogListBinding
 import com.felwal.android.util.orEmpty
-import java.lang.ClassCastException
 
 private const val ARG_ITEMS = "items"
 private const val ARG_ICONS = "icons"
@@ -30,18 +28,16 @@ class ListDialog : BaseDialog<ListDialog.DialogListener>() {
         val binding = DialogListBinding.inflate(inflater)
         setView(binding.root)
 
-        setTitle(title)
+        // title & message
+        setTitleIfNonEmpty(title)
 
+        // widget
         setDividers(binding.sv, binding.vDividerTop, null)
 
+        // items
         setItems(items, iconsRes, binding.ll) { selectedIndex ->
-            try {
+            catchClassCast {
                 listener?.onListDialogItemClick(selectedIndex, dialogTag)
-            }
-            catch (e: ClassCastException) {
-                // listener was not successfully safe-casted to L.
-                // all we need to do here is prevent a crash if the listener was not implemented.
-                Log.d("Dialog", "Conext was not successfully safe-casted as DialogListener")
             }
         }
 

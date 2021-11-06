@@ -2,14 +2,12 @@ package com.felwal.android.widget.sheet
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.felwal.android.R
 import com.felwal.android.databinding.ItemSheetListBinding
 import com.felwal.android.databinding.SheetListBinding
 import com.felwal.android.util.getColorAttr
 import com.felwal.android.util.getDrawableAttrFilter
-import java.lang.ClassCastException
 
 private const val ARG_ITEMS = "items"
 private const val ARG_CHECKED_ITEM = "checkedItem"
@@ -35,7 +33,8 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
         val binding = SheetListBinding.inflate(inflater)
         val ll = binding.ll
 
-        setTitle(title, binding)
+        // title
+        setTitleIfNonEmpty(title, binding)
 
         // items
         for ((i, label) in items.withIndex()) {
@@ -62,13 +61,8 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
             ll.addView(itemBinding.root)
 
             itemBinding.root.setOnClickListener {
-                try {
+                catchClassCast {
                     listener?.onSortSheetItemClick(i)
-                }
-                catch (e: ClassCastException) {
-                    // listener was not successfully safe-casted to L.
-                    // all we need to do here is prevent a crash if the listener was not implemented.
-                    Log.d("Dialog", "Conext was not successfully safe-casted as SheetListener")
                 }
                 dismiss()
             }

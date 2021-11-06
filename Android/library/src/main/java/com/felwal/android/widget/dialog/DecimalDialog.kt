@@ -1,7 +1,6 @@
 package com.felwal.android.widget.dialog
 
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
@@ -9,7 +8,6 @@ import com.felwal.android.R
 import com.felwal.android.databinding.DialogTextBinding
 import com.felwal.android.util.string
 import com.felwal.android.util.toast
-import java.lang.ClassCastException
 
 const val NO_FLOAT_TEXT = -1f
 
@@ -35,26 +33,27 @@ class DecimalDialog : BaseDialog<DecimalDialog.DialogListener>() {
         val binding = DialogTextBinding.inflate(inflater)
         binding.et.inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
 
+        // widget
         binding.et.hint = hint
         if (text != NO_FLOAT_TEXT) binding.et.setText(text.toString())
 
         return builder.run {
             setView(binding.root)
-            setTitle(title)
-            if (message != "") setMessage(message)
 
+            // title & message
+            setTitleIfNonEmpty(title)
+            setMessageIfNonEmpty(message)
+
+            // buttons
             setPositiveButton(posBtnTxtRes) { _, _ ->
                 try {
                     val input = binding.et.string.toFloat()
-                    listener?.onDecimalDialogPositiveClick(input, dialogTag)
+                    catchClassCast {
+                        listener?.onDecimalDialogPositiveClick(input, dialogTag)
+                    }
                 }
                 catch (e: NumberFormatException) {
                     activity?.toast(R.string.toast_e_input)
-                }
-                catch (e: ClassCastException) {
-                    // listener was not successfully safe-casted to L.
-                    // all we need to do here is prevent a crash if the listener was not implemented.
-                    Log.d("Dialog", "Conext was not successfully safe-casted as DialogListener")
                 }
             }
             setCancelButton(negBtnTxtRes)

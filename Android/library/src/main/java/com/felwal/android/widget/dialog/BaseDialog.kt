@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
@@ -21,6 +22,7 @@ import com.felwal.android.R
 import com.felwal.android.databinding.ItemDialogListBinding
 import com.felwal.android.util.getDrawableCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.lang.ClassCastException
 
 const val NO_RES = -1
 const val NULL_INT = -1
@@ -104,6 +106,14 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     // tool
 
+    protected fun MaterialAlertDialogBuilder.setTitleIfNonEmpty(title: String) {
+        if (title != "") setTitle(title)
+    }
+
+    protected fun MaterialAlertDialogBuilder.setMessageIfNonEmpty(message: String) {
+        if (message != "") setMessage(message)
+    }
+
     protected fun setItems(
         labels: Array<out String>,
         @DrawableRes iconsRes: IntArray?,
@@ -148,6 +158,17 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         sv.setOnScrollChangeListener { _, _, _, _, _ ->
             vDividerTop?.isInvisible = !sv.canScrollVertically(-1)
             vDividerBottom?.isInvisible = !sv.canScrollVertically(1)
+        }
+    }
+
+    protected fun catchClassCast(action: () -> Unit) {
+        try {
+            action()
+        }
+        catch (e: ClassCastException) {
+            // listener was not successfully safe-casted to L.
+            // all we need to do here is prevent a crash if the listener was not implemented.
+            Log.d("Dialog", "Conext was not successfully safe-casted as DialogListener")
         }
     }
 
