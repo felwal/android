@@ -68,6 +68,8 @@ fun Context.getDimensionAttr(@AttrRes id: Int): Float = getDimension(getIdAttr(i
 
 fun Context.getIntegerAttr(@AttrRes id: Int): Int = getInteger(getIdAttr(id))
 
+fun Context.getStringAttr(@AttrRes id: Int): String = getString(getIdAttr(id))
+
 fun Context.getQuantityStringAttr(@AttrRes id: Int, quantity: Int, vararg formatArgs: Any?): String =
     getQuantityString(getIdAttr(id), quantity, formatArgs)
 
@@ -87,6 +89,9 @@ fun Context.getDrawableAttr(@AttrRes id: Int, @AttrRes colorId: Int): Drawable? 
 
 fun Context.getDrawableCompatFilter(@DrawableRes id: Int, @AttrRes colorId: Int): Drawable? =
     getDrawableCompat(id)?.withFilter(getColorAttr(colorId))
+
+fun Context.getDrawableAttrFilter(@AttrRes id: Int, @AttrRes colorId: Int): Drawable? =
+    getDrawableAttr(id)?.withFilter(getColorAttr(colorId))
 
 // drawable
 
