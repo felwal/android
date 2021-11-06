@@ -11,6 +11,9 @@ fun <E> List<E>.repeated(times: Int): List<E> = toMutableList().also { ml -> rep
 inline fun <reified E> Array<E>.repeated(times: Int): Array<E> =
     toMutableList().also { ml -> repeat(times - 1) { ml.addAll(this) } }.toTypedArray()
 
+fun IntArray.repeated(times: Int): IntArray =
+    toMutableList().also { ml -> repeat(times - 1) { ml.addAll(toTypedArray()) } }.toIntArray()
+
 fun <E> MutableCollection<E>.removeAll() = removeAll(this)
 
 fun <E> MutableList<E>.removeAll(range: IntRange) = range.reversed().forEach { removeAt(it) }

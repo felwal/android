@@ -14,7 +14,7 @@ private const val ARG_TAG = "tag"
 abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragment() {
 
     protected lateinit var inflater: LayoutInflater
-    protected lateinit var listener: L
+    protected var listener: L? = null
 
     // arguments
     protected var title: String = ""
@@ -36,13 +36,8 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
     override fun onAttach(c: Context) {
         super.onAttach(c)
 
-        listener = try {
-            @Suppress("UNCHECKED_CAST")
-            c as L
-        }
-        catch (e: ClassCastException) {
-            throw ClassCastException("Activity must implement SheetListener")
-        }
+        @Suppress("UNCHECKED_CAST")
+        listener = c as? L
     }
 
     // bundle

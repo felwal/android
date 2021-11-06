@@ -8,13 +8,14 @@
     android:background="?attr/selectableItemBackground">
 
     <ImageView
-        android:id="@+id/iv"
+        android:id="@+id/iv_icon"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="@dimen/spacing_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?colorControlNormal" />
 
     <TextView
         android:id="@+id/tv_label"
@@ -25,8 +26,8 @@
         android:textAppearance="@style/TextAppearance.Felwal.Dialog.Item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv"
+        app:layout_constraintStart_toEndOf="@+id/iv_icon"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="SortMode" />
+        tools:text="Item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

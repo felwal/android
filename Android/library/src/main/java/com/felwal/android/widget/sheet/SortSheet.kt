@@ -2,13 +2,16 @@ package com.felwal.android.widget.sheet
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isGone
 import com.felwal.android.R
-import com.felwal.android.databinding.ItemSheetSortBinding
-import com.felwal.android.databinding.SheetSortBinding
+import com.felwal.android.databinding.ItemSheetItemBinding
+import com.felwal.android.databinding.SheetItemBinding
 import com.felwal.android.util.getColorAttr
 import com.felwal.android.util.getDrawableAttr
+import com.felwal.android.util.getDrawableAttrFilter
+import java.lang.ClassCastException
 
 private const val ARG_ITEMS = "items"
 private const val ARG_CHECKED_ITEM = "checkedItem"
@@ -31,7 +34,7 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
     }
 
     override fun buildSheet(): View {
-        val binding = SheetSortBinding.inflate(inflater)
+        val binding = SheetItemBinding.inflate(inflater)
         val ll = binding.ll
 
         // title
@@ -45,7 +48,7 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
 
         // items
         for ((i, label) in items.withIndex()) {
-            val itemBinding = ItemSheetSortBinding.inflate(inflater, ll, false)
+            val itemBinding = ItemSheetItemBinding.inflate(inflater, ll, false)
             val tv = itemBinding.tvLabel
 
             tv.text = label
@@ -57,17 +60,25 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
                 tv.setTypeface(null, Typeface.BOLD)
 
                 // icon
-                val arrow = requireContext().getDrawableAttr(
+                // for some reason tint doesn't override, so we use filter instead
+                val arrow = requireContext().getDrawableAttrFilter(
                     if (ascending) R.attr.sortSheetUpArrow else R.attr.sortSheetDownArrow,
                     R.attr.sortSheetHighlightColor
                 )
-                itemBinding.iv.setImageDrawable(arrow)
+                itemBinding.ivIcon.setImageDrawable(arrow)
             }
 
             ll.addView(itemBinding.root)
 
             itemBinding.root.setOnClickListener {
-                listener.onSortSheetItemClick(i)
+                try {
+                    listener?.onSortSheetItemClick(i)
+                }
+                catch (e: ClassCastException) {
+                    // listener was not successfully safe-casted to L.
+                    // all we need to do here is prevent a crash if the listener was not implemented.
+                    Log.d("Dialog", "Conext was not successfully safe-casted as SheetListener")
+                }
                 dismiss()
             }
         }

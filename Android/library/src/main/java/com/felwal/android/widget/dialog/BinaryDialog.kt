@@ -1,9 +1,11 @@
 package com.felwal.android.widget.dialog
 
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.R
+import java.lang.ClassCastException
 
 private const val ARG_PASS_VALUE = "passValue"
 
@@ -25,7 +27,14 @@ class BinaryDialog : BaseDialog<BinaryDialog.DialogListener>() {
         if (message != "") setMessage(message)
 
         setPositiveButton(posBtnTxtRes) { _, _ ->
-            listener?.onBinaryDialogPositiveClick(passValue, dialogTag)
+            try {
+                listener?.onBinaryDialogPositiveClick(passValue, dialogTag)
+            }
+            catch (e: ClassCastException) {
+                // listener was not successfully safe-casted to L.
+                // all we need to do here is prevent a crash if the listener was not implemented.
+                Log.d("Dialog", "Conext was not successfully safe-casted as DialogListener")
+            }
         }
         setCancelButton(negBtnTxtRes)
 

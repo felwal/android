@@ -1,6 +1,7 @@
 package com.felwal.android.widget.dialog
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TableRow
 import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
@@ -13,6 +14,7 @@ import com.felwal.android.util.backgroundTint
 import com.felwal.android.util.getDrawableCompat
 import com.felwal.android.util.isPortrait
 import com.felwal.android.util.orEmpty
+import java.lang.ClassCastException
 
 private const val ARG_ITEMS = "items"
 private const val ARG_CHECKED_ITEM = "checkedItem"
@@ -64,16 +66,23 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
 
             // inflate item
             val itemBinding = ItemDialogColorBinding.inflate(inflater, tr, false)
-            itemBinding.iv.backgroundTint = color
+            itemBinding.ivColor.backgroundTint = color
 
             // set checked drawable
             if (i == checkedItem) {
                 val icon = context.getDrawableCompat(R.drawable.ic_check_24, R.attr.colorSurface)
-                itemBinding.iv.setImageDrawable(icon)
+                itemBinding.ivColor.setImageDrawable(icon)
             }
 
-            itemBinding.iv.setOnClickListener {
-                listener?.onColorDialogItemClick(i, dialogTag)
+            itemBinding.ivColor.setOnClickListener {
+                try {
+                    listener?.onColorDialogItemClick(i, dialogTag)
+                }
+                catch (e: ClassCastException) {
+                    // listener was not successfully safe-casted to L.
+                    // all we need to do here is prevent a crash if the listener was not implemented.
+                    Log.d("Dialog", "Conext was not successfully safe-casted as DialogListener")
+                }
                 dialog?.cancel()
             }
 

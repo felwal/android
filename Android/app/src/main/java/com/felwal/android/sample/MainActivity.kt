@@ -17,6 +17,7 @@ import com.felwal.android.util.repeated
 import com.felwal.android.widget.dialog.colorDialog
 import com.felwal.android.widget.dialog.simpleDialog
 import com.felwal.android.widget.dialog.unaryDialog
+import com.felwal.android.widget.sheet.itemSheet
 
 class MainActivity: AppCompatActivity(), SortSheet.SheetListener {
 
@@ -64,6 +65,14 @@ class MainActivity: AppCompatActivity(), SortSheet.SheetListener {
                 .show(supportFragmentManager)
         }
 
+        btn("Item sheet") {
+            itemSheet("Item sheet", arrayOf("Item").repeated(6),
+                intArrayOf(R.drawable.ic_check_24, R.drawable.ic_arrow_up_24, R.drawable.ic_arrow_down_24).repeated(2),
+                ""
+            )
+                .show(supportFragmentManager)
+        }
+
         btn("Sorter with title") {
             SortSheet.newInstance("Sort by", sorter, "tag")
                 .show(supportFragmentManager)
@@ -80,7 +89,7 @@ class MainActivity: AppCompatActivity(), SortSheet.SheetListener {
         val btn = Button(this)
         btn.text = label
         btn.setOnClickListener(onClick)
-        binding.root.addView(btn)
+        binding.ll.addView(btn)
     }
 
     //

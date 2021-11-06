@@ -1,12 +1,14 @@
 package com.felwal.android.widget.dialog
 
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.R
 import com.felwal.android.databinding.DialogTextBinding
 import com.felwal.android.util.string
+import java.lang.ClassCastException
 
 private const val ARG_TEXT = "text"
 private const val ARG_HINT = "hint"
@@ -40,7 +42,14 @@ class TextDialog : BaseDialog<TextDialog.DialogListener>() {
 
             setPositiveButton(posBtnTxtRes) { _, _ ->
                 val input = binding.et.string.trim { it <= ' ' }
-                listener?.onTextDialogPositiveClick(input, dialogTag)
+                try {
+                    listener?.onTextDialogPositiveClick(input, dialogTag)
+                }
+                catch (e: ClassCastException) {
+                    // listener was not successfully safe-casted to L.
+                    // all we need to do here is prevent a crash if the listener was not implemented.
+                    Log.d("Dialog", "Conext was not successfully safe-casted as DialogListener")
+                }
             }
             setCancelButton(negBtnTxtRes)
 

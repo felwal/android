@@ -1,9 +1,11 @@
 package com.felwal.android.widget.dialog
 
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.R
+import java.lang.ClassCastException
 
 private const val ARG_ITEMS = "items"
 private const val ARG_CHECKED_ITEM = "checkedItem"
@@ -28,8 +30,15 @@ class RadioDialog : BaseDialog<RadioDialog.DialogListener>() {
         if (message != "") setMessage(message)
 
         setSingleChoiceItems(items, checkedItem) { dialog, which ->
+            try {
+                listener?.onRadioDialogItemClick(which, dialogTag)
+            }
+            catch (e: ClassCastException) {
+                // listener was not successfully safe-casted to L.
+                // all we need to do here is prevent a crash if the listener was not implemented.
+                Log.d("Dialog", "Conext was not successfully safe-casted as DialogListener")
+            }
             dialog.cancel()
-            listener?.onRadioDialogItemClick(which, dialogTag)
         }
         setCancelButton(negBtnTxtRes)
 
