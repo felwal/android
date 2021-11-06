@@ -4,13 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
-import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.annotation.IdRes
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -96,12 +96,6 @@ fun Activity.uiToastLog(tag: String, @StringRes msgRes: Int, e: Exception? = nul
 // popup menu
 
 fun <C> C.popup(
-    @IdRes anchorRes: Int,
-    @MenuRes menuRes: Int
-) where C : AppCompatActivity, C : PopupMenu.OnMenuItemClickListener =
-    popup(findViewById(anchorRes), menuRes)
-
-fun <C> C.popup(
     anchor: View,
     @MenuRes menuRes: Int
 ) where C : Context, C : PopupMenu.OnMenuItemClickListener =
@@ -110,6 +104,16 @@ fun <C> C.popup(
         setOnMenuItemClickListener(this@popup)
         show()
     }
+
+fun Context.popup(
+    anchor: View,
+    @MenuRes menuRes: Int,
+    listener: ((MenuItem) -> Boolean)? = null
+) = PopupMenu(this, anchor).apply {
+    menuInflater.inflate(menuRes, menu)
+    setOnMenuItemClickListener(listener)
+    show()
+}
 
 // coroutines
 
