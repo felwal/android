@@ -41,12 +41,7 @@ class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
             setTitle(title)
 
             // scrollview borders
-            binding.vDividerTop.isInvisible = !binding.sv.canScrollVertically(-1)
-            binding.vDividerBottom.isInvisible = !binding.sv.canScrollVertically(1)
-            binding.sv.setOnScrollChangeListener { _, _, _, _, _ ->
-                binding.vDividerTop.isInvisible = !binding.sv.canScrollVertically(-1)
-                binding.vDividerBottom.isInvisible = !binding.sv.canScrollVertically(1)
-            }
+            setDividers(binding.sv, binding.vDividerTop, binding.vDividerBottom)
 
             // set chips
             val chipGroup = binding.cg

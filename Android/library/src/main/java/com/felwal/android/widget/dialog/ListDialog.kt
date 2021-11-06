@@ -2,32 +2,41 @@ package com.felwal.android.widget.dialog
 
 import android.os.Bundle
 import android.util.Log
-import androidx.annotation.StringRes
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
-import com.felwal.android.R
+import com.felwal.android.databinding.DialogListBinding
+import com.felwal.android.util.orEmpty
 import java.lang.ClassCastException
 
 private const val ARG_ITEMS = "items"
+private const val ARG_ICONS = "icons"
 
-class SimpleDialog : BaseDialog<SimpleDialog.DialogListener>() {
+class ListDialog : BaseDialog<ListDialog.DialogListener>() {
 
     // args
     private lateinit var items: Array<out String>
+    @DrawableRes private var iconsRes: IntArray = intArrayOf()
 
     // BaseDialog
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
             items = getStringArray(ARG_ITEMS).orEmpty()
+            iconsRes = getIntArray(ARG_ICONS).orEmpty()
         }
     }
 
     override fun buildDialog(): AlertDialog = builder.run {
+        val binding = DialogListBinding.inflate(inflater)
+        setView(binding.root)
+
         setTitle(title)
 
-        setItems(items) { _, selectedIndex: Int ->
+        setDividers(binding.sv, binding.vDividerTop, null)
+
+        setItems(items, iconsRes, binding.ll) { selectedIndex ->
             try {
-                listener?.onSimpleDialogItemClick(selectedIndex, dialogTag)
+                listener?.onListDialogItemClick(selectedIndex, dialogTag)
             }
             catch (e: ClassCastException) {
                 // listener was not successfully safe-casted to L.
@@ -42,7 +51,7 @@ class SimpleDialog : BaseDialog<SimpleDialog.DialogListener>() {
     //
 
     interface DialogListener : BaseDialog.DialogListener {
-        fun onSimpleDialogItemClick(selectedItem: Int, tag: String)
+        fun onListDialogItemClick(selectedItem: Int, tag: String)
     }
 
     //
@@ -52,17 +61,20 @@ class SimpleDialog : BaseDialog<SimpleDialog.DialogListener>() {
         fun newInstance(
             title: String,
             items: Array<String>,
+            @DrawableRes icons: IntArray?,
             tag: String
-        ): SimpleDialog = SimpleDialog().apply {
+        ): ListDialog = ListDialog().apply {
             arguments = putBaseBundle(title, "", NO_RES, NO_RES, tag).apply {
                 putStringArray(ARG_ITEMS, items)
+                putIntArray(ARG_ICONS, icons.orEmpty())
             }
         }
     }
 }
 
-fun simpleDialog(
+fun listDialog(
     title: String,
     items: Array<String>,
+    @DrawableRes icons: IntArray?,
     tag: String
-): SimpleDialog = SimpleDialog.newInstance(title, items, tag)
+): ListDialog = ListDialog.newInstance(title, items, icons, tag)

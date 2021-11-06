@@ -2,11 +2,13 @@ package com.felwal.android.widget.dialog
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TableRow
 import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isInvisible
+import androidx.core.widget.NestedScrollView
 import com.felwal.android.R
 import com.felwal.android.databinding.DialogColorBinding
 import com.felwal.android.databinding.ItemDialogColorBinding
@@ -44,13 +46,7 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
         if (message != "") setMessage(message)
 
         // scrollview borders
-        // TODO: show on open, hide on height/item update
-        binding.vDividerTop.isInvisible = !binding.sv.canScrollVertically(-1)
-        binding.vDividerBottom.isInvisible = !binding.sv.canScrollVertically(1)
-        binding.sv.setOnScrollChangeListener { _, _, _, _, _ ->
-            binding.vDividerTop.isInvisible = !binding.sv.canScrollVertically(-1)
-            binding.vDividerBottom.isInvisible = !binding.sv.canScrollVertically(1)
-        }
+        setDividers(binding.sv, binding.vDividerTop, binding.vDividerBottom)
 
         val columnCount = if (context.isPortrait) COLUMN_COUNT_PORTRAIT else COLUMN_COUNT_LANDSCAPE
 

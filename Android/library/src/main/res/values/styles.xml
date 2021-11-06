@@ -10,7 +10,7 @@
         <item name="materialAlertDialogTitleTextStyle">@style/Widget.Felwal.TextView.Dialog.Title</item>
         <!-- message -->
         <item name="materialAlertDialogBodyTextStyle">@style/Widget.Felwal.TextView.Dialog.Body</item>
-        <!-- list item -->
+        <!-- multi/single choice item -->
         <item name="android:checkedTextViewStyle">@style/Widget.Felwal.TextView.Dialog.Item</item>
     </style>
 

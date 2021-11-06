@@ -15,9 +15,9 @@ import com.felwal.android.sample.databinding.ActivityMainBinding
 import com.felwal.android.util.getColorAttr
 import com.felwal.android.util.repeated
 import com.felwal.android.widget.dialog.colorDialog
-import com.felwal.android.widget.dialog.simpleDialog
+import com.felwal.android.widget.dialog.listDialog
 import com.felwal.android.widget.dialog.unaryDialog
-import com.felwal.android.widget.sheet.itemSheet
+import com.felwal.android.widget.sheet.listSheet
 
 class MainActivity: AppCompatActivity(), SortSheet.SheetListener {
 
@@ -38,13 +38,16 @@ class MainActivity: AppCompatActivity(), SortSheet.SheetListener {
             toast("Hello World!")
         }
 
-        btn("Simple dialog") {
-            simpleDialog("Simple dialog", arrayOf("Item").repeated(10), tag = "")
+        btn("List dialog") {
+            listDialog("List dialog", arrayOf("Item").repeated(12),
+                intArrayOf(R.drawable.ic_check_24, R.drawable.ic_arrow_up_24, R.drawable.ic_arrow_down_24).repeated(4),
+                tag = "tag"
+            )
                 .show(supportFragmentManager)
         }
 
         btn("Unary dialog") {
-            unaryDialog("Unary dialog", tag = "")
+            unaryDialog("Unary dialog", tag = "tag")
                 .show(supportFragmentManager)
         }
 
@@ -55,7 +58,7 @@ class MainActivity: AppCompatActivity(), SortSheet.SheetListener {
 
         btn("Color dialog") {
             colorDialog("Color dialog", "",
-                mutableListOf(getColorAttr(android.R.attr.colorSecondary)).repeated(32).toIntArray(), 0, tag = "tag"
+                mutableListOf(getColorAttr(android.R.attr.colorSecondary)).repeated(20).toIntArray(), 0, tag = "tag"
             )
                 .show(supportFragmentManager)
         }
@@ -65,10 +68,10 @@ class MainActivity: AppCompatActivity(), SortSheet.SheetListener {
                 .show(supportFragmentManager)
         }
 
-        btn("Item sheet") {
-            itemSheet("Item sheet", arrayOf("Item").repeated(6),
+        btn("List sheet") {
+            listSheet("List sheet", arrayOf("Item").repeated(6),
                 intArrayOf(R.drawable.ic_check_24, R.drawable.ic_arrow_up_24, R.drawable.ic_arrow_down_24).repeated(2),
-                ""
+                "tag"
             )
                 .show(supportFragmentManager)
         }
@@ -85,7 +88,7 @@ class MainActivity: AppCompatActivity(), SortSheet.SheetListener {
 
     }
 
-    private fun btn(label: String = "", onClick: (View) -> Unit) {
+    private fun btn(label: String, onClick: (View) -> Unit) {
         val btn = Button(this)
         btn.text = label
         btn.setOnClickListener(onClick)

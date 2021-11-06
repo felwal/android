@@ -6,14 +6,20 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isGone
+import androidx.core.view.isInvisible
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.felwal.android.R
+import com.felwal.android.databinding.ItemDialogListBinding
+import com.felwal.android.util.getDrawableCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 const val NO_RES = -1
@@ -94,6 +100,55 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     fun show(fm: FragmentManager) {
         if (!isAdded) super.show(fm, dialogTag)
+    }
+
+    // tool
+
+    protected fun setItems(
+        labels: Array<out String>,
+        @DrawableRes iconsRes: IntArray?,
+        ll: LinearLayout,
+        listener: (which: Int) -> Unit
+    ) {
+        for ((i, label) in labels.withIndex()) {
+            val itemBinding = ItemDialogListBinding.inflate(inflater, ll, false)
+
+            // label
+            itemBinding.tvLabel.text = label
+
+            // icon
+            if (iconsRes != null && iconsRes.isNotEmpty()) {
+                val iconRes = iconsRes[i]
+                if (iconRes != NO_RES) {
+                    val icon = requireContext().getDrawableCompat(iconRes)
+                    itemBinding.ivIcon.setImageDrawable(icon)
+                }
+            }
+            else {
+                itemBinding.ivIcon.isGone = true
+            }
+
+            ll.addView(itemBinding.root)
+
+            itemBinding.root.setOnClickListener {
+                listener(i)
+                dismiss()
+            }
+        }
+    }
+
+    protected fun setDividers(sv: NestedScrollView, vDividerTop: View?, vDividerBottom: View?) {
+        // TODO: show on open, hide on height/item update
+
+        // default visibility
+        vDividerTop?.isInvisible = !sv.canScrollVertically(-1)
+        vDividerBottom?.isInvisible = !sv.canScrollVertically(1)
+
+        // on scroll visibility
+        sv.setOnScrollChangeListener { _, _, _, _, _ ->
+            vDividerTop?.isInvisible = !sv.canScrollVertically(-1)
+            vDividerBottom?.isInvisible = !sv.canScrollVertically(1)
+        }
     }
 
     //

@@ -4,12 +4,10 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.core.view.isGone
 import com.felwal.android.R
-import com.felwal.android.databinding.ItemSheetItemBinding
-import com.felwal.android.databinding.SheetItemBinding
+import com.felwal.android.databinding.ItemSheetListBinding
+import com.felwal.android.databinding.SheetListBinding
 import com.felwal.android.util.getColorAttr
-import com.felwal.android.util.getDrawableAttr
 import com.felwal.android.util.getDrawableAttrFilter
 import java.lang.ClassCastException
 
@@ -34,26 +32,19 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
     }
 
     override fun buildSheet(): View {
-        val binding = SheetItemBinding.inflate(inflater)
+        val binding = SheetListBinding.inflate(inflater)
         val ll = binding.ll
 
-        // title
-        if (title == "") {
-            binding.tvTitle.isGone = true
-            binding.div.isGone = true
-        }
-        else {
-            binding.tvTitle.text = title
-        }
+        setTitle(title, binding)
 
         // items
         for ((i, label) in items.withIndex()) {
-            val itemBinding = ItemSheetItemBinding.inflate(inflater, ll, false)
+            val itemBinding = ItemSheetListBinding.inflate(inflater, ll, false)
             val tv = itemBinding.tvLabel
 
             tv.text = label
 
-            // style selected
+            // style selected item
             if (i == checkedItem) {
                 // label
                 tv.setTextColor(requireContext().getColorAttr(R.attr.sortSheetHighlightColor))

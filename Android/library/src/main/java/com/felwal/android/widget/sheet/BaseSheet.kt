@@ -5,7 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.annotation.DrawableRes
+import androidx.core.view.isGone
 import androidx.fragment.app.FragmentManager
+import com.felwal.android.databinding.ItemSheetListBinding
+import com.felwal.android.databinding.SheetListBinding
+import com.felwal.android.util.getDrawableCompat
+import com.felwal.android.widget.dialog.NO_RES
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 private const val ARG_TITLE = "title"
@@ -60,6 +67,51 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
 
     fun show(fm: FragmentManager) {
         if (!isAdded) super.show(fm, sheetTag)
+    }
+
+    // tool
+
+    protected fun setTitle(title: String, binding: SheetListBinding) {
+        if (title == "") {
+            binding.tvTitle.isGone = true
+            binding.div.isGone = true
+        }
+        else {
+            binding.tvTitle.text = title
+        }
+    }
+
+    protected fun setItems(
+        labels: Array<out String>,
+        @DrawableRes iconsRes: IntArray?,
+        ll: LinearLayout,
+        listener: (which: Int) -> Unit
+    ) {
+        for ((i, label) in labels.withIndex()) {
+            val itemBinding = ItemSheetListBinding.inflate(inflater, ll, false)
+
+            // label
+            itemBinding.tvLabel.text = label
+
+            // icon
+            if (iconsRes != null && iconsRes.isNotEmpty()) {
+                val iconRes = iconsRes[i]
+                if (iconRes != NO_RES) {
+                    val icon = requireContext().getDrawableCompat(iconRes)
+                    itemBinding.ivIcon.setImageDrawable(icon)
+                }
+            }
+            else {
+                itemBinding.ivIcon.isGone = true
+            }
+
+            ll.addView(itemBinding.root)
+
+            itemBinding.root.setOnClickListener {
+                listener(i)
+                dismiss()
+            }
+        }
     }
 
     //
