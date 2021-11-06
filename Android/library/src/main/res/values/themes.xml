@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Felwal" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <!-- base theme -->
+
+    <style name="Theme.Felwal.Base" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:navigationBarColor">?android:colorBackground</item>
 
         <!-- custom attrs -->
@@ -22,6 +24,18 @@
 
         <!-- theme/style -->
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Felwal.Dialog</item>
+    </style>
+
+    <!-- light theme -->
+
+    <style name="Theme.Felwal" parent="Theme.Felwal.Base">
+        <!-- background -->
+        <item name="android:colorBackground">@color/felwal_background_lt</item>
+        <item name="colorOnBackground">@color/black</item>
+
+        <!-- surface -->
+        <item name="colorSurface">@color/felwal_surface_lt</item>
+        <item name="colorOnSurface">@color/black</item>
     </style>
 
 </resources>

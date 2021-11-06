@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- dark theme -->
+
+    <style name="Theme.Felwal" parent="Theme.Felwal.Base">
+        <!-- background -->
+        <item name="android:colorBackground">@color/felwal_background_dk</item>
+        <item name="colorOnBackground">@color/white</item>
+
+        <!-- surface -->
+        <item name="colorSurface">@color/felwal_surface_dk</item>
+        <item name="colorOnSurface">@color/white</item>
+    </style>
+
+</resources>

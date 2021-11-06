@@ -16,12 +16,13 @@ import com.felwal.android.util.getColorAttr
 import com.felwal.android.util.repeated
 import com.felwal.android.widget.dialog.colorDialog
 import com.felwal.android.widget.dialog.simpleDialog
+import com.felwal.android.widget.dialog.unaryDialog
 
 class MainActivity: AppCompatActivity(), SortSheet.SheetListener {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val sorter = Sorter(
+    private var sorter = Sorter(
         SortMode("Recent", Trilean.NEG, false),
         SortMode("Name", Trilean.NEU, false),
         SortMode("Avg distance", Trilean.POS, true)
@@ -38,6 +39,11 @@ class MainActivity: AppCompatActivity(), SortSheet.SheetListener {
 
         btn("Simple dialog") {
             simpleDialog("Simple dialog", arrayOf("Item").repeated(10), tag = "")
+                .show(supportFragmentManager)
+        }
+
+        btn("Unary dialog") {
+            unaryDialog("Unary dialog", tag = "")
                 .show(supportFragmentManager)
         }
 
@@ -81,5 +87,6 @@ class MainActivity: AppCompatActivity(), SortSheet.SheetListener {
 
     override fun onSortSheetItemClick(checkedIndex: Int) {
         sorter.select(checkedIndex)
+        sorter = sorter.copy()
     }
 }
