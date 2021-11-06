@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- textappearance -->
+
+    <style name="TextAppearance.Sample" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Sample.Subtitle2">
+        <item name="android:textSize">@dimen/type_subtitle2</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>

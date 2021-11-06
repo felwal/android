@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- spacing -->
+
+    <dimen name="spacing_item_main">5dp</dimen>
+
+    <!-- typography -->
+
+    <dimen name="type_subtitle2">14sp</dimen>
+
+</resources>

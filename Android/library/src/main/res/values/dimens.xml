@@ -16,6 +16,7 @@
     <!-- dialog -->
     <dimen name="spacing_dialog_top">@dimen/spacing_tiny</dimen>
     <dimen name="spacing_dialog_horizontal">24dp</dimen>
+    <dimen name="spacing_dialog_horizontal_edittext">20dp</dimen>
     <dimen name="spacing_dialog_horizontal_color">20dp</dimen>
     <dimen name="spacing_sheet_horizontal">@dimen/spacing_small</dimen>
 

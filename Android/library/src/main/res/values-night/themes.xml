@@ -11,6 +11,8 @@
         <!-- surface -->
         <item name="colorSurface">@color/felwal_surface_dk</item>
         <item name="colorOnSurface">@color/white</item>
+
+        <item name="android:listDivider">@color/felwal_divider_dk</item>
     </style>
 
 </resources>

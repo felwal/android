@@ -36,6 +36,8 @@
         <!-- surface -->
         <item name="colorSurface">@color/felwal_surface_lt</item>
         <item name="colorOnSurface">@color/black</item>
+
+        <item name="android:listDivider">@color/felwal_divider_lt</item>
     </style>
 
 </resources>
