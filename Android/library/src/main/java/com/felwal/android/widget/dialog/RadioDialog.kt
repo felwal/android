@@ -5,21 +5,21 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.R
 
-private const val ARG_ITEMS = "items"
-private const val ARG_CHECKED_ITEM = "checkedItem"
+private const val ARG_LABELS = "labels"
+private const val ARG_CHECKED_INDEX = "checkedIndex"
 
 class RadioDialog : BaseDialog<RadioDialog.DialogListener>() {
 
     // args
-    private lateinit var items: Array<out String>
-    private var checkedItem = 0
+    private lateinit var labels: Array<out String>
+    private var checkedIndex = 0
 
     // BaseDialog
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
-            items = getStringArray(ARG_ITEMS).orEmpty()
-            checkedItem = getInt(ARG_CHECKED_ITEM, 0).coerceIn(0, items.size)
+            labels = getStringArray(ARG_LABELS).orEmpty()
+            checkedIndex = getInt(ARG_CHECKED_INDEX, 0).coerceIn(0, labels.size)
         }
     }
 
@@ -29,9 +29,9 @@ class RadioDialog : BaseDialog<RadioDialog.DialogListener>() {
         setMessageIfNonEmpty(message)
 
         // items
-        setSingleChoiceItems(items, checkedItem) { dialog, which ->
+        setSingleChoiceItems(labels, checkedIndex) { dialog, index ->
             catchClassCast {
-                listener?.onRadioDialogItemClick(which, dialogTag)
+                listener?.onRadioDialogItemClick(index, dialogTag)
             }
             dialog.cancel()
         }
@@ -45,7 +45,7 @@ class RadioDialog : BaseDialog<RadioDialog.DialogListener>() {
     //
 
     interface DialogListener : BaseDialog.DialogListener {
-        fun onRadioDialogItemClick(checkedItem: Int, tag: String)
+        fun onRadioDialogItemClick(checkedIndex: Int, tag: String)
     }
 
     //
@@ -55,14 +55,14 @@ class RadioDialog : BaseDialog<RadioDialog.DialogListener>() {
         fun newInstance(
             title: String,
             message: String = "",
-            items: List<String>,
-            checkedItem: Int,
+            labels: List<String>,
+            checkedIndex: Int,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
             tag: String
         ): RadioDialog = RadioDialog().apply {
             arguments = putBaseBundle(title, message, NO_RES, negBtnTxtRes = negBtnTxtRes, tag = tag).apply {
-                putStringArray(ARG_ITEMS, items.toTypedArray())
-                putInt(ARG_CHECKED_ITEM, checkedItem)
+                putStringArray(ARG_LABELS, labels.toTypedArray())
+                putInt(ARG_CHECKED_INDEX, checkedIndex)
             }
         }
     }
@@ -71,8 +71,8 @@ class RadioDialog : BaseDialog<RadioDialog.DialogListener>() {
 fun radioDialog(
     title: String,
     message: String = "",
-    items: List<String>,
-    checkedItem: Int,
+    labels: List<String>,
+    checkedIndex: Int,
     @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
     tag: String
-): RadioDialog = RadioDialog.newInstance(title, message, items, checkedItem, negBtnTxtRes, tag)
+): RadioDialog = RadioDialog.newInstance(title, message, labels, checkedIndex, negBtnTxtRes, tag)

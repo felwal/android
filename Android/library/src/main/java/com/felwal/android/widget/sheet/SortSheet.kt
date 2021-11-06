@@ -9,22 +9,22 @@ import com.felwal.android.databinding.SheetListBinding
 import com.felwal.android.util.getColorAttr
 import com.felwal.android.util.getDrawableAttrFilter
 
-private const val ARG_ITEMS = "items"
-private const val ARG_CHECKED_ITEM = "checkedItem"
+private const val ARG_LABELS = "labels"
+private const val ARG_CHECKED_INDEX = "checkedIndex"
 private const val ARG_ASCENDING = "ascending"
 
 class SortSheet : BaseSheet<SortSheet.SheetListener>() {
 
-    private lateinit var items: Array<out String>
-    private var checkedItem = 0
+    private lateinit var labels: Array<out String>
+    private var checkedIndex = 0
     private var ascending = true
 
     // BaseSheet
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
-            items = getStringArray(ARG_ITEMS).orEmpty()
-            checkedItem = getInt(ARG_CHECKED_ITEM)
+            labels = getStringArray(ARG_LABELS).orEmpty()
+            checkedIndex = getInt(ARG_CHECKED_INDEX)
             ascending = getBoolean(ARG_ASCENDING)
         }
     }
@@ -37,14 +37,14 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
         setTitleIfNonEmpty(title, binding)
 
         // items
-        for ((i, label) in items.withIndex()) {
+        for ((i, label) in labels.withIndex()) {
             val itemBinding = ItemSheetListBinding.inflate(inflater, ll, false)
             val tv = itemBinding.tvLabel
 
             tv.text = label
 
             // style selected item
-            if (i == checkedItem) {
+            if (i == checkedIndex) {
                 // label
                 tv.setTextColor(requireContext().getColorAttr(R.attr.sortSheetHighlightColor))
                 tv.setTypeface(null, Typeface.BOLD)
@@ -90,14 +90,14 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
         @JvmStatic
         fun newInstance(
             title: String = "",
-            items: Array<String>,
-            checkedItem: Int,
+            labels: Array<String>,
+            checkedIndex: Int,
             ascending: Boolean,
             tag: String
         ) = SortSheet().apply {
             arguments = putBaseBundle(title, tag).apply {
-                putStringArray(ARG_ITEMS, items)
-                putInt(ARG_CHECKED_ITEM, checkedItem)
+                putStringArray(ARG_LABELS, labels)
+                putInt(ARG_CHECKED_INDEX, checkedIndex)
                 putBoolean(ARG_ASCENDING, ascending)
             }
         }

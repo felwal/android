@@ -6,17 +6,17 @@ import androidx.annotation.DrawableRes
 import com.felwal.android.databinding.SheetListBinding
 import com.felwal.android.util.orEmpty
 
-private const val ARG_ITEMS = "items"
+private const val ARG_LABELS = "labels"
 private const val ARG_ICONS = "icons"
 
 class ListSheet : BaseSheet<ListSheet.SheetListener>() {
 
-    private lateinit var items: Array<out String>
+    private lateinit var labels: Array<out String>
     @DrawableRes private var iconsRes: IntArray = intArrayOf()
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
-            items = getStringArray(ARG_ITEMS).orEmpty()
+            labels = getStringArray(ARG_LABELS).orEmpty()
             iconsRes = getIntArray(ARG_ICONS).orEmpty()
         }
     }
@@ -28,7 +28,7 @@ class ListSheet : BaseSheet<ListSheet.SheetListener>() {
         setTitleIfNonEmpty(title, binding)
 
         // items
-        setItems(items, iconsRes, binding.ll) { selectedIndex ->
+        setItems(labels, iconsRes, binding.ll) { selectedIndex ->
             catchClassCast {
                 listener?.onListSheetItemClick(selectedIndex)
             }
@@ -40,7 +40,7 @@ class ListSheet : BaseSheet<ListSheet.SheetListener>() {
     //
 
     interface SheetListener : BaseSheet.SheetListener {
-        fun onListSheetItemClick(index: Int)
+        fun onListSheetItemClick(selectedIndex: Int)
     }
 
     //
@@ -49,12 +49,12 @@ class ListSheet : BaseSheet<ListSheet.SheetListener>() {
         @JvmStatic
         fun newInstance(
             title: String = "",
-            items: Array<String>,
+            labels: Array<String>,
             @DrawableRes icons: IntArray?,
             tag: String
         ) = ListSheet().apply {
             arguments = putBaseBundle(title, tag).apply {
-                putStringArray(ARG_ITEMS, items)
+                putStringArray(ARG_LABELS, labels)
                 putIntArray(ARG_ICONS, icons.orEmpty())
             }
         }
@@ -63,7 +63,7 @@ class ListSheet : BaseSheet<ListSheet.SheetListener>() {
 
 fun listSheet(
     title: String = "",
-    items: Array<String>,
+    labels: Array<String>,
     @DrawableRes icons: IntArray?,
     tag: String
-): ListSheet = ListSheet.newInstance(title, items, icons, tag)
+): ListSheet = ListSheet.newInstance(title, labels, icons, tag)

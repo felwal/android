@@ -13,8 +13,8 @@ import com.felwal.android.util.getDrawableCompat
 import com.felwal.android.util.isPortrait
 import com.felwal.android.util.orEmpty
 
-private const val ARG_ITEMS = "items"
-private const val ARG_CHECKED_ITEM = "checkedItem"
+private const val ARG_COLORS = "colors"
+private const val ARG_CHECKED_INDEX = "checkedIndex"
 
 private const val COLUMN_COUNT_PORTRAIT = 4
 private const val COLUMN_COUNT_LANDSCAPE = 5
@@ -22,15 +22,15 @@ private const val COLUMN_COUNT_LANDSCAPE = 5
 class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
 
     // args
-    @ColorInt private lateinit var items: IntArray
-    private var checkedItem = 0
+    @ColorInt private lateinit var colors: IntArray
+    private var checkedIndex = 0
 
     // BaseDialog
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
-            items = getIntArray(ARG_ITEMS).orEmpty()
-            checkedItem = getInt(ARG_CHECKED_ITEM, 0).coerceIn(-1, items.size)
+            colors = getIntArray(ARG_COLORS).orEmpty()
+            checkedIndex = getInt(ARG_CHECKED_INDEX, 0).coerceIn(-1, colors.size)
         }
     }
 
@@ -49,7 +49,7 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
         var tr = TableRow(binding.tl.context)
         binding.tl.addView(tr)
         val columnCount = if (context.isPortrait) COLUMN_COUNT_PORTRAIT else COLUMN_COUNT_LANDSCAPE
-        for ((i, color) in items.withIndex()) {
+        for ((i, color) in colors.withIndex()) {
             // inflate row
             if (i != 0 && i % columnCount == 0) {
                 tr = TableRow(context)
@@ -61,7 +61,7 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
             itemBinding.ivColor.backgroundTint = color
 
             // set checked drawable
-            if (i == checkedItem) {
+            if (i == checkedIndex) {
                 val icon = context.getDrawableCompat(R.drawable.ic_check_24, R.attr.colorSurface)
                 itemBinding.ivColor.setImageDrawable(icon)
             }
@@ -85,7 +85,7 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
     //
 
     interface DialogListener : BaseDialog.DialogListener {
-        fun onColorDialogItemClick(checkedItem: Int, tag: String)
+        fun onColorDialogItemClick(checkedIndex: Int, tag: String)
     }
 
     //
@@ -95,14 +95,14 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
         fun newInstance(
             title: String,
             message: String = "",
-            @ColorInt items: IntArray,
-            checkedItem: Int? = null,
+            @ColorInt colors: IntArray,
+            checkedIndex: Int? = null,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
             tag: String
         ): ColorDialog = ColorDialog().apply {
             arguments = putBaseBundle(title, message, NO_RES, negBtnTxtRes = negBtnTxtRes, tag = tag).apply {
-                putIntArray(ARG_ITEMS, items)
-                putInt(ARG_CHECKED_ITEM, checkedItem ?: NULL_INT)
+                putIntArray(ARG_COLORS, colors)
+                putInt(ARG_CHECKED_INDEX, checkedIndex ?: NULL_INT)
             }
         }
     }
@@ -111,8 +111,8 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
 fun colorDialog(
     title: String,
     message: String = "",
-    @ColorInt items: IntArray,
-    checkedItem: Int? = null,
+    @ColorInt colors: IntArray,
+    checkedIndex: Int? = null,
     @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
     tag: String
-): ColorDialog = ColorDialog.newInstance(title, message, items, checkedItem, negBtnTxtRes, tag)
+): ColorDialog = ColorDialog.newInstance(title, message, colors, checkedIndex, negBtnTxtRes, tag)
