@@ -4,14 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="25dp"
+    android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/spacing_item_main">
 
     <TextView
         android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textAppearance="@style/TextAppearance.Sample.Subtitle2"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="@dimen/spacing_item_main"
+        android:textAppearance="@style/TextAppearance.Felwal.Dialog.Title"
         android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

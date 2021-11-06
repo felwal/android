@@ -5,6 +5,11 @@
 
     <dimen name="spacing_item_main">5dp</dimen>
 
+    <!-- layout -->
+
+    <dimen name="height_btn_feature">40dp</dimen>
+    <dimen name="corner_radius_btn_feature">5dp</dimen>
+
     <!-- typography -->
 
     <dimen name="type_subtitle2">14sp</dimen>

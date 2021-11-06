@@ -9,7 +9,7 @@
             <stroke
                 android:width="@dimen/height_divider"
                 android:color="?android:listDivider" />
-            <corners android:radius="@dimen/corner_radius_dialog" />
+            <corners android:radius="@dimen/corner_radius_btn_feature" />
         </shape>
     </item>
 

@@ -122,8 +122,8 @@ class MainActivity : AppCompatActivity(), SortSheet.SheetListener {
 
         btn("List sheet") {
             listSheet(
-                "List sheet", arrayOf("Item").repeated(6),
-                intArrayOf(R.drawable.ic_check_24, R.drawable.ic_arrow_up_24, R.drawable.ic_arrow_down_24).repeated(2),
+                "List sheet", arrayOf("Item").repeated(3),
+                intArrayOf(R.drawable.ic_check_24, R.drawable.ic_arrow_up_24, R.drawable.ic_arrow_down_24),
                 "tag"
             )
                 .show(supportFragmentManager)
