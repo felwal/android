@@ -11,6 +11,7 @@ import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -92,6 +93,25 @@ fun Activity.uiToastLog(tag: String, msg: String, e: Exception? = null) = runOnU
 
 fun Activity.uiToastLog(tag: String, @StringRes msgRes: Int, e: Exception? = null) =
     uiToastLog(tag, getString(msgRes), e)
+
+// snackbar
+
+fun Context.snackbar(
+    view: View,
+    text: String,
+    long: Boolean? = false,
+    actionText: String? = null,
+    listener: ((View) -> Unit)? = null
+) = Snackbar.make(
+    this, view, text,
+    if (long == null) Snackbar.LENGTH_INDEFINITE else if (long) Snackbar.LENGTH_LONG else Snackbar.LENGTH_SHORT
+)
+    .apply { if (listener != null) setAction(actionText ?: "Action", listener) }
+    .show()
+
+fun View.snackbar(text: String, long: Boolean = false) =
+    Snackbar.make(this, text, if (long) Snackbar.LENGTH_LONG else Snackbar.LENGTH_SHORT)
+        .show()
 
 // popup menu
 

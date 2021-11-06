@@ -10,6 +10,7 @@ import com.felwal.android.sample.databinding.ItemMainHeaderBinding
 import com.felwal.android.util.getColorAttr
 import com.felwal.android.util.popup
 import com.felwal.android.util.repeated
+import com.felwal.android.util.snackbar
 import com.felwal.android.util.toast
 import com.felwal.android.widget.dialog.binaryDialog
 import com.felwal.android.widget.dialog.checkDialog
@@ -25,6 +26,7 @@ import com.felwal.android.widget.sheet.SortMode
 import com.felwal.android.widget.sheet.SortSheet
 import com.felwal.android.widget.sheet.Sorter
 import com.felwal.android.widget.sheet.listSheet
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), SortSheet.SheetListener {
 
@@ -41,11 +43,17 @@ class MainActivity : AppCompatActivity(), SortSheet.SheetListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        header("Menu")
+        header("Message")
 
         btn("Toast") {
             toast("Message")
         }
+
+        btn("Snackbar") {
+            snackbar(it, "Message", true, "Action") {}
+        }
+
+        header("Menu")
 
         btn("Popup") {
             popup(it, R.menu.menu_popup_example)
