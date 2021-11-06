@@ -59,13 +59,12 @@ class CheckDialog : BaseDialog<CheckDialog.DialogListener>() {
         @JvmStatic
         fun newInstance(
             title: String,
-            message: String = "",
             vararg items: Pair<String, Boolean>,
             @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
             tag: String
         ): CheckDialog = newInstance(
-            title, message,
+            title,
             items.firsts.toTypedArray(), items.seconds.toBooleanArray(),
             posBtnTxtRes, negBtnTxtRes, tag
         )
@@ -73,14 +72,13 @@ class CheckDialog : BaseDialog<CheckDialog.DialogListener>() {
         @JvmStatic
         fun newInstance(
             title: String,
-            message: String = "",
             labels: Array<String>,
             checkedIndices: IntArray,
             @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
             tag: String
         ): CheckDialog = newInstance(
-            title, message,
+            title,
             labels, checkedIndices.asIndicesOfTrueBooleans(labels.size),
             posBtnTxtRes, negBtnTxtRes, tag
         )
@@ -88,14 +86,13 @@ class CheckDialog : BaseDialog<CheckDialog.DialogListener>() {
         @JvmStatic
         fun newInstance(
             title: String,
-            message: String = "",
             labels: Array<String>,
             itemStates: BooleanArray,
             @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
             tag: String
         ): CheckDialog = CheckDialog().apply {
-            arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag).apply {
+            arguments = putBaseBundle(title, "", posBtnTxtRes, negBtnTxtRes, tag).apply {
                 putStringArray(ARG_LABELS, labels)
                 putBooleanArray(ARG_ITEM_STATES, itemStates)
             }
@@ -105,30 +102,27 @@ class CheckDialog : BaseDialog<CheckDialog.DialogListener>() {
 
 fun checkDialog(
     title: String,
-    message: String = "",
     vararg items: Pair<String, Boolean>,
     @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
     tag: String
 ): CheckDialog =
-    CheckDialog.newInstance(title, message, *items, posBtnTxtRes = posBtnTxtRes, negBtnTxtRes = negBtnTxtRes, tag = tag)
+    CheckDialog.newInstance(title, *items, posBtnTxtRes = posBtnTxtRes, negBtnTxtRes = negBtnTxtRes, tag = tag)
 
 fun checkDialog(
     title: String,
-    message: String = "",
     labels: Array<String>,
     checkedIndices: IntArray,
     @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
     tag: String
-): CheckDialog = CheckDialog.newInstance(title, message, labels, checkedIndices, posBtnTxtRes, negBtnTxtRes, tag)
+): CheckDialog = CheckDialog.newInstance(title, labels, checkedIndices, posBtnTxtRes, negBtnTxtRes, tag)
 
 fun checkDialog(
     title: String,
-    message: String = "",
     labels: Array<String>,
     itemStates: BooleanArray,
     @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
     tag: String
-): CheckDialog = CheckDialog.newInstance(title, message, labels, itemStates, posBtnTxtRes, negBtnTxtRes, tag)
+): CheckDialog = CheckDialog.newInstance(title, labels, itemStates, posBtnTxtRes, negBtnTxtRes, tag)

@@ -30,6 +30,7 @@ class ListDialog : BaseDialog<ListDialog.DialogListener>() {
 
         // title & message
         setTitleIfNonEmpty(title)
+        setMessageIfNonEmpty(message)
 
         // widget
         setDividers(binding.sv, binding.vDividerTop, null)
@@ -56,11 +57,12 @@ class ListDialog : BaseDialog<ListDialog.DialogListener>() {
         @JvmStatic
         fun newInstance(
             title: String,
+            message: String = "",
             labels: Array<String>,
             @DrawableRes icons: IntArray?,
             tag: String
         ): ListDialog = ListDialog().apply {
-            arguments = putBaseBundle(title, "", NO_RES, NO_RES, tag).apply {
+            arguments = putBaseBundle(title, message, NO_RES, NO_RES, tag).apply {
                 putStringArray(ARG_LABELS, labels)
                 putIntArray(ARG_ICONS, icons.orEmpty())
             }
@@ -70,7 +72,8 @@ class ListDialog : BaseDialog<ListDialog.DialogListener>() {
 
 fun listDialog(
     title: String,
+    message: String = "",
     labels: Array<String>,
     @DrawableRes icons: IntArray?,
     tag: String
-): ListDialog = ListDialog.newInstance(title, labels, icons, tag)
+): ListDialog = ListDialog.newInstance(title, message, labels, icons, tag)

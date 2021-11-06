@@ -38,9 +38,8 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
         val binding = DialogColorBinding.inflate(inflater)
         setView(binding.root)
 
-        // title & message
+        // title
         setTitleIfNonEmpty(title)
-        setMessageIfNonEmpty(message)
 
         // widget
         setDividers(binding.sv, binding.vDividerTop, binding.vDividerBottom)
@@ -94,13 +93,12 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
         @JvmStatic
         fun newInstance(
             title: String,
-            message: String = "",
             @ColorInt colors: IntArray,
             checkedIndex: Int? = null,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
             tag: String
         ): ColorDialog = ColorDialog().apply {
-            arguments = putBaseBundle(title, message, NO_RES, negBtnTxtRes = negBtnTxtRes, tag = tag).apply {
+            arguments = putBaseBundle(title, "", NO_RES, negBtnTxtRes = negBtnTxtRes, tag = tag).apply {
                 putIntArray(ARG_COLORS, colors)
                 putInt(ARG_CHECKED_INDEX, checkedIndex ?: NULL_INT)
             }
@@ -110,9 +108,8 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
 
 fun colorDialog(
     title: String,
-    message: String = "",
     @ColorInt colors: IntArray,
     checkedIndex: Int? = null,
     @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
     tag: String
-): ColorDialog = ColorDialog.newInstance(title, message, colors, checkedIndex, negBtnTxtRes, tag)
+): ColorDialog = ColorDialog.newInstance(title, colors, checkedIndex, negBtnTxtRes, tag)

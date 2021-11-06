@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity(), SortSheet.SheetListener {
         header("Dialog")
 
         btn("Unary dialog") {
-            unaryDialog("Unary dialog", tag = "tag")
+            unaryDialog("Unary dialog", "Message", tag = "tag")
                 .show(supportFragmentManager)
         }
 
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity(), SortSheet.SheetListener {
 
         btn("List dialog") {
             listDialog(
-                "List dialog", arrayOf("Item").repeated(12),
+                "List dialog", "", arrayOf("Item").repeated(12),
                 intArrayOf(R.drawable.ic_check_24, R.drawable.ic_arrow_up_24, R.drawable.ic_arrow_down_24).repeated(4),
                 tag = "tag"
             )
@@ -81,25 +81,25 @@ class MainActivity : AppCompatActivity(), SortSheet.SheetListener {
         }
 
         btn("Radio dialog") {
-            radioDialog("Radio dialog", "", listOf("Item").repeated(20), 0, tag = "tag")
+            radioDialog("Radio dialog", listOf("Item").repeated(20), 0, tag = "tag")
                 .show(supportFragmentManager)
         }
 
         btn("Check dialog") {
-            checkDialog("Check dialog", "", arrayOf("Item").repeated(20), intArrayOf(1), tag = "tag")
+            checkDialog("Check dialog", arrayOf("Item").repeated(20), intArrayOf(0), tag = "tag")
                 .show(supportFragmentManager)
         }
 
         btn("Color dialog") {
             colorDialog(
-                "Color dialog", "",
-                mutableListOf(getColorAttr(android.R.attr.colorSecondary)).repeated(20).toIntArray(), 0, tag = "tag"
+                "Color dialog",
+                mutableListOf(getColorAttr(android.R.attr.listDivider)).repeated(20).toIntArray(), 0, tag = "tag"
             )
                 .show(supportFragmentManager)
         }
 
         btn("Chip dialog") {
-            chipDialog("Chip dialog", "", arrayOf("Item").repeated(20), intArrayOf(1), tag = "tag")
+            chipDialog("Chip dialog", arrayOf("Item").repeated(20), intArrayOf(0), tag = "tag")
                 .show(supportFragmentManager)
         }
 
@@ -129,12 +129,12 @@ class MainActivity : AppCompatActivity(), SortSheet.SheetListener {
                 .show(supportFragmentManager)
         }
 
-        btn("Sort sheet with title") {
+        btn("Sort sheet (with title)") {
             SortSheet.newInstance("Sort by", sorter, "tag")
                 .show(supportFragmentManager)
         }
 
-        btn("Sort sheet without title") {
+        btn("Sort sheet (without title)") {
             SortSheet.newInstance("", sorter, "tag")
                 .show(supportFragmentManager)
         }

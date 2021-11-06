@@ -36,7 +36,7 @@ class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
         return builder.run {
             setView(binding.root)
 
-            // title & message
+            // title
             setTitleIfNonEmpty(title)
 
             // widget
@@ -79,13 +79,12 @@ class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
         @JvmStatic
         fun newInstance(
             title: String,
-            message: String = "",
             vararg items: Pair<String, Boolean>,
             @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
             tag: String
         ): ChipDialog = newInstance(
-            title, message,
+            title,
             items.firsts.toTypedArray(), items.seconds.toBooleanArray(),
             posBtnTxtRes, negBtnTxtRes, tag
         )
@@ -93,14 +92,13 @@ class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
         @JvmStatic
         fun newInstance(
             title: String,
-            message: String = "",
             labels: Array<String>,
             checkedIndices: IntArray,
             @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
             tag: String
         ): ChipDialog = newInstance(
-            title, message,
+            title,
             labels, checkedIndices.asIndicesOfTrueBooleans(labels.size),
             posBtnTxtRes, negBtnTxtRes, tag
         )
@@ -108,14 +106,13 @@ class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
         @JvmStatic
         fun newInstance(
             title: String,
-            message: String = "",
             labels: Array<String>,
             itemStates: BooleanArray,
             @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
             tag: String
         ): ChipDialog = ChipDialog().apply {
-            arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag).apply {
+            arguments = putBaseBundle(title, "", posBtnTxtRes, negBtnTxtRes, tag).apply {
                 putStringArray(ARG_LABELS, labels)
                 putBooleanArray(ARG_ITEM_STATES, itemStates)
             }
@@ -125,30 +122,27 @@ class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
 
 fun chipDialog(
     title: String,
-    message: String = "",
     vararg items: Pair<String, Boolean>,
     @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
     tag: String
 ): ChipDialog =
-    ChipDialog.newInstance(title, message, *items, posBtnTxtRes = posBtnTxtRes, negBtnTxtRes = negBtnTxtRes, tag = tag)
+    ChipDialog.newInstance(title, *items, posBtnTxtRes = posBtnTxtRes, negBtnTxtRes = negBtnTxtRes, tag = tag)
 
 fun chipDialog(
     title: String,
-    message: String = "",
     labels: Array<String>,
     checkedIndices: IntArray,
     @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
     tag: String
-): ChipDialog = ChipDialog.newInstance(title, message, labels, checkedIndices, posBtnTxtRes, negBtnTxtRes, tag)
+): ChipDialog = ChipDialog.newInstance(title, labels, checkedIndices, posBtnTxtRes, negBtnTxtRes, tag)
 
 fun chipDialog(
     title: String,
-    message: String = "",
     labels: Array<String>,
     itemStates: BooleanArray,
     @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
     tag: String
-): ChipDialog = ChipDialog.newInstance(title, message, labels, itemStates, posBtnTxtRes, negBtnTxtRes, tag)
+): ChipDialog = ChipDialog.newInstance(title, labels, itemStates, posBtnTxtRes, negBtnTxtRes, tag)

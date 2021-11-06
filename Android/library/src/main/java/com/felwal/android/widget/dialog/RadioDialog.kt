@@ -24,9 +24,8 @@ class RadioDialog : BaseDialog<RadioDialog.DialogListener>() {
     }
 
     override fun buildDialog(): AlertDialog = builder.run {
-        // title & message
+        // title
         setTitleIfNonEmpty(title)
-        setMessageIfNonEmpty(message)
 
         // items
         setSingleChoiceItems(labels, checkedIndex) { dialog, index ->
@@ -54,13 +53,12 @@ class RadioDialog : BaseDialog<RadioDialog.DialogListener>() {
         @JvmStatic
         fun newInstance(
             title: String,
-            message: String = "",
             labels: List<String>,
             checkedIndex: Int,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
             tag: String
         ): RadioDialog = RadioDialog().apply {
-            arguments = putBaseBundle(title, message, NO_RES, negBtnTxtRes = negBtnTxtRes, tag = tag).apply {
+            arguments = putBaseBundle(title, "", NO_RES, negBtnTxtRes = negBtnTxtRes, tag = tag).apply {
                 putStringArray(ARG_LABELS, labels.toTypedArray())
                 putInt(ARG_CHECKED_INDEX, checkedIndex)
             }
@@ -70,9 +68,8 @@ class RadioDialog : BaseDialog<RadioDialog.DialogListener>() {
 
 fun radioDialog(
     title: String,
-    message: String = "",
     labels: List<String>,
     checkedIndex: Int,
     @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
     tag: String
-): RadioDialog = RadioDialog.newInstance(title, message, labels, checkedIndex, negBtnTxtRes, tag)
+): RadioDialog = RadioDialog.newInstance(title, labels, checkedIndex, negBtnTxtRes, tag)
