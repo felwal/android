@@ -61,17 +61,17 @@ class MainActivity : AppCompatActivity(), SortSheet.SheetListener {
 
         header("Dialog")
 
-        btn("Unary dialog") {
+        btn("Unary") {
             unaryDialog("Unary dialog", "Message", tag = "tag")
                 .show(supportFragmentManager)
         }
 
-        btn("Binary dialog") {
+        btn("Binary") {
             binaryDialog("Binary dialog", "Message", tag = "tag")
                 .show(supportFragmentManager)
         }
 
-        btn("List dialog") {
+        btn("List") {
             listDialog(
                 "List dialog", "", arrayOf("Item").repeated(12),
                 intArrayOf(R.drawable.ic_check_24, R.drawable.ic_arrow_up_24, R.drawable.ic_arrow_down_24).repeated(4),
@@ -80,17 +80,17 @@ class MainActivity : AppCompatActivity(), SortSheet.SheetListener {
                 .show(supportFragmentManager)
         }
 
-        btn("Radio dialog") {
+        btn("Radio") {
             radioDialog("Radio dialog", listOf("Item").repeated(20), 0, tag = "tag")
                 .show(supportFragmentManager)
         }
 
-        btn("Check dialog") {
+        btn("Check") {
             checkDialog("Check dialog", arrayOf("Item").repeated(20), intArrayOf(0), tag = "tag")
                 .show(supportFragmentManager)
         }
 
-        btn("Color dialog") {
+        btn("Color") {
             colorDialog(
                 "Color dialog",
                 mutableListOf(getColorAttr(android.R.attr.listDivider)).repeated(20).toIntArray(), 0, tag = "tag"
@@ -98,29 +98,29 @@ class MainActivity : AppCompatActivity(), SortSheet.SheetListener {
                 .show(supportFragmentManager)
         }
 
-        btn("Chip dialog") {
+        btn("Chip") {
             chipDialog("Chip dialog", arrayOf("Item").repeated(20), intArrayOf(0), tag = "tag")
                 .show(supportFragmentManager)
         }
 
-        btn("Number dialog") {
+        btn("Number") {
             numberDialog("Number dialog", text = 10, hint = "Hint", tag = "tag")
                 .show(supportFragmentManager)
         }
 
-        btn("Decimal dialog") {
+        btn("Decimal") {
             decimalDialog("Decimal dialog", text = 10f, hint = "Hint", tag = "tag")
                 .show(supportFragmentManager)
         }
 
-        btn("Text dialog") {
+        btn("Text") {
             textDialog("Text dialog", text = "Text", hint = "Hint", tag = "tag")
                 .show(supportFragmentManager)
         }
 
         header("Bottom sheet")
 
-        btn("List sheet") {
+        btn("List") {
             listSheet(
                 "List sheet", arrayOf("Item").repeated(3),
                 intArrayOf(R.drawable.ic_check_24, R.drawable.ic_arrow_up_24, R.drawable.ic_arrow_down_24),
@@ -129,12 +129,12 @@ class MainActivity : AppCompatActivity(), SortSheet.SheetListener {
                 .show(supportFragmentManager)
         }
 
-        btn("Sort sheet (with title)") {
+        btn("Sort (with title)") {
             SortSheet.newInstance("Sort by", sorter, "tag")
                 .show(supportFragmentManager)
         }
 
-        btn("Sort sheet (without title)") {
+        btn("Sort (without title)") {
             SortSheet.newInstance("", sorter, "tag")
                 .show(supportFragmentManager)
         }

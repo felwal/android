@@ -25,6 +25,10 @@ class CheckDialog : BaseDialog<CheckDialog.DialogListener>() {
             labels = getStringArray(ARG_LABELS).orEmpty()
             itemStates = getBooleanArray(ARG_ITEM_STATES).orEmpty()
         }
+
+        if (labels.size != itemStates.size) {
+            throw IndexOutOfBoundsException("labels and itemStates must have equal size")
+        }
     }
 
     override fun buildDialog(): AlertDialog = builder.run {

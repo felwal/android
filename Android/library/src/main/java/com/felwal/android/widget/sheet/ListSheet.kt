@@ -19,6 +19,10 @@ class ListSheet : BaseSheet<ListSheet.SheetListener>() {
             labels = getStringArray(ARG_LABELS).orEmpty()
             iconsRes = getIntArray(ARG_ICONS).orEmpty()
         }
+
+        if (labels.size != iconsRes.size) {
+            throw IndexOutOfBoundsException("labels and iconsRes must have equal size")
+        }
     }
 
     override fun buildSheet(): View {

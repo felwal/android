@@ -2,6 +2,7 @@ package com.felwal.android.widget.dialog
 
 import android.os.Bundle
 import androidx.annotation.DrawableRes
+import androidx.annotation.Size
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.databinding.DialogListBinding
 import com.felwal.android.util.orEmpty
@@ -21,6 +22,10 @@ class ListDialog : BaseDialog<ListDialog.DialogListener>() {
         bundle?.apply {
             labels = getStringArray(ARG_LABELS).orEmpty()
             iconsRes = getIntArray(ARG_ICONS).orEmpty()
+        }
+
+        if (labels.size != iconsRes.size) {
+            throw IndexOutOfBoundsException("labels and iconsRes must have equal size")
         }
     }
 
