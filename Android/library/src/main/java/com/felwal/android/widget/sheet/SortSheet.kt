@@ -147,6 +147,8 @@ class Sorter<M : Enum<M>>(vararg val sortModes: SortMode<M>) {
         this.selectedIndex = selectedIndex
         this.orderReversed = orderReversed
     }
+
+    fun copy(): Sorter<M> = Sorter(*sortModes).also { it.setSelection(selectedIndex, orderReversed) }
 }
 
 data class SortMode<M : Enum<M>>(val label: String, val mode: M, val ascendingByDefault: Boolean)
