@@ -34,41 +34,38 @@ class ChipDialog : MultiChoiceDialog() {
         }
     }
 
-    override fun buildDialog(): AlertDialog {
+    override fun buildDialog(): AlertDialog = builder.run {
         val binding = DialogChipBinding.inflate(inflater)
+        setView(binding.root)
 
-        return builder.run {
-            setView(binding.root)
+        // title
+        setTitleIfNonEmpty(title)
 
-            // title
-            setTitleIfNonEmpty(title)
+        // widget
+        setDividers(binding.sv, binding.vDividerTop, binding.vDividerBottom)
 
-            // widget
-            setDividers(binding.sv, binding.vDividerTop, binding.vDividerBottom)
+        // items
+        val chipGroup = binding.cg
+        for (i in labels.indices) {
+            val chip: Chip = ComponentChipBinding.inflate(inflater, chipGroup, false).root
+            chipGroup.addView(chip)
+            chip.text = labels[i]
+            chip.isChecked = itemStates[i]
 
-            // items
-            val chipGroup = binding.cg
-            for (i in labels.indices) {
-                val chip: Chip = ComponentChipBinding.inflate(inflater, chipGroup, false).root
-                chipGroup.addView(chip)
-                chip.text = labels[i]
-                chip.isChecked = itemStates[i]
-
-                chip.setOnCheckedChangeListener { _, isChecked ->
-                    itemStates[i] = isChecked
-                }
+            chip.setOnCheckedChangeListener { _, isChecked ->
+                itemStates[i] = isChecked
             }
-
-            // buttons
-            setPositiveButton(posBtnTxtRes) { _ ->
-                catchClassCast {
-                    listener?.onMultiChoiceDialogItemsSelected(itemStates, dialogTag)
-                }
-            }
-            setCancelButton(negBtnTxtRes)
-
-            show()
         }
+
+        // buttons
+        setPositiveButton(posBtnTxtRes) { _ ->
+            catchClassCast {
+                listener?.onMultiChoiceDialogItemsSelected(itemStates, dialogTag)
+            }
+        }
+        setCancelButton(negBtnTxtRes)
+
+        show()
     }
 
     //
