@@ -42,8 +42,8 @@ class TextDialog : BaseDialog<TextDialog.DialogListener>() {
             setMessageIfNonEmpty(message)
 
             // buttons
-            setPositiveButton(posBtnTxtRes) { _, _ ->
-                val input = binding.et.string.trim { it <= ' ' }
+            setPositiveButton(posBtnTxtRes) { _ ->
+                val input = binding.et.string.trim { it == ' ' }
                 catchClassCast {
                     listener?.onTextDialogPositiveClick(input, dialogTag)
                 }

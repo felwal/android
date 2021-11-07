@@ -2,6 +2,7 @@ package com.felwal.android.widget.dialog
 
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
@@ -113,6 +114,33 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     protected fun MaterialAlertDialogBuilder.setMessageIfNonEmpty(message: String) {
         if (message != "") setMessage(message)
     }
+
+    protected fun AlertDialog.Builder.setPositiveButton(
+        @StringRes resId: Int,
+        listener: (dialog: DialogInterface) -> Unit
+    ): AlertDialog.Builder {
+        if (resId != NO_RES) setPositiveButton(resId) { dialog, _ -> listener(dialog) }
+        return this
+    }
+
+    protected fun AlertDialog.Builder.setNeutralButton(
+        @StringRes resId: Int,
+        listener: (dialog: DialogInterface) -> Unit
+    ): AlertDialog.Builder {
+        if (resId != NO_RES) setNeutralButton(resId) { dialog, _ -> listener(dialog) }
+        return this
+    }
+
+    protected fun AlertDialog.Builder.setNegativeButton(
+        @StringRes resId: Int,
+        listener: (dialog: DialogInterface) -> Unit
+    ): AlertDialog.Builder {
+        if (resId != NO_RES) setNegativeButton(resId) { dialog, _ -> listener(dialog) }
+        return this
+    }
+
+    protected fun AlertDialog.Builder.setCancelButton(@StringRes resId: Int): AlertDialog.Builder =
+        setNegativeButton(resId) { dialog -> dialog.cancel() }
 
     protected fun setItems(
         labels: Array<out String>,

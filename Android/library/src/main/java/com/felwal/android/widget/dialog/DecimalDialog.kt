@@ -45,7 +45,7 @@ class DecimalDialog : BaseDialog<DecimalDialog.DialogListener>() {
             setMessageIfNonEmpty(message)
 
             // buttons
-            setPositiveButton(posBtnTxtRes) { _, _ ->
+            setPositiveButton(posBtnTxtRes) { _ ->
                 try {
                     val input = binding.et.string.toFloat()
                     catchClassCast {

@@ -45,7 +45,7 @@ class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
             setMessageIfNonEmpty(message)
 
             // buttons
-            setPositiveButton(posBtnTxtRes) { _, _ ->
+            setPositiveButton(posBtnTxtRes) { _ ->
                 try {
                     val input = binding.et.string.toInt()
                     catchClassCast {

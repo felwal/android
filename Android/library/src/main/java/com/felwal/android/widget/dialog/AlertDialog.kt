@@ -29,19 +29,17 @@ class AlertDialog : BaseDialog<AlertDialog.DialogListener>() {
         setMessageIfNonEmpty(message)
 
         // buttons
-        setPositiveButton(posBtnTxtRes) { _, _ ->
+        setPositiveButton(posBtnTxtRes) { _ ->
             catchClassCast {
                 listener?.onAlertDialogPositiveClick(passValue, dialogTag)
             }
         }
-        if (negBtnTxtRes != NO_RES) {
-            setCancelButton(negBtnTxtRes)
-        }
-        if (neuBtnTxtRes != NO_RES) {
-            setNeutralButton(neuBtnTxtRes) { _, _, ->
+        setNeutralButton(neuBtnTxtRes) { _ ->
+            catchClassCast {
                 listener?.onAlertDialogNeutralClick(passValue, dialogTag)
             }
         }
+        setCancelButton(negBtnTxtRes)
 
         show()
     }

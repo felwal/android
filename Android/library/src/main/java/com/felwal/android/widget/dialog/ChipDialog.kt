@@ -60,7 +60,7 @@ class ChipDialog : MultiChoiceDialog() {
             }
 
             // buttons
-            setPositiveButton(posBtnTxtRes) { _, _ ->
+            setPositiveButton(posBtnTxtRes) { _ ->
                 catchClassCast {
                     listener?.onMultiChoiceDialogItemsSelected(itemStates, dialogTag)
                 }
