@@ -12,7 +12,8 @@ import com.felwal.android.util.popup
 import com.felwal.android.util.repeated
 import com.felwal.android.util.snackbar
 import com.felwal.android.util.toast
-import com.felwal.android.widget.dialog.binaryDialog
+import com.felwal.android.widget.dialog.NO_RES
+import com.felwal.android.widget.dialog.alertDialog
 import com.felwal.android.widget.dialog.checkDialog
 import com.felwal.android.widget.dialog.chipDialog
 import com.felwal.android.widget.dialog.colorDialog
@@ -21,12 +22,10 @@ import com.felwal.android.widget.dialog.listDialog
 import com.felwal.android.widget.dialog.numberDialog
 import com.felwal.android.widget.dialog.radioDialog
 import com.felwal.android.widget.dialog.textDialog
-import com.felwal.android.widget.dialog.unaryDialog
 import com.felwal.android.widget.sheet.SortMode
 import com.felwal.android.widget.sheet.SortSheet
 import com.felwal.android.widget.sheet.Sorter
 import com.felwal.android.widget.sheet.listSheet
-import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), SortSheet.SheetListener {
 
@@ -62,12 +61,17 @@ class MainActivity : AppCompatActivity(), SortSheet.SheetListener {
         header("Dialog")
 
         btn("Unary") {
-            unaryDialog("Unary dialog", "Message", tag = "tag")
+            alertDialog("Alert dialog", "Message", negBtnTxtRes = NO_RES, tag = "tag")
                 .show(supportFragmentManager)
         }
 
         btn("Binary") {
-            binaryDialog("Binary dialog", "Message", tag = "tag")
+            alertDialog("Alert dialog", "Message", tag = "tag")
+                .show(supportFragmentManager)
+        }
+
+        btn("Ternary") {
+            alertDialog("Alert dialog", "Message", neuBtnTxtRes = R.string.app_name, tag = "tag")
                 .show(supportFragmentManager)
         }
 

@@ -32,7 +32,7 @@ class CheckDialog : BaseDialog<CheckDialog.DialogListener>() {
     }
 
     override fun buildDialog(): AlertDialog = builder.run {
-        // title & message
+        // title
         setTitleIfNonEmpty(title)
 
         // items
