@@ -201,3 +201,15 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     interface DialogListener
 }
+
+abstract class SingleChoiceDialog : BaseDialog<SingleChoiceDialog.DialogListener>() {
+    interface DialogListener : BaseDialog.DialogListener {
+        fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String)
+    }
+}
+
+abstract class MultiChoiceDialog : BaseDialog<MultiChoiceDialog.DialogListener>() {
+    interface DialogListener : BaseDialog.DialogListener {
+        fun onMultiChoiceDialogItemsSelected(itemStates: BooleanArray, tag: String)
+    }
+}
