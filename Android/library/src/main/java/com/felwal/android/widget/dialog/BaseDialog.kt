@@ -3,16 +3,13 @@ package com.felwal.android.widget.dialog
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
-import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.annotation.StyleRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
@@ -23,7 +20,6 @@ import com.felwal.android.R
 import com.felwal.android.databinding.ItemDialogListBinding
 import com.felwal.android.util.getDrawableCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.lang.ClassCastException
 
 const val NO_RES = -1
 const val NULL_INT = -1
@@ -171,17 +167,23 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     }
 
     protected fun setDividers(sv: NestedScrollView, vDividerTop: View?, vDividerBottom: View?) {
-        // TODO: show on open, hide on height/item update
-
         // default visibility
-        vDividerTop?.isInvisible = !sv.canScrollVertically(-1)
-        vDividerBottom?.isInvisible = !sv.canScrollVertically(1)
+        updateDividers(sv, vDividerTop, vDividerBottom)
 
         // on scroll visibility
         sv.setOnScrollChangeListener { _, _, _, _, _ ->
-            vDividerTop?.isInvisible = !sv.canScrollVertically(-1)
-            vDividerBottom?.isInvisible = !sv.canScrollVertically(1)
+            updateDividers(sv, vDividerTop, vDividerBottom)
         }
+
+        // on layout size change visibility (includes orientation change)
+        sv.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            updateDividers(sv, vDividerTop, vDividerBottom)
+        }
+    }
+
+    private fun updateDividers(sv: NestedScrollView, vDividerTop: View?, vDividerBottom: View?) {
+        vDividerTop?.isInvisible = !sv.canScrollVertically(-1)
+        vDividerBottom?.isInvisible = !sv.canScrollVertically(1)
     }
 
     protected fun catchClassCast(action: () -> Unit) {

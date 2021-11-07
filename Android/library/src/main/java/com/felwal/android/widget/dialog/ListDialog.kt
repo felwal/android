@@ -2,7 +2,6 @@ package com.felwal.android.widget.dialog
 
 import android.os.Bundle
 import androidx.annotation.DrawableRes
-import androidx.annotation.Size
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.databinding.DialogListBinding
 import com.felwal.android.util.orEmpty
