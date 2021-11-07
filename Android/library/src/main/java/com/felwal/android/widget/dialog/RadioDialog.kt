@@ -8,7 +8,7 @@ import com.felwal.android.R
 private const val ARG_LABELS = "labels"
 private const val ARG_CHECKED_INDEX = "checkedIndex"
 
-class RadioDialog : BaseDialog<RadioDialog.DialogListener>() {
+class RadioDialog : SingleChoiceDialog() {
 
     // args
     private lateinit var labels: Array<out String>
@@ -30,7 +30,7 @@ class RadioDialog : BaseDialog<RadioDialog.DialogListener>() {
         // items
         setSingleChoiceItems(labels, checkedIndex) { dialog, index ->
             catchClassCast {
-                listener?.onRadioDialogItemClick(index, dialogTag)
+                listener?.onSingleChoiceDialogItemSelected(index, dialogTag)
             }
             dialog.cancel()
         }
@@ -39,12 +39,6 @@ class RadioDialog : BaseDialog<RadioDialog.DialogListener>() {
         setCancelButton(negBtnTxtRes)
 
         show()
-    }
-
-    //
-
-    interface DialogListener : BaseDialog.DialogListener {
-        fun onRadioDialogItemClick(checkedIndex: Int, tag: String)
     }
 
     //

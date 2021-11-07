@@ -12,7 +12,7 @@ import com.felwal.android.util.seconds
 private const val ARG_LABELS = "labels"
 private const val ARG_ITEM_STATES = "itemStates"
 
-class CheckDialog : BaseDialog<CheckDialog.DialogListener>() {
+class CheckDialog : MultiChoiceDialog() {
 
     // args
     private lateinit var labels: Array<out String>
@@ -43,18 +43,12 @@ class CheckDialog : BaseDialog<CheckDialog.DialogListener>() {
         // buttons
         setPositiveButton(posBtnTxtRes) { _, _ ->
             catchClassCast {
-                listener?.onCheckDialogPositiveClick(itemStates, dialogTag)
+                listener?.onMultiChoiceDialogItemsSelected(itemStates, dialogTag)
             }
         }
         setCancelButton(negBtnTxtRes)
 
         show()
-    }
-
-    //
-
-    interface DialogListener : BaseDialog.DialogListener {
-        fun onCheckDialogPositiveClick(itemStates: BooleanArray, tag: String)
     }
 
     //

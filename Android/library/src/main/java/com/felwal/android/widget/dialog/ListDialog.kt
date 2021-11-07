@@ -10,7 +10,7 @@ import com.felwal.android.util.orEmpty
 private const val ARG_LABELS = "labels"
 private const val ARG_ICONS = "icons"
 
-class ListDialog : BaseDialog<ListDialog.DialogListener>() {
+class ListDialog : SingleChoiceDialog() {
 
     // args
     private lateinit var labels: Array<out String>
@@ -41,19 +41,13 @@ class ListDialog : BaseDialog<ListDialog.DialogListener>() {
         setDividers(binding.sv, binding.vDividerTop, null)
 
         // items
-        setItems(labels, iconsRes, binding.ll) { selectedIndex ->
+        setItems(labels, iconsRes, binding.ll) { index ->
             catchClassCast {
-                listener?.onListDialogItemClick(selectedIndex, dialogTag)
+                listener?.onSingleChoiceDialogItemSelected(index, dialogTag)
             }
         }
 
         show()
-    }
-
-    //
-
-    interface DialogListener : BaseDialog.DialogListener {
-        fun onListDialogItemClick(selectedIndex: Int, tag: String)
     }
 
     //

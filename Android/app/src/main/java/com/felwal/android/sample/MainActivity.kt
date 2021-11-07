@@ -27,7 +27,9 @@ import com.felwal.android.widget.sheet.SortSheet
 import com.felwal.android.widget.sheet.Sorter
 import com.felwal.android.widget.sheet.listSheet
 
-class MainActivity : AppCompatActivity(), SortSheet.SheetListener {
+class MainActivity : AppCompatActivity(),
+    SortSheet.SheetListener
+{
 
     private lateinit var binding: ActivityMainBinding
 

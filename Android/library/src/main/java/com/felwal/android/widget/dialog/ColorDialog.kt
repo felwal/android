@@ -19,7 +19,7 @@ private const val ARG_CHECKED_INDEX = "checkedIndex"
 private const val COLUMN_COUNT_PORTRAIT = 4
 private const val COLUMN_COUNT_LANDSCAPE = 5
 
-class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
+class ColorDialog : SingleChoiceDialog() {
 
     // args
     @ColorInt private lateinit var colors: IntArray
@@ -67,7 +67,7 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
 
             itemBinding.ivColor.setOnClickListener {
                 catchClassCast {
-                    listener?.onColorDialogItemClick(i, dialogTag)
+                    listener?.onSingleChoiceDialogItemSelected(i, dialogTag)
                 }
                 dialog?.cancel()
             }
@@ -79,12 +79,6 @@ class ColorDialog : BaseDialog<ColorDialog.DialogListener>() {
         setCancelButton(negBtnTxtRes)
 
         show()
-    }
-
-    //
-
-    interface DialogListener : BaseDialog.DialogListener {
-        fun onColorDialogItemClick(checkedIndex: Int, tag: String)
     }
 
     //

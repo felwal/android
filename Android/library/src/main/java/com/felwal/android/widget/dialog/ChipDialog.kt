@@ -15,7 +15,7 @@ import com.google.android.material.chip.Chip
 private const val ARG_LABELS = "labels"
 private const val ARG_ITEM_STATES = "itemStates"
 
-class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
+class ChipDialog : MultiChoiceDialog() {
 
     // args
     private lateinit var labels: Array<out String>
@@ -62,19 +62,13 @@ class ChipDialog : BaseDialog<ChipDialog.DialogListener>() {
             // buttons
             setPositiveButton(posBtnTxtRes) { _, _ ->
                 catchClassCast {
-                    listener?.onChipDialogPositiveClick(itemStates, dialogTag)
+                    listener?.onMultiChoiceDialogItemsSelected(itemStates, dialogTag)
                 }
             }
             setCancelButton(negBtnTxtRes)
 
             show()
         }
-    }
-
-    //
-
-    interface DialogListener : BaseDialog.DialogListener {
-        fun onChipDialogPositiveClick(itemStates: BooleanArray, tag: String)
     }
 
     //
