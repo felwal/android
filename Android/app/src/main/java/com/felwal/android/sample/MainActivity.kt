@@ -91,6 +91,11 @@ class MainActivity : AppCompatActivity(),
                 .show(supportFragmentManager)
         }
 
+        btn("Radio (simple)") {
+            radioDialog("Radio dialog", listOf("Item").repeated(20), 0, posBtnTxtRes = null, tag = "tag")
+                .show(supportFragmentManager)
+        }
+
         btn("Check") {
             checkDialog("Check dialog", arrayOf("Item").repeated(20), intArrayOf(0), tag = "tag")
                 .show(supportFragmentManager)

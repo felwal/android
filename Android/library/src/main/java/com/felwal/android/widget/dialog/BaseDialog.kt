@@ -87,8 +87,8 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     private fun unpackBaseBundle(): Bundle? = arguments?.apply {
         title = getString(ARG_TITLE, "")
         message = getString(ARG_MESSAGE, "")
-        posBtnTxtRes = getInt(ARG_POSITIVE_BUTTON_RES, posBtnTxtRes)
-        negBtnTxtRes = getInt(ARG_NEGATIVE_BUTTON_RES, negBtnTxtRes)
+        posBtnTxtRes = getInt(ARG_POSITIVE_BUTTON_RES, NO_RES)
+        negBtnTxtRes = getInt(ARG_NEGATIVE_BUTTON_RES, NO_RES)
         dialogTag = getString(ARG_TAG, dialogTag)
     }
 

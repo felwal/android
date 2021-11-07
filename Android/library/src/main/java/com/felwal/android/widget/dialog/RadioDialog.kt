@@ -29,13 +29,22 @@ class RadioDialog : SingleChoiceDialog() {
 
         // items
         setSingleChoiceItems(labels, checkedIndex) { dialog, index ->
-            catchClassCast {
-                listener?.onSingleChoiceDialogItemSelected(index, dialogTag)
+            // there is no positive button; make the dialog simple, i.e. dismiss on item click
+            if (posBtnTxtRes == NO_RES) {
+                catchClassCast {
+                    listener?.onSingleChoiceDialogItemSelected(index, dialogTag)
+                }
+                dialog.cancel()
             }
-            dialog.cancel()
+            else checkedIndex = index
         }
 
-        // button
+        // buttons
+        setPositiveButton(posBtnTxtRes) { _ ->
+            catchClassCast {
+                listener?.onSingleChoiceDialogItemSelected(checkedIndex, dialogTag)
+            }
+        }
         setCancelButton(negBtnTxtRes)
 
         show()
@@ -49,10 +58,11 @@ class RadioDialog : SingleChoiceDialog() {
             title: String,
             labels: List<String>,
             checkedIndex: Int,
+            @StringRes posBtnTxtRes: Int? = R.string.dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
             tag: String
         ): RadioDialog = RadioDialog().apply {
-            arguments = putBaseBundle(title, "", NO_RES, negBtnTxtRes = negBtnTxtRes, tag = tag).apply {
+            arguments = putBaseBundle(title, "", posBtnTxtRes ?: NO_RES, negBtnTxtRes = negBtnTxtRes, tag = tag).apply {
                 putStringArray(ARG_LABELS, labels.toTypedArray())
                 putInt(ARG_CHECKED_INDEX, checkedIndex)
             }
@@ -64,6 +74,7 @@ fun radioDialog(
     title: String,
     labels: List<String>,
     checkedIndex: Int,
+    @StringRes posBtnTxtRes: Int? = R.string.dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
     tag: String
-): RadioDialog = RadioDialog.newInstance(title, labels, checkedIndex, negBtnTxtRes, tag)
+): RadioDialog = RadioDialog.newInstance(title, labels, checkedIndex, posBtnTxtRes, negBtnTxtRes, tag)
