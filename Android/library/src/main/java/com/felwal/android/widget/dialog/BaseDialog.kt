@@ -94,11 +94,6 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     // build
 
-    private fun styleDialog(dialog: AlertDialog): AlertDialog = dialog.apply {
-        setTitleTextAppearanceAppCompat(resources, R.style.TextAppearance_Felwal_Dialog_Title)
-        setMessageTextAppearance(R.style.TextAppearance_Felwal_Dialog_Body)
-    }
-
     protected abstract fun buildDialog(): AlertDialog
 
     fun show(fm: FragmentManager) {
@@ -204,22 +199,3 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     interface DialogListener
 }
-
-fun AlertDialog.Builder.setCancelButton(@StringRes resId: Int): AlertDialog.Builder =
-    setNegativeButton(resId) { dialog, _ -> dialog.cancel() }
-
-fun AlertDialog.setTitleTextAppearanceAppCompat(res: Resources, @StyleRes resId: Int) =
-    setTitleTextAppearance(res, resId, context.packageName)
-
-fun AlertDialog.setTitleTextAppearanceAndroid(res: Resources, @StyleRes resId: Int) =
-    setTitleTextAppearance(res, resId, "android")
-
-fun AlertDialog.setTitleTextAppearance(res: Resources, @StyleRes resId: Int, defPackage: String) =
-    res.getIdentifier("alertTitle", "id", defPackage)
-        .takeIf { it > 0 }
-        ?.let { titleId ->
-            findViewById<TextView>(titleId)?.setTextAppearance(resId)
-        }
-
-fun AlertDialog.setMessageTextAppearance(@StyleRes resId: Int) =
-    findViewById<TextView>(android.R.id.message)?.setTextAppearance(resId)
