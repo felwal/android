@@ -19,7 +19,10 @@ out/
 
 # Gradle files
 .gradle/
-build/
+build/*
+
+# dont ignore library aar build
+!Android/library/build/outputs/aar/
 
 # Local configuration file (sdk path, etc)
 local.properties

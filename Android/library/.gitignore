@@ -1,1 +1,7 @@
-/build
+/build/*
+
+# dont ignore library aar build
+!*.aar
+!/build/outputs/
+build/outputs/*
+!/build/outputs/aar/
