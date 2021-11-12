@@ -5,7 +5,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.R
-import com.felwal.android.databinding.DialogTextBinding
+import com.felwal.android.databinding.FwDialogTextBinding
 import com.felwal.android.util.string
 
 private const val ARG_TEXT = "text"
@@ -27,12 +27,12 @@ class TextDialog : BaseDialog<TextDialog.DialogListener>() {
     }
 
     override fun buildDialog(): AlertDialog {
-        val binding = DialogTextBinding.inflate(inflater)
-        binding.et.inputType = EditorInfo.TYPE_CLASS_TEXT
+        val binding = FwDialogTextBinding.inflate(inflater)
+        binding.fwEt.inputType = EditorInfo.TYPE_CLASS_TEXT
 
         // widget
-        binding.et.setText(text)
-        binding.et.hint = hint
+        binding.fwEt.setText(text)
+        binding.fwEt.hint = hint
 
         return builder.run {
             setView(binding.root)
@@ -43,7 +43,7 @@ class TextDialog : BaseDialog<TextDialog.DialogListener>() {
 
             // buttons
             setPositiveButton(posBtnTxtRes) { _ ->
-                val input = binding.et.string.trim { it == ' ' }
+                val input = binding.fwEt.string.trim { it == ' ' }
                 catchClassCast {
                     listener?.onTextDialogPositiveClick(input, dialogTag)
                 }
@@ -69,8 +69,8 @@ class TextDialog : BaseDialog<TextDialog.DialogListener>() {
             message: String = "",
             text: String = "",
             hint: String = "",
-            @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
-            @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+            @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
+            @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
             tag: String
         ): TextDialog = TextDialog().apply {
             arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag).apply {
@@ -86,7 +86,7 @@ fun textDialog(
     message: String = "",
     text: String = "",
     hint: String = "",
-    @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
-    @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+    @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
+    @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
     tag: String
 ): TextDialog = TextDialog.newInstance(title, message, text, hint, posBtnTxtRes, negBtnTxtRes, tag)

@@ -5,7 +5,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.R
-import com.felwal.android.databinding.DialogTextBinding
+import com.felwal.android.databinding.FwDialogTextBinding
 import com.felwal.android.util.string
 import com.felwal.android.util.toast
 
@@ -30,12 +30,12 @@ class DecimalDialog : BaseDialog<DecimalDialog.DialogListener>() {
     }
 
     override fun buildDialog(): AlertDialog {
-        val binding = DialogTextBinding.inflate(inflater)
-        binding.et.inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
+        val binding = FwDialogTextBinding.inflate(inflater)
+        binding.fwEt.inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
 
         // widget
-        binding.et.hint = hint
-        if (text != NO_FLOAT_TEXT) binding.et.setText(text.toString())
+        binding.fwEt.hint = hint
+        if (text != NO_FLOAT_TEXT) binding.fwEt.setText(text.toString())
 
         return builder.run {
             setView(binding.root)
@@ -47,13 +47,13 @@ class DecimalDialog : BaseDialog<DecimalDialog.DialogListener>() {
             // buttons
             setPositiveButton(posBtnTxtRes) { _ ->
                 try {
-                    val input = binding.et.string.toFloat()
+                    val input = binding.fwEt.string.toFloat()
                     catchClassCast {
                         listener?.onDecimalDialogPositiveClick(input, dialogTag)
                     }
                 }
                 catch (e: NumberFormatException) {
-                    activity?.toast(R.string.toast_e_input)
+                    activity?.toast(R.string.fw_toast_e_input)
                 }
             }
             setCancelButton(negBtnTxtRes)
@@ -77,8 +77,8 @@ class DecimalDialog : BaseDialog<DecimalDialog.DialogListener>() {
             message: String = "",
             text: Float = NO_FLOAT_TEXT,
             hint: String = "",
-            @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
-            @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+            @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
+            @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
             tag: String
         ): DecimalDialog = DecimalDialog().apply {
             arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag).apply {
@@ -94,7 +94,7 @@ fun decimalDialog(
     message: String = "",
     text: Float = NO_FLOAT_TEXT,
     hint: String = "",
-    @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
-    @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+    @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
+    @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
     tag: String
 ): DecimalDialog = DecimalDialog.newInstance(title, message, text, hint, posBtnTxtRes, negBtnTxtRes, tag)

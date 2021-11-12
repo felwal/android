@@ -7,9 +7,9 @@
         <item name="android:navigationBarColor">?android:colorBackground</item>
 
         <!-- custom attrs -->
-        <item name="sortSheetUpArrow">@drawable/ic_arrow_up_24</item>
-        <item name="sortSheetDownArrow">@drawable/ic_arrow_down_24</item>
-        <item name="sortSheetHighlightColor">?colorPrimary</item>
+        <item name="fw_sortSheetUpArrow">@drawable/fw_ic_arrow_up_24</item>
+        <item name="fw_sortSheetDownArrow">@drawable/fw_ic_arrow_down_24</item>
+        <item name="fw_sortSheetHighlightColor">?colorPrimary</item>
 
         <!-- no action bar -->
         <item name="windowActionBar">false</item>
@@ -30,14 +30,14 @@
 
     <style name="Theme.Felwal" parent="Theme.Felwal.Base">
         <!-- background -->
-        <item name="android:colorBackground">@color/felwal_background_lt</item>
-        <item name="colorOnBackground">@color/black</item>
+        <item name="android:colorBackground">@color/fw_felwal_background_lt</item>
+        <item name="colorOnBackground">@color/fw_black</item>
 
         <!-- surface -->
-        <item name="colorSurface">@color/felwal_surface_lt</item>
-        <item name="colorOnSurface">@color/black</item>
+        <item name="colorSurface">@color/fw_felwal_surface_lt</item>
+        <item name="colorOnSurface">@color/fw_black</item>
 
-        <item name="android:listDivider">@color/felwal_divider_lt</item>
+        <item name="android:listDivider">@color/fw_felwal_divider_lt</item>
     </style>
 
 </resources>

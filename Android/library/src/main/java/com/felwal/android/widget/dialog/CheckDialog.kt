@@ -58,8 +58,8 @@ class CheckDialog : MultiChoiceDialog() {
         fun newInstance(
             title: String,
             vararg items: Pair<String, Boolean>,
-            @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
-            @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+            @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
+            @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
             tag: String
         ): CheckDialog = newInstance(
             title,
@@ -72,8 +72,8 @@ class CheckDialog : MultiChoiceDialog() {
             title: String,
             labels: Array<String>,
             checkedIndices: IntArray,
-            @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
-            @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+            @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
+            @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
             tag: String
         ): CheckDialog = newInstance(
             title,
@@ -86,8 +86,8 @@ class CheckDialog : MultiChoiceDialog() {
             title: String,
             labels: Array<String>,
             itemStates: BooleanArray,
-            @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
-            @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+            @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
+            @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
             tag: String
         ): CheckDialog = CheckDialog().apply {
             arguments = putBaseBundle(title, "", posBtnTxtRes, negBtnTxtRes, tag).apply {
@@ -101,8 +101,8 @@ class CheckDialog : MultiChoiceDialog() {
 fun checkDialog(
     title: String,
     vararg items: Pair<String, Boolean>,
-    @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
-    @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+    @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
+    @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
     tag: String
 ): CheckDialog =
     CheckDialog.newInstance(title, *items, posBtnTxtRes = posBtnTxtRes, negBtnTxtRes = negBtnTxtRes, tag = tag)
@@ -111,8 +111,8 @@ fun checkDialog(
     title: String,
     labels: Array<String>,
     checkedIndices: IntArray,
-    @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
-    @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+    @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
+    @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
     tag: String
 ): CheckDialog = CheckDialog.newInstance(title, labels, checkedIndices, posBtnTxtRes, negBtnTxtRes, tag)
 
@@ -120,7 +120,7 @@ fun checkDialog(
     title: String,
     labels: Array<String>,
     itemStates: BooleanArray,
-    @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
-    @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+    @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
+    @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
     tag: String
 ): CheckDialog = CheckDialog.newInstance(title, labels, itemStates, posBtnTxtRes, negBtnTxtRes, tag)

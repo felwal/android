@@ -12,7 +12,7 @@
         android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="@dimen/type_dialog_item"
+        android:textSize="@dimen/fw_type_dialog_item"
         android:textColor="?colorPrimary"
         android:gravity="center"
         android:fontFamily="sans-serif"

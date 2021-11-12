@@ -3,42 +3,42 @@
 
     <!-- palette -->
 
-    <color name="black">#000000</color>
-    <color name="grey1">#121212</color>
-    <color name="grey2">#202124</color>
-    <color name="grey3">#2F3033</color>
-    <color name="grey4">#4E4F53</color>
-    <color name="grey5">#DDDDDD</color>
-    <color name="white">#FFFFFF</color>
+    <color name="fw_black">#000000</color>
+    <color name="fw_grey1">#121212</color>
+    <color name="fw_grey2">#202124</color>
+    <color name="fw_grey3">#2F3033</color>
+    <color name="fw_grey4">#4E4F53</color>
+    <color name="fw_grey5">#DDDDDD</color>
+    <color name="fw_white">#FFFFFF</color>
 
     <!-- application -->
 
     <!-- default -->
-    <color name="default_background_dk">@color/grey1</color>
-    <color name="default_surface_dk">@color/grey1</color>
+    <color name="fw_default_background_dk">@color/fw_grey1</color>
+    <color name="fw_default_surface_dk">@color/fw_grey1</color>
 
     <!-- google -->
-    <color name="google_background_dk">@color/grey2</color>
-    <color name="google_surface_dk">@color/grey3</color>
-    <color name="google_divider_dk">@color/grey4</color>
-    <color name="google_background_lt">@color/white</color>
-    <color name="google_surface_lt">@color/white</color>
-    <color name="google_divider_lt">@color/grey5</color>
+    <color name="fw_google_background_dk">@color/fw_grey2</color>
+    <color name="fw_google_surface_dk">@color/fw_grey3</color>
+    <color name="fw_google_divider_dk">@color/fw_grey4</color>
+    <color name="fw_google_background_lt">@color/fw_white</color>
+    <color name="fw_google_surface_lt">@color/fw_white</color>
+    <color name="fw_google_divider_lt">@color/fw_grey5</color>
 
     <!-- felwal -->
-    <color name="felwal_background_dk">@color/google_background_dk</color>
-    <color name="felwal_surface_dk">@color/google_surface_dk</color>
-    <color name="felwal_divider_dk">@color/google_divider_dk</color>
-    <color name="felwal_background_lt">@color/google_background_lt</color>
-    <color name="felwal_surface_lt">@color/google_surface_lt</color>
-    <color name="felwal_divider_lt">@color/google_divider_lt</color>
+    <color name="fw_felwal_background_dk">@color/fw_google_background_dk</color>
+    <color name="fw_felwal_surface_dk">@color/fw_google_surface_dk</color>
+    <color name="fw_felwal_divider_dk">@color/fw_google_divider_dk</color>
+    <color name="fw_felwal_background_lt">@color/fw_google_background_lt</color>
+    <color name="fw_felwal_surface_lt">@color/fw_google_surface_lt</color>
+    <color name="fw_felwal_divider_lt">@color/fw_google_divider_lt</color>
 
     <!-- github -->
-    <color name="github_background_dk">#050505</color>
-    <color name="github_surface_dk">#17181C</color>
+    <color name="fw_github_background_dk">#050505</color>
+    <color name="fw_github_surface_dk">#17181C</color>
 
     <!-- lawnchair -->
-    <color name="lawnchair_background_dk">#151618</color>
-    <color name="lawnchair_surface_dk">#252628</color>
+    <color name="fw_lawnchair_background_dk">#151618</color>
+    <color name="fw_lawnchair_surface_dk">#252628</color>
 
 </resources>

@@ -4,8 +4,8 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import com.felwal.android.R
-import com.felwal.android.databinding.ItemSheetListBinding
-import com.felwal.android.databinding.SheetListBinding
+import com.felwal.android.databinding.FwItemSheetListBinding
+import com.felwal.android.databinding.FwSheetListBinding
 import com.felwal.android.util.getColorAttr
 import com.felwal.android.util.getDrawableAttrFilter
 
@@ -30,32 +30,32 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
     }
 
     override fun buildSheet(): View {
-        val binding = SheetListBinding.inflate(inflater)
-        val ll = binding.ll
+        val binding = FwSheetListBinding.inflate(inflater)
+        val ll = binding.fwLl
 
         // title
         setTitleIfNonEmpty(title, binding)
 
         // items
         for ((i, label) in labels.withIndex()) {
-            val itemBinding = ItemSheetListBinding.inflate(inflater, ll, false)
-            val tv = itemBinding.tvLabel
+            val itemBinding = FwItemSheetListBinding.inflate(inflater, ll, false)
+            val tv = itemBinding.fwTvLabel
 
             tv.text = label
 
             // style selected item
             if (i == checkedIndex) {
                 // label
-                tv.setTextColor(requireContext().getColorAttr(R.attr.sortSheetHighlightColor))
+                tv.setTextColor(requireContext().getColorAttr(R.attr.fw_sortSheetHighlightColor))
                 tv.setTypeface(null, Typeface.BOLD)
 
                 // icon
                 // for some reason tint doesn't override, so we use filter instead
                 val arrow = requireContext().getDrawableAttrFilter(
-                    if (ascending) R.attr.sortSheetUpArrow else R.attr.sortSheetDownArrow,
-                    R.attr.sortSheetHighlightColor
+                    if (ascending) R.attr.fw_sortSheetUpArrow else R.attr.fw_sortSheetDownArrow,
+                    R.attr.fw_sortSheetHighlightColor
                 )
-                itemBinding.ivIcon.setImageDrawable(arrow)
+                itemBinding.fwIvIcon.setImageDrawable(arrow)
             }
 
             ll.addView(itemBinding.root)

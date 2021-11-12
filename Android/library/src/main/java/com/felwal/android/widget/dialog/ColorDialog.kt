@@ -6,8 +6,8 @@ import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.R
-import com.felwal.android.databinding.DialogColorBinding
-import com.felwal.android.databinding.ItemDialogColorBinding
+import com.felwal.android.databinding.FwDialogColorBinding
+import com.felwal.android.databinding.FwItemDialogColorBinding
 import com.felwal.android.util.backgroundTint
 import com.felwal.android.util.getDrawableCompat
 import com.felwal.android.util.isPortrait
@@ -35,37 +35,37 @@ class ColorDialog : SingleChoiceDialog() {
     }
 
     override fun buildDialog(): AlertDialog = builder.run {
-        val binding = DialogColorBinding.inflate(inflater)
+        val binding = FwDialogColorBinding.inflate(inflater)
         setView(binding.root)
 
         // title
         setTitleIfNonEmpty(title)
 
         // widget
-        setDividers(binding.sv, binding.vDividerTop, binding.vDividerBottom)
+        setDividers(binding.fwSv, binding.fwVDividerTop, binding.fwVDividerBottom)
 
         // items
-        var tr = TableRow(binding.tl.context)
-        binding.tl.addView(tr)
+        var tr = TableRow(binding.fwTl.context)
+        binding.fwTl.addView(tr)
         val columnCount = if (context.isPortrait) COLUMN_COUNT_PORTRAIT else COLUMN_COUNT_LANDSCAPE
         for ((i, color) in colors.withIndex()) {
             // inflate row
             if (i != 0 && i % columnCount == 0) {
                 tr = TableRow(context)
-                binding.tl.addView(tr)
+                binding.fwTl.addView(tr)
             }
 
             // inflate item
-            val itemBinding = ItemDialogColorBinding.inflate(inflater, tr, false)
-            itemBinding.ivColor.backgroundTint = color
+            val itemBinding = FwItemDialogColorBinding.inflate(inflater, tr, false)
+            itemBinding.fwIvColor.backgroundTint = color
 
             // set checked drawable
             if (i == checkedIndex) {
-                val icon = context.getDrawableCompat(R.drawable.ic_check_24, R.attr.colorSurface)
-                itemBinding.ivColor.setImageDrawable(icon)
+                val icon = context.getDrawableCompat(R.drawable.fw_ic_check_24, R.attr.colorSurface)
+                itemBinding.fwIvColor.setImageDrawable(icon)
             }
 
-            itemBinding.ivColor.setOnClickListener {
+            itemBinding.fwIvColor.setOnClickListener {
                 catchClassCast {
                     listener?.onSingleChoiceDialogItemSelected(i, dialogTag)
                 }
@@ -89,7 +89,7 @@ class ColorDialog : SingleChoiceDialog() {
             title: String,
             @ColorInt colors: IntArray,
             checkedIndex: Int? = null,
-            @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+            @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
             tag: String
         ): ColorDialog = ColorDialog().apply {
             arguments = putBaseBundle(title, "", NO_RES, negBtnTxtRes = negBtnTxtRes, tag = tag).apply {
@@ -104,6 +104,6 @@ fun colorDialog(
     title: String,
     @ColorInt colors: IntArray,
     checkedIndex: Int? = null,
-    @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+    @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
     tag: String
 ): ColorDialog = ColorDialog.newInstance(title, colors, checkedIndex, negBtnTxtRes, tag)

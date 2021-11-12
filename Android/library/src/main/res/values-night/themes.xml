@@ -5,14 +5,14 @@
 
     <style name="Theme.Felwal" parent="Theme.Felwal.Base">
         <!-- background -->
-        <item name="android:colorBackground">@color/felwal_background_dk</item>
-        <item name="colorOnBackground">@color/white</item>
+        <item name="android:colorBackground">@color/fw_felwal_background_dk</item>
+        <item name="colorOnBackground">@color/fw_white</item>
 
         <!-- surface -->
-        <item name="colorSurface">@color/felwal_surface_dk</item>
-        <item name="colorOnSurface">@color/white</item>
+        <item name="colorSurface">@color/fw_felwal_surface_dk</item>
+        <item name="colorOnSurface">@color/fw_white</item>
 
-        <item name="android:listDivider">@color/felwal_divider_dk</item>
+        <item name="android:listDivider">@color/fw_felwal_divider_dk</item>
     </style>
 
 </resources>

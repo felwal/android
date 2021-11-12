@@ -59,8 +59,8 @@ class AlertDialog : BaseDialog<AlertDialog.DialogListener>() {
         fun newInstance(
             title: String,
             message: String = "",
-            @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
-            @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+            @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
+            @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
             @StringRes neuBtnTxtRes: Int? = null,
             tag: String,
             passValue: String? = null
@@ -76,8 +76,8 @@ class AlertDialog : BaseDialog<AlertDialog.DialogListener>() {
 fun alertDialog(
     title: String,
     message: String = "",
-    @StringRes posBtnTxtRes: Int = R.string.dialog_btn_ok,
-    @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+    @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
+    @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
     @StringRes neuBtnTxtRes: Int? = null,
     tag: String,
     passValue: String? = null

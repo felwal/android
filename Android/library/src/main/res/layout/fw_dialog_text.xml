@@ -4,12 +4,12 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingStart="@dimen/spacing_dialog_horizontal_edittext"
-    android:paddingTop="@dimen/spacing_dialog_top"
-    android:paddingEnd="@dimen/spacing_dialog_horizontal_edittext">
+    android:paddingStart="@dimen/fw_spacing_dialog_horizontal_edittext"
+    android:paddingTop="@dimen/fw_spacing_dialog_top"
+    android:paddingEnd="@dimen/fw_spacing_dialog_horizontal_edittext">
 
     <EditText
-        android:id="@+id/et"
+        android:id="@+id/fw_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

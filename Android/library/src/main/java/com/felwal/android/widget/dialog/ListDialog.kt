@@ -3,7 +3,7 @@ package com.felwal.android.widget.dialog
 import android.os.Bundle
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
-import com.felwal.android.databinding.DialogListBinding
+import com.felwal.android.databinding.FwDialogListBinding
 import com.felwal.android.util.orEmpty
 
 private const val ARG_LABELS = "labels"
@@ -29,7 +29,7 @@ class ListDialog : SingleChoiceDialog() {
     }
 
     override fun buildDialog(): AlertDialog = builder.run {
-        val binding = DialogListBinding.inflate(inflater)
+        val binding = FwDialogListBinding.inflate(inflater)
         setView(binding.root)
 
         // title & message
@@ -37,10 +37,10 @@ class ListDialog : SingleChoiceDialog() {
         setMessageIfNonEmpty(message)
 
         // widget
-        setDividers(binding.sv, binding.vDividerTop, null)
+        setDividers(binding.fwSv, binding.fwVDividerTop, null)
 
         // items
-        setItems(labels, iconsRes, binding.ll) { index ->
+        setItems(labels, iconsRes, binding.fwLl) { index ->
             catchClassCast {
                 listener?.onSingleChoiceDialogItemSelected(index, dialogTag)
             }

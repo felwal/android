@@ -3,7 +3,7 @@ package com.felwal.android.widget.sheet
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.DrawableRes
-import com.felwal.android.databinding.SheetListBinding
+import com.felwal.android.databinding.FwSheetListBinding
 import com.felwal.android.util.orEmpty
 
 private const val ARG_LABELS = "labels"
@@ -26,13 +26,13 @@ class ListSheet : BaseSheet<ListSheet.SheetListener>() {
     }
 
     override fun buildSheet(): View {
-        val binding = SheetListBinding.inflate(inflater)
+        val binding = FwSheetListBinding.inflate(inflater)
 
         // title
         setTitleIfNonEmpty(title, binding)
 
         // items
-        setItems(labels, iconsRes, binding.ll) { selectedIndex ->
+        setItems(labels, iconsRes, binding.fwLl) { selectedIndex ->
             catchClassCast {
                 listener?.onListSheetItemClick(selectedIndex)
             }

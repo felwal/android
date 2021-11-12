@@ -7,17 +7,17 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/iv_color"
+        android:id="@+id/fw_iv_color"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginVertical="@dimen/spacing_tiny"
-        android:background="@drawable/shape_circle"
+        android:layout_marginVertical="@dimen/fw_spacing_tiny"
+        android:background="@drawable/fw_shape_circle"
         android:backgroundTint="?colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="?colorSurface"
-        tools:src="@drawable/ic_check_24" />
+        tools:src="@drawable/fw_ic_check_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,38 +4,38 @@
     <!-- spacing -->
 
     <!-- general -->
-    <dimen name="spacing_colossal">128dp</dimen>
-    <dimen name="spacing_gargantuan">64dp</dimen>
-    <dimen name="spacing_huge">48dp</dimen>
-    <dimen name="spacing_large">32dp</dimen>
-    <dimen name="spacing_medium">24dp</dimen>
-    <dimen name="spacing_small">16dp</dimen>
-    <dimen name="spacing_tiny">8dp</dimen>
-    <dimen name="spacing_diminutive">4dp</dimen>
+    <dimen name="fw_spacing_colossal">128dp</dimen>
+    <dimen name="fw_spacing_gargantuan">64dp</dimen>
+    <dimen name="fw_spacing_huge">48dp</dimen>
+    <dimen name="fw_spacing_large">32dp</dimen>
+    <dimen name="fw_spacing_medium">24dp</dimen>
+    <dimen name="fw_spacing_small">16dp</dimen>
+    <dimen name="fw_spacing_tiny">8dp</dimen>
+    <dimen name="fw_spacing_diminutive">4dp</dimen>
 
     <!-- dialog -->
-    <dimen name="spacing_dialog_top">@dimen/spacing_tiny</dimen>
-    <dimen name="spacing_dialog_horizontal">24dp</dimen>
-    <dimen name="spacing_dialog_horizontal_edittext">20dp</dimen>
-    <dimen name="spacing_dialog_horizontal_color">20dp</dimen>
-    <dimen name="spacing_sheet_horizontal">@dimen/spacing_small</dimen>
+    <dimen name="fw_spacing_dialog_top">@dimen/fw_spacing_tiny</dimen>
+    <dimen name="fw_spacing_dialog_horizontal">24dp</dimen>
+    <dimen name="fw_spacing_dialog_horizontal_edittext">20dp</dimen>
+    <dimen name="fw_spacing_dialog_horizontal_color">20dp</dimen>
+    <dimen name="fw_spacing_sheet_horizontal">@dimen/fw_spacing_small</dimen>
 
     <!-- layout -->
 
-    <dimen name="height_sheet_item">45dp</dimen>
-    <dimen name="height_sheet_peek">120dp</dimen>
-    <dimen name="height_sorter">50dp</dimen>
-    <dimen name="height_divider">1dp</dimen>
+    <dimen name="fw_height_sheet_item">45dp</dimen>
+    <dimen name="fw_height_sheet_peek">120dp</dimen>
+    <dimen name="fw_height_sorter">50dp</dimen>
+    <dimen name="fw_height_divider">1dp</dimen>
 
     <!-- corner -->
-    <dimen name="corner_radius_dialog">8dp</dimen>
+    <dimen name="fw_corner_radius_dialog">8dp</dimen>
 
     <!-- typography -->
 
     <!-- dialog -->
-    <dimen name="type_dialog_title">20sp</dimen>
-    <dimen name="type_dialog_body">16sp</dimen>
-    <dimen name="type_dialog_item">16sp</dimen>
-    <dimen name="type_sorter">14sp</dimen>
+    <dimen name="fw_type_dialog_title">20sp</dimen>
+    <dimen name="fw_type_dialog_body">16sp</dimen>
+    <dimen name="fw_type_dialog_item">16sp</dimen>
+    <dimen name="fw_type_sorter">14sp</dimen>
 
 </resources>

@@ -10,8 +10,8 @@ import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 import androidx.core.view.isGone
 import androidx.fragment.app.FragmentManager
-import com.felwal.android.databinding.ItemSheetListBinding
-import com.felwal.android.databinding.SheetListBinding
+import com.felwal.android.databinding.FwItemSheetListBinding
+import com.felwal.android.databinding.FwSheetListBinding
 import com.felwal.android.util.getDrawableCompat
 import com.felwal.android.widget.dialog.NO_RES
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -73,13 +73,13 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
 
     // tool
 
-    protected fun setTitleIfNonEmpty(title: String, binding: SheetListBinding) {
+    protected fun setTitleIfNonEmpty(title: String, binding: FwSheetListBinding) {
         if (title == "") {
-            binding.tvTitle.isGone = true
-            binding.div.isGone = true
+            binding.fwTvTitle.isGone = true
+            binding.fwVDivider.isGone = true
         }
         else {
-            binding.tvTitle.text = title
+            binding.fwTvTitle.text = title
         }
     }
 
@@ -90,21 +90,21 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
         listener: (which: Int) -> Unit
     ) {
         for ((i, label) in labels.withIndex()) {
-            val itemBinding = ItemSheetListBinding.inflate(inflater, ll, false)
+            val itemBinding = FwItemSheetListBinding.inflate(inflater, ll, false)
 
             // label
-            itemBinding.tvLabel.text = label
+            itemBinding.fwTvLabel.text = label
 
             // icon
             if (iconsRes != null && iconsRes.isNotEmpty()) {
                 val iconRes = iconsRes[i]
                 if (iconRes != NO_RES) {
                     val icon = requireContext().getDrawableCompat(iconRes)
-                    itemBinding.ivIcon.setImageDrawable(icon)
+                    itemBinding.fwIvIcon.setImageDrawable(icon)
                 }
             }
             else {
-                itemBinding.ivIcon.isGone = true
+                itemBinding.fwIvIcon.isGone = true
             }
 
             ll.addView(itemBinding.root)

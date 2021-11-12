@@ -4,36 +4,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/spacing_tiny">
+    android:paddingTop="@dimen/fw_spacing_tiny">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/sv"
+        android:id="@+id/fw_sv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fw_v_divider_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/ll"
+        <TableLayout
+            android:id="@+id/fw_tl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/fw_spacing_dialog_horizontal_color"
+            android:stretchColumns="*"
+            android:shrinkColumns="*" />
 
     </androidx.core.widget.NestedScrollView>
 
     <View
-        android:id="@+id/v_divider_top"
+        android:id="@+id/fw_v_divider_top"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_divider"
+        android:layout_height="@dimen/fw_height_divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.Felwal.Divider" />
+
+    <View
+        android:id="@+id/fw_v_divider_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fw_height_divider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         style="@style/Widget.Felwal.Divider" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

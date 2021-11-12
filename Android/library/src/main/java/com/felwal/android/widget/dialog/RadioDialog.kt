@@ -58,8 +58,8 @@ class RadioDialog : SingleChoiceDialog() {
             title: String,
             labels: List<String>,
             checkedIndex: Int,
-            @StringRes posBtnTxtRes: Int? = R.string.dialog_btn_ok,
-            @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+            @StringRes posBtnTxtRes: Int? = R.string.fw_dialog_btn_ok,
+            @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
             tag: String
         ): RadioDialog = RadioDialog().apply {
             arguments = putBaseBundle(title, "", posBtnTxtRes ?: NO_RES, negBtnTxtRes = negBtnTxtRes, tag = tag).apply {
@@ -74,7 +74,7 @@ fun radioDialog(
     title: String,
     labels: List<String>,
     checkedIndex: Int,
-    @StringRes posBtnTxtRes: Int? = R.string.dialog_btn_ok,
-    @StringRes negBtnTxtRes: Int = R.string.dialog_btn_cancel,
+    @StringRes posBtnTxtRes: Int? = R.string.fw_dialog_btn_ok,
+    @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
     tag: String
 ): RadioDialog = RadioDialog.newInstance(title, labels, checkedIndex, posBtnTxtRes, negBtnTxtRes, tag)

@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity(),
         btn("List") {
             listDialog(
                 "List dialog", "", arrayOf("Item").repeated(12),
-                intArrayOf(R.drawable.ic_check_24, R.drawable.ic_arrow_up_24, R.drawable.ic_arrow_down_24).repeated(4),
+                intArrayOf(R.drawable.fw_ic_check_24, R.drawable.fw_ic_arrow_up_24, R.drawable.fw_ic_arrow_down_24).repeated(4),
                 tag = "tag"
             )
                 .show(supportFragmentManager)
@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity(),
         btn("List") {
             listSheet(
                 "List sheet", arrayOf("Item").repeated(3),
-                intArrayOf(R.drawable.ic_check_24, R.drawable.ic_arrow_up_24, R.drawable.ic_arrow_down_24),
+                intArrayOf(R.drawable.fw_ic_check_24, R.drawable.fw_ic_arrow_up_24, R.drawable.fw_ic_arrow_down_24),
                 "tag"
             )
                 .show(supportFragmentManager)

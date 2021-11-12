@@ -17,7 +17,7 @@ import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.felwal.android.R
-import com.felwal.android.databinding.ItemDialogListBinding
+import com.felwal.android.databinding.FwItemDialogListBinding
 import com.felwal.android.util.getDrawableCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -41,8 +41,8 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     protected lateinit var message: String
     protected var dialogTag: String = "baseDialog"
 
-    @StringRes protected var posBtnTxtRes: Int = R.string.dialog_btn_ok
-    @StringRes protected var negBtnTxtRes: Int = R.string.dialog_btn_cancel
+    @StringRes protected var posBtnTxtRes: Int = R.string.fw_dialog_btn_ok
+    @StringRes protected var negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel
 
     // DialogFragment
 
@@ -140,21 +140,21 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         listener: (which: Int) -> Unit
     ) {
         for ((i, label) in labels.withIndex()) {
-            val itemBinding = ItemDialogListBinding.inflate(inflater, ll, false)
+            val itemBinding = FwItemDialogListBinding.inflate(inflater, ll, false)
 
             // label
-            itemBinding.tvLabel.text = label
+            itemBinding.fwTvLabel.text = label
 
             // icon
             if (iconsRes != null && iconsRes.isNotEmpty()) {
                 val iconRes = iconsRes[i]
                 if (iconRes != NO_RES) {
                     val icon = requireContext().getDrawableCompat(iconRes)
-                    itemBinding.ivIcon.setImageDrawable(icon)
+                    itemBinding.fwIvIcon.setImageDrawable(icon)
                 }
             }
             else {
-                itemBinding.ivIcon.isGone = true
+                itemBinding.fwIvIcon.isGone = true
             }
 
             ll.addView(itemBinding.root)
