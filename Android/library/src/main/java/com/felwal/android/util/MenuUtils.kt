@@ -2,26 +2,14 @@ package com.felwal.android.util
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-
-// lifecycle
-
-inline fun <reified A : AppCompatActivity> AppCompatActivity.launchActivity() {
-    val intent = Intent(this, A::class.java)
-    startActivity(intent)
-}
 
 // toast
 
@@ -134,9 +122,3 @@ fun Context.popup(
     setOnMenuItemClickListener(listener)
     show()
 }
-
-// coroutines
-
-suspend fun <T> withUI(block: suspend CoroutineScope.() -> T): T = withContext(Dispatchers.Main, block)
-
-suspend fun <T> withIO(block: suspend CoroutineScope.() -> T): T = withContext(Dispatchers.IO, block)
