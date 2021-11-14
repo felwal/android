@@ -25,11 +25,11 @@
         <!-- popup style -->
         <item name="popupMenuStyle">@style/Widget.Felwal.PopupMenu</item>
         <item name="android:popupMenuStyle">@style/Widget.Felwal.PopupMenu</item>
-        <item name="listPopupWindowStyle">@style/Widget.Felwal.PopupMenu</item>
-        <item name="android:listPopupWindowStyle">@style/Widget.Felwal.PopupMenu</item>
-        <item name="android:contextPopupMenuStyle">@style/Widget.Felwal.PopupMenu</item>
-        <item name="actionOverflowMenuStyle">@style/Widget.Felwal.PopupMenu</item>
-        <item name="android:actionOverflowMenuStyle">@style/Widget.Felwal.PopupMenu</item>
+        <item name="listPopupWindowStyle">@style/Widget.Felwal.PopupMenu.ListPopupWindow</item>
+        <item name="android:listPopupWindowStyle">@style/Widget.Felwal.PopupMenu.ListPopupWindow</item>
+        <item name="android:contextPopupMenuStyle">@style/Widget.Felwal.PopupMenu.ContextMenu</item>
+        <item name="actionOverflowMenuStyle">@style/Widget.Felwal.PopupMenu.Overflow</item>
+        <item name="android:actionOverflowMenuStyle">@style/Widget.Felwal.PopupMenu.Overflow</item>
 
         <!-- theme -->
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Felwal.Dialog</item>

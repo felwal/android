@@ -33,13 +33,33 @@
         <item name="android:textAppearance">@style/TextAppearance.Felwal.Dialog.Item</item>
     </style>
 
-    <!-- widget -->
+    <!-- popup menu -->
 
     <style name="Widget.Felwal.PopupMenu" parent="Widget.MaterialComponents.PopupMenu">
         <!-- a custom background is needed to avoid elevation overlay
         (or whatever it is that makes the color innaccurate) -->
         <item name="android:popupBackground">@drawable/fw_shape_popup_bg</item>
     </style>
+
+    <style name="Widget.Felwal.PopupMenu.ListPopupWindow" parent="Widget.MaterialComponents.PopupMenu.ListPopupWindow">
+        <!-- a custom background is needed to avoid elevation overlay
+        (or whatever it is that makes the color innaccurate) -->
+        <item name="android:popupBackground">@drawable/fw_shape_popup_bg</item>
+    </style>
+
+    <style name="Widget.Felwal.PopupMenu.ContextMenu" parent="Widget.MaterialComponents.PopupMenu.ContextMenu">
+        <!-- a custom background is needed to avoid elevation overlay
+        (or whatever it is that makes the color innaccurate) -->
+        <item name="android:popupBackground">@drawable/fw_shape_popup_bg</item>
+    </style>
+
+    <style name="Widget.Felwal.PopupMenu.Overflow" parent="Widget.MaterialComponents.PopupMenu.Overflow">
+        <!-- a custom background is needed to avoid elevation overlay
+        (or whatever it is that makes the color innaccurate) -->
+        <item name="android:popupBackground">@drawable/fw_shape_popup_bg</item>
+    </style>
+
+    <!-- widget -->
 
     <style name="Widget.Felwal.Divider" parent="">
         <item name="android:layout_width">match_parent</item>
