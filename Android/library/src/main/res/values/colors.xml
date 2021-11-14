@@ -4,26 +4,26 @@
     <!-- palette -->
 
     <color name="fw_black">#000000</color>
-    <color name="fw_grey1">#121212</color>
-    <color name="fw_grey2">#202124</color>
-    <color name="fw_grey3">#2F3033</color>
-    <color name="fw_grey4">#4E4F53</color>
-    <color name="fw_grey5">#DDDDDD</color>
+    <color name="fw_grey7">#121212</color>
+    <color name="fw_grey13">#202124</color>
+    <color name="fw_grey19">#2F3033</color>
+    <color name="fw_grey25">#3C4043</color>
+    <color name="fw_grey87">#DDDDDD</color>
     <color name="fw_white">#FFFFFF</color>
 
     <!-- application -->
 
     <!-- default -->
-    <color name="fw_default_background_dk">@color/fw_grey1</color>
-    <color name="fw_default_surface_dk">@color/fw_grey1</color>
+    <color name="fw_default_background_dk">@color/fw_grey7</color>
+    <color name="fw_default_surface_dk">@color/fw_grey7</color>
 
     <!-- google -->
-    <color name="fw_google_background_dk">@color/fw_grey2</color>
-    <color name="fw_google_surface_dk">@color/fw_grey3</color>
-    <color name="fw_google_divider_dk">@color/fw_grey4</color>
+    <color name="fw_google_background_dk">@color/fw_grey13</color>
+    <color name="fw_google_surface_dk">@color/fw_grey19</color>
+    <color name="fw_google_divider_dk">@color/fw_grey25</color>
     <color name="fw_google_background_lt">@color/fw_white</color>
     <color name="fw_google_surface_lt">@color/fw_white</color>
-    <color name="fw_google_divider_lt">@color/fw_grey5</color>
+    <color name="fw_google_divider_lt">@color/fw_grey87</color>
 
     <!-- felwal -->
     <color name="fw_felwal_background_dk">@color/fw_google_background_dk</color>

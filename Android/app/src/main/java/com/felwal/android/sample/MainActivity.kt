@@ -3,6 +3,7 @@ package com.felwal.android.sample
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.felwal.android.lang.Trilean
 import com.felwal.android.sample.databinding.ActivityMainBinding
 import com.felwal.android.sample.databinding.ItemMainBreakBinding
@@ -14,6 +15,7 @@ import com.felwal.android.util.repeated
 import com.felwal.android.util.snackbar
 import com.felwal.android.util.toast
 import com.felwal.android.widget.dialog.NO_RES
+import com.felwal.android.widget.dialog.SingleChoiceDialog
 import com.felwal.android.widget.dialog.alertDialog
 import com.felwal.android.widget.dialog.checkDialog
 import com.felwal.android.widget.dialog.chipDialog
@@ -29,7 +31,8 @@ import com.felwal.android.widget.sheet.Sorter
 import com.felwal.android.widget.sheet.listSheet
 
 class MainActivity : AppCompatActivity(),
-    SortSheet.SheetListener
+    SortSheet.SheetListener,
+    SingleChoiceDialog.DialogListener
 {
 
     private lateinit var binding: ActivityMainBinding
@@ -157,7 +160,7 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    // tool
+    // inflate tool
 
     private fun btn(label: String, onClick: (View) -> Unit) {
         val btnBinding = ItemMainButtonBinding.inflate(layoutInflater, binding.ll, false)
@@ -179,10 +182,22 @@ class MainActivity : AppCompatActivity(),
         binding.ll.addView(breakBinding.root)
     }
 
+    // tool
+
+    private fun updateDayNight(day: Boolean) = AppCompatDelegate.setDefaultNightMode(
+        if (day) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+    )
+
     // listener
 
     override fun onSortSheetItemClick(checkedIndex: Int) {
         sorter.select(checkedIndex)
         sorter = sorter.copy()
+
+        updateDayNight(true)
+    }
+
+    override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String) {
+        updateDayNight(selectedIndex == 1)
     }
 }

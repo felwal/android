@@ -40,7 +40,7 @@ fun Context.getStyle(@StyleRes id: Int): Int = resources.getIdentifier("CustomDi
 /**
  * Gets resource id from attribute [id].
  */
-fun Context.getIdAttr(@AttrRes id: Int): Int {
+fun Context.getResIdAttr(@AttrRes id: Int): Int {
     val attrs = intArrayOf(id)
     val typedArray = obtainStyledAttributes(attrs)
     val resId = typedArray.getResourceId(0, 0)
@@ -62,22 +62,22 @@ fun Context.getDrawableAttr(@AttrRes id: Int): Drawable? {
     return getDrawableCompat(resId)
 }
 
-fun Context.getBooleanAttr(@AttrRes id: Int): Boolean = getBoolean(getIdAttr(id))
+fun Context.getBooleanAttr(@AttrRes id: Int): Boolean = getBoolean(getResIdAttr(id))
 
-fun Context.getDimensionAttr(@AttrRes id: Int): Float = getDimension(getIdAttr(id))
+fun Context.getDimensionAttr(@AttrRes id: Int): Float = getDimension(getResIdAttr(id))
 
-fun Context.getIntegerAttr(@AttrRes id: Int): Int = getInteger(getIdAttr(id))
+fun Context.getIntegerAttr(@AttrRes id: Int): Int = getInteger(getResIdAttr(id))
 
-fun Context.getStringAttr(@AttrRes id: Int): String = getString(getIdAttr(id))
+fun Context.getStringAttr(@AttrRes id: Int): String = getString(getResIdAttr(id))
 
 fun Context.getQuantityStringAttr(@AttrRes id: Int, quantity: Int, vararg formatArgs: Any?): String =
-    getQuantityString(getIdAttr(id), quantity, formatArgs)
+    getQuantityString(getResIdAttr(id), quantity, formatArgs)
 
-fun Context.getStringArrayAttr(@AttrRes id: Int): Array<String> = getStringArray(getIdAttr(id))
+fun Context.getStringArrayAttr(@AttrRes id: Int): Array<String> = getStringArray(getResIdAttr(id))
 
-fun Context.getIntegerArrayAttr(@AttrRes id: Int): IntArray = getIntegerArray(getIdAttr(id))
+fun Context.getIntegerArrayAttr(@AttrRes id: Int): IntArray = getIntegerArray(getResIdAttr(id))
 
-fun Context.getStyleAttr(@AttrRes id: Int): Int = getStyle(getIdAttr(id))
+fun Context.getStyleAttr(@AttrRes id: Int): Int = getStyle(getResIdAttr(id))
 
 // combination
 

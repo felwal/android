@@ -52,7 +52,7 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
                 // icon
                 // for some reason tint doesn't override, so we use filter instead
                 val arrow = requireContext().getDrawableAttrFilter(
-                    if (ascending) R.attr.fw_sortSheetUpArrow else R.attr.fw_sortSheetDownArrow,
+                    if (ascending) R.attr.fw_sortSheetAscendingIcon else R.attr.fw_sortSheetDescendingIcon,
                     R.attr.fw_sortSheetHighlightColor
                 )
                 itemBinding.fwIvIcon.setImageDrawable(arrow)

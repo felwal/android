@@ -193,7 +193,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         catch (e: ClassCastException) {
             // listener was not successfully safe-casted to L.
             // all we need to do here is prevent a crash if the listener was not implemented.
-            Log.d("Dialog", "Conext was not successfully safe-casted as DialogListener")
+            Log.w("Dialog", "Conext was not successfully safe-casted as DialogListener")
         }
     }
 

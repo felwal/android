@@ -13,6 +13,7 @@
         <item name="colorOnSurface">@color/fw_white</item>
 
         <item name="android:listDivider">@color/fw_felwal_divider_dk</item>
+        <item name="strokeColor">@color/fw_felwal_divider_dk</item>
     </style>
 
 </resources>

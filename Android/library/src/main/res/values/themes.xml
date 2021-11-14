@@ -7,8 +7,8 @@
         <item name="android:navigationBarColor">?android:colorBackground</item>
 
         <!-- custom attrs -->
-        <item name="fw_sortSheetUpArrow">@drawable/fw_ic_arrow_up_24</item>
-        <item name="fw_sortSheetDownArrow">@drawable/fw_ic_arrow_down_24</item>
+        <item name="fw_sortSheetAscendingIcon">@drawable/fw_ic_arrow_up_24</item>
+        <item name="fw_sortSheetDescendingIcon">@drawable/fw_ic_arrow_down_24</item>
         <item name="fw_sortSheetHighlightColor">?colorPrimary</item>
 
         <!-- no action bar -->
@@ -38,6 +38,7 @@
         <item name="colorOnSurface">@color/fw_black</item>
 
         <item name="android:listDivider">@color/fw_felwal_divider_lt</item>
+        <item name="strokeColor">@color/fw_felwal_divider_lt</item>
     </style>
 
 </resources>
