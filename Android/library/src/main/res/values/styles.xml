@@ -38,7 +38,7 @@
     <style name="Widget.Felwal.PopupMenu" parent="Widget.MaterialComponents.PopupMenu">
         <!-- a custom background is needed to avoid elevation overlay
         (or whatever it is that makes the color innaccurate) -->
-        <item name="android:popupBackground">@drawable/fw_shape_popup_background</item>
+        <item name="android:popupBackground">@drawable/fw_shape_popup_bg</item>
     </style>
 
     <style name="Widget.Felwal.Divider" parent="">

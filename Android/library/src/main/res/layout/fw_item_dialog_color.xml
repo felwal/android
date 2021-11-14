@@ -11,7 +11,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginVertical="@dimen/fw_spacing_tiny"
-        android:background="@drawable/fw_shape_circle"
+        android:background="@drawable/fw_ripple_oval"
         android:backgroundTint="?colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
