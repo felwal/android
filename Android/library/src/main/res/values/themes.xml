@@ -22,7 +22,16 @@
         <item name="textAllCaps">false</item>
         <item name="android:textAllCaps">false</item>
 
-        <!-- theme/style -->
+        <!-- popup style -->
+        <item name="popupMenuStyle">@style/Widget.Felwal.PopupMenu</item>
+        <item name="android:popupMenuStyle">@style/Widget.Felwal.PopupMenu</item>
+        <item name="listPopupWindowStyle">@style/Widget.Felwal.PopupMenu</item>
+        <item name="android:listPopupWindowStyle">@style/Widget.Felwal.PopupMenu</item>
+        <item name="android:contextPopupMenuStyle">@style/Widget.Felwal.PopupMenu</item>
+        <item name="actionOverflowMenuStyle">@style/Widget.Felwal.PopupMenu</item>
+        <item name="android:actionOverflowMenuStyle">@style/Widget.Felwal.PopupMenu</item>
+
+        <!-- theme -->
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Felwal.Dialog</item>
     </style>
 

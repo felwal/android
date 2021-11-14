@@ -20,6 +20,8 @@
     <dimen name="fw_spacing_dialog_horizontal_color">20dp</dimen>
     <dimen name="fw_spacing_sheet_horizontal">@dimen/fw_spacing_small</dimen>
 
+    <dimen name="fw_spacing_popup_vertical">8dp</dimen>
+
     <!-- layout -->
 
     <dimen name="fw_height_sheet_item">45dp</dimen>
@@ -29,6 +31,7 @@
 
     <!-- corner -->
     <dimen name="fw_corner_radius_dialog">8dp</dimen>
+    <dimen name="fw_corner_radius_popup">4dp</dimen>
 
     <!-- typography -->
 
