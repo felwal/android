@@ -24,6 +24,7 @@ import com.felwal.android.widget.dialog.decimalDialog
 import com.felwal.android.widget.dialog.listDialog
 import com.felwal.android.widget.dialog.numberDialog
 import com.felwal.android.widget.dialog.radioDialog
+import com.felwal.android.widget.dialog.sliderDialog
 import com.felwal.android.widget.dialog.textDialog
 import com.felwal.android.widget.sheet.SortMode
 import com.felwal.android.widget.sheet.SortSheet
@@ -125,6 +126,10 @@ class MainActivity : AppCompatActivity(),
 
         sectionBreak()
 
+        btn("Slider") {
+            sliderDialog("Slider dialog", min = 0f, max = 10f, step = 1f, value = 5f, tag = "tag")
+                .show(supportFragmentManager)
+        }
         btn("Number") {
             numberDialog("Number dialog", text = 10, hint = "Hint", tag = "tag")
                 .show(supportFragmentManager)

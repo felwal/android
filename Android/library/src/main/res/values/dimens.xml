@@ -17,6 +17,7 @@
     <dimen name="fw_spacing_dialog_top">@dimen/fw_spacing_tiny</dimen>
     <dimen name="fw_spacing_dialog_horizontal">24dp</dimen>
     <dimen name="fw_spacing_dialog_horizontal_edittext">20dp</dimen>
+    <dimen name="fw_spacing_dialog_horizontal_slider">18dp</dimen>
     <dimen name="fw_spacing_dialog_horizontal_color">20dp</dimen>
     <dimen name="fw_spacing_sheet_horizontal">@dimen/fw_spacing_small</dimen>
 

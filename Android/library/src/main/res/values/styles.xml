@@ -61,6 +61,11 @@
 
     <!-- widget -->
 
+    <style name="Widget.Felwal.Slider" parent="Widget.MaterialComponents.Slider">
+        <!-- match switch halo -->
+        <item name="haloRadius">20dp</item>
+    </style>
+
     <style name="Widget.Felwal.Divider" parent="">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/fw_height_divider</item>
