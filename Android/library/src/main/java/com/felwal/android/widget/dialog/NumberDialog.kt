@@ -31,11 +31,11 @@ class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
 
     override fun buildDialog(): AlertDialog {
         val binding = FwDialogTextBinding.inflate(inflater)
-        binding.fwEt.inputType = EditorInfo.TYPE_CLASS_NUMBER
+        binding.fwTf.editText!!.inputType = EditorInfo.TYPE_CLASS_NUMBER
 
         // widget
-        binding.fwEt.hint = hint
-        if (text != NO_INT_TEXT) binding.fwEt.setText(text.toString())
+        binding.fwTf.editText!!.hint = hint
+        if (text != NO_INT_TEXT) binding.fwTf.editText!!.setText(text.toString())
 
         return builder.run {
             setView(binding.root)
@@ -47,7 +47,7 @@ class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
             // buttons
             setPositiveButton(posBtnTxtRes) { _ ->
                 try {
-                    val input = binding.fwEt.string.toInt()
+                    val input = binding.fwTf.editText!!.string.toInt()
                     catchClassCast {
                         listener?.onNumberDialogPositiveClick(input, dialogTag)
                     }

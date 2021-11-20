@@ -33,8 +33,7 @@ import com.felwal.android.widget.sheet.listSheet
 
 class MainActivity : AppCompatActivity(),
     SortSheet.SheetListener,
-    SingleChoiceDialog.DialogListener
-{
+    SingleChoiceDialog.DialogListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -139,7 +138,7 @@ class MainActivity : AppCompatActivity(),
                 .show(supportFragmentManager)
         }
         btn("Text") {
-            textDialog("Text dialog", text = "Text", hint = "Hint", tag = "tag")
+            textDialog("Text dialog", "Message", "Text", "Hint", tag = "tag")
                 .show(supportFragmentManager)
         }
 

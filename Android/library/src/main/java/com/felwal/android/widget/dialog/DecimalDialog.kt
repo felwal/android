@@ -31,11 +31,11 @@ class DecimalDialog : BaseDialog<DecimalDialog.DialogListener>() {
 
     override fun buildDialog(): AlertDialog {
         val binding = FwDialogTextBinding.inflate(inflater)
-        binding.fwEt.inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
+        binding.fwTf.editText!!.inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
 
         // widget
-        binding.fwEt.hint = hint
-        if (text != NO_FLOAT_TEXT) binding.fwEt.setText(text.toString())
+        binding.fwTf.editText!!.hint = hint
+        if (text != NO_FLOAT_TEXT) binding.fwTf.editText!!.setText(text.toString())
 
         return builder.run {
             setView(binding.root)
@@ -47,7 +47,7 @@ class DecimalDialog : BaseDialog<DecimalDialog.DialogListener>() {
             // buttons
             setPositiveButton(posBtnTxtRes) { _ ->
                 try {
-                    val input = binding.fwEt.string.toFloat()
+                    val input = binding.fwTf.editText!!.string.toFloat()
                     catchClassCast {
                         listener?.onDecimalDialogPositiveClick(input, dialogTag)
                     }

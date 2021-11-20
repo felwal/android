@@ -59,8 +59,34 @@
         <item name="android:popupBackground">@drawable/fw_shape_popup_bg</item>
     </style>
 
-    <!-- widget -->
+    <!-- textfield -->
 
+    <style name="Widget.Felwal.TextInputLayout.FilledBox.Dense" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Felwal.TextInputLayout.FilledBox.Dense</item>
+    </style>
+
+    <style name="Widget.Felwal.TextInputLayout.OutlinedBox.Dense" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Felwal.TextInputLayout.OutlinedBox.Dense</item>
+    </style>
+
+    <style name="ThemeOverlay.Felwal.TextInputLayout.FilledBox.Dense" parent="ThemeOverlay.MaterialComponents.TextInputEditText">
+        <item name="editTextStyle">@style/Widget.Felwal.TextInputLayout.FilledBox.Dense.EditText</item>
+    </style>
+
+    <style name="ThemeOverlay.Felwal.TextInputLayout.OutlinedBox.Dense" parent="ThemeOverlay.MaterialComponents.TextInputEditText">
+        <item name="editTextStyle">@style/Widget.Felwal.TextInputLayout.OutlinedBox.Dense.EditText</item>
+    </style>
+
+    <style name="Widget.Felwal.TextInputLayout.FilledBox.Dense.EditText" parent="@style/Widget.MaterialComponents.TextInputEditText.FilledBox.Dense">
+        <item name="android:paddingVertical">@dimen/fw_spacing_textfield_compact_vertical</item>
+    </style>
+
+    <style name="Widget.Felwal.TextInputLayout.OutlinedBox.Dense.EditText" parent="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
+        <item name="android:paddingVertical">@dimen/fw_spacing_textfield_compact_vertical</item>
+    </style>
+
+    <!-- widget -->
+    
     <style name="Widget.Felwal.Slider" parent="Widget.MaterialComponents.Slider">
         <!-- match switch halo -->
         <item name="haloRadius">20dp</item>

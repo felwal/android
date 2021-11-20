@@ -28,11 +28,11 @@ class TextDialog : BaseDialog<TextDialog.DialogListener>() {
 
     override fun buildDialog(): AlertDialog {
         val binding = FwDialogTextBinding.inflate(inflater)
-        binding.fwEt.inputType = EditorInfo.TYPE_CLASS_TEXT
+        binding.fwTf.editText!!.inputType = EditorInfo.TYPE_CLASS_TEXT
 
         // widget
-        binding.fwEt.setText(text)
-        binding.fwEt.hint = hint
+        binding.fwTf.editText!!.setText(text)
+        binding.fwTf.editText!!.hint = hint
 
         return builder.run {
             setView(binding.root)
@@ -43,7 +43,7 @@ class TextDialog : BaseDialog<TextDialog.DialogListener>() {
 
             // buttons
             setPositiveButton(posBtnTxtRes) { _ ->
-                val input = binding.fwEt.string.trim { it == ' ' }
+                val input = binding.fwTf.editText!!.string.trim { it == ' ' }
                 catchClassCast {
                     listener?.onTextDialogPositiveClick(input, dialogTag)
                 }
