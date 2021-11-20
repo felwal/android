@@ -6,8 +6,9 @@ import android.view.View
 import com.felwal.android.R
 import com.felwal.android.databinding.FwItemSheetListBinding
 import com.felwal.android.databinding.FwSheetListBinding
-import com.felwal.android.util.getColorAttr
-import com.felwal.android.util.getDrawableAttrFilter
+import com.felwal.android.util.getColorByAttr
+import com.felwal.android.util.getDrawableByAttr
+import com.felwal.android.util.withFilter
 
 private const val ARG_LABELS = "labels"
 private const val ARG_CHECKED_INDEX = "checkedIndex"
@@ -46,15 +47,14 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
             // style selected item
             if (i == checkedIndex) {
                 // label
-                tv.setTextColor(requireContext().getColorAttr(R.attr.fw_sortSheetHighlightColor))
+                tv.setTextColor(requireContext().getColorByAttr(R.attr.fw_sortSheetHighlightColor))
                 tv.setTypeface(null, Typeface.BOLD)
 
                 // icon
                 // for some reason tint doesn't override, so we use filter instead
-                val arrow = requireContext().getDrawableAttrFilter(
-                    if (ascending) R.attr.fw_sortSheetAscendingIcon else R.attr.fw_sortSheetDescendingIcon,
-                    R.attr.fw_sortSheetHighlightColor
-                )
+                val arrow = requireContext().getDrawableByAttr(
+                    if (ascending) R.attr.fw_sortSheetAscendingIcon else R.attr.fw_sortSheetDescendingIcon
+                )?.withFilter(requireContext().getColorByAttr(R.attr.fw_sortSheetHighlightColor))
                 itemBinding.fwIvIcon.setImageDrawable(arrow)
             }
 

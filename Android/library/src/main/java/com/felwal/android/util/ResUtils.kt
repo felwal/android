@@ -1,6 +1,7 @@
 package com.felwal.android.util
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.util.TypedValue
@@ -12,7 +13,6 @@ import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntegerRes
 import androidx.annotation.PluralsRes
-import androidx.annotation.StyleRes
 import androidx.appcompat.content.res.AppCompatResources
 
 // get res
@@ -33,15 +33,22 @@ fun Context.getStringArray(@ArrayRes id: Int): Array<String> = resources.getStri
 
 fun Context.getIntegerArray(@ArrayRes id: Int): IntArray = resources.getIntArray(id)
 
-fun Context.getStyle(@StyleRes id: Int): Int = resources.getIdentifier("CustomDigitsTheme", "style", packageName)
+fun Context.getResIdArray(@ArrayRes id: Int): IntArray {
+    val typedArray: TypedArray = resources.obtainTypedArray(id)
+    val resIds = IntArray(typedArray.length()) { i ->
+        typedArray.getResourceId(i, 0)
+    }
+    typedArray.recycle()
+    return resIds
+}
 
 // get attr res
 
 /**
- * Gets resource id from attribute [id].
+ * Gets resource id from attribute [attr].
  */
-fun Context.getResIdAttr(@AttrRes id: Int): Int {
-    val attrs = intArrayOf(id)
+fun Context.getResIdByAttr(@AttrRes attr: Int): Int {
+    val attrs = intArrayOf(attr)
     val typedArray = obtainStyledAttributes(attrs)
     val resId = typedArray.getResourceId(0, 0)
     typedArray.recycle()
@@ -49,49 +56,49 @@ fun Context.getResIdAttr(@AttrRes id: Int): Int {
 }
 
 @ColorInt
-fun Context.getColorAttr(@AttrRes id: Int): Int {
+fun Context.getColorByAttr(@AttrRes attr: Int): Int {
     val typedValue = TypedValue()
-    theme.resolveAttribute(id, typedValue, true)
+    theme.resolveAttribute(attr, typedValue, true)
     return typedValue.data
 }
 
-fun Context.getDrawableAttr(@AttrRes id: Int): Drawable? {
+fun Context.getDrawableByAttr(@AttrRes attr: Int): Drawable? {
     val typedValue = TypedValue()
-    theme.resolveAttribute(id, typedValue, true)
+    theme.resolveAttribute(attr, typedValue, true)
     val resId = typedValue.resourceId
     return getDrawableCompat(resId)
 }
 
-fun Context.getBooleanAttr(@AttrRes id: Int): Boolean = getBoolean(getResIdAttr(id))
+fun Context.getBooleanByAttr(@AttrRes attr: Int): Boolean = getBoolean(getResIdByAttr(attr))
 
-fun Context.getDimensionAttr(@AttrRes id: Int): Float = getDimension(getResIdAttr(id))
+fun Context.getDimensionByAttr(@AttrRes attr: Int): Float = getDimension(getResIdByAttr(attr))
 
-fun Context.getIntegerAttr(@AttrRes id: Int): Int = getInteger(getResIdAttr(id))
+fun Context.getIntegerByAttr(@AttrRes attr: Int): Int = getInteger(getResIdByAttr(attr))
 
-fun Context.getStringAttr(@AttrRes id: Int): String = getString(getResIdAttr(id))
+fun Context.getStringByAttr(@AttrRes attr: Int): String = getString(getResIdByAttr(attr))
 
-fun Context.getQuantityStringAttr(@AttrRes id: Int, quantity: Int, vararg formatArgs: Any?): String =
-    getQuantityString(getResIdAttr(id), quantity, formatArgs)
+fun Context.getQuantityStringByAttr(@AttrRes attr: Int, quantity: Int, vararg formatArgs: Any?): String =
+    getQuantityString(getResIdByAttr(attr), quantity, formatArgs)
 
-fun Context.getStringArrayAttr(@AttrRes id: Int): Array<String> = getStringArray(getResIdAttr(id))
+fun Context.getStringArrayByAttr(@AttrRes attr: Int): Array<String> = getStringArray(getResIdByAttr(attr))
 
-fun Context.getIntegerArrayAttr(@AttrRes id: Int): IntArray = getIntegerArray(getResIdAttr(id))
+fun Context.getIntegerArrayByAttr(@AttrRes attr: Int): IntArray = getIntegerArray(getResIdByAttr(attr))
 
-fun Context.getStyleAttr(@AttrRes id: Int): Int = getStyle(getResIdAttr(id))
+fun Context.getResIdArrayByAttr(@AttrRes attr: Int): IntArray = getResIdArray(getResIdByAttr(attr))
 
 // combination
 
-fun Context.getDrawableCompat(@DrawableRes id: Int, @AttrRes colorId: Int): Drawable? =
-    getDrawableCompat(id)?.withTint(getColorAttr(colorId))
+fun Context.getDrawableCompatWithTint(@DrawableRes id: Int, @AttrRes colorAttr: Int): Drawable? =
+    getDrawableCompat(id)?.withTint(getColorByAttr(colorAttr))
 
-fun Context.getDrawableAttr(@AttrRes id: Int, @AttrRes colorId: Int): Drawable? =
-    getDrawableAttr(id)?.withTint(getColorAttr(colorId))
+fun Context.getDrawableCompatWithFilter(@DrawableRes id: Int, @AttrRes colorId: Int): Drawable? =
+    getDrawableCompat(id)?.withFilter(getColorByAttr(colorId))
 
-fun Context.getDrawableCompatFilter(@DrawableRes id: Int, @AttrRes colorId: Int): Drawable? =
-    getDrawableCompat(id)?.withFilter(getColorAttr(colorId))
+fun Context.getDrawableByAttrWithTint(@AttrRes id: Int, @AttrRes colorAttr: Int): Drawable? =
+    getDrawableByAttr(id)?.withTint(getColorByAttr(colorAttr))
 
-fun Context.getDrawableAttrFilter(@AttrRes id: Int, @AttrRes colorId: Int): Drawable? =
-    getDrawableAttr(id)?.withFilter(getColorAttr(colorId))
+fun Context.getDrawableByAttrWithFilter(@AttrRes id: Int, @AttrRes colorId: Int): Drawable? =
+    getDrawableByAttr(id)?.withFilter(getColorByAttr(colorId))
 
 // drawable
 

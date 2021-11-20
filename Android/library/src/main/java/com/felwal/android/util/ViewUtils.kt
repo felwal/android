@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.view.menu.MenuBuilder
@@ -59,6 +60,8 @@ fun Menu.setOptionalIconsVisible(visible: Boolean) = (this as? MenuBuilder)?.set
 
 val MenuItem.searchView get() = actionView as SearchView
 
+val SearchView.closeIcon: ImageView get() = findViewById(androidx.appcompat.R.id.search_close_btn)
+
 // edittext
 
 val EditText.string: String get() = text.toString()
@@ -97,13 +100,11 @@ fun EditText.makeMultilinePreventEnter() = apply {
 
 fun Layout.getStartOfLine(index: Int): Int = getLineStart(getLineForOffset(index))
 
-fun View.enableRipple(c: Context) {
-    val attrs = intArrayOf(R.attr.selectableItemBackground)
-    val typedArray = c.obtainStyledAttributes(attrs)
-    val backgroundResource = typedArray.getResourceId(0, 0)
-    setBackgroundResource(backgroundResource)
-    typedArray.recycle()
-}
+fun View.enableRipple() =
+    setBackgroundResource(context.getResIdByAttr(R.attr.selectableItemBackground))
+
+fun View.enableActionItemRipple() =
+    setBackgroundResource(context.getResIdByAttr(android.R.attr.actionBarItemBackground))
 
 // anim
 
