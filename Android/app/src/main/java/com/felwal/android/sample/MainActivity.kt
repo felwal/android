@@ -10,6 +10,7 @@ import com.felwal.android.sample.databinding.ItemMainBreakBinding
 import com.felwal.android.sample.databinding.ItemMainButtonBinding
 import com.felwal.android.sample.databinding.ItemMainHeaderBinding
 import com.felwal.android.util.getColorByAttr
+import com.felwal.android.util.multiplyAlphaComponent
 import com.felwal.android.util.popup
 import com.felwal.android.util.repeated
 import com.felwal.android.util.snackbar
@@ -107,7 +108,10 @@ class MainActivity : AppCompatActivity(),
         btn("Color") {
             colorDialog(
                 "Color dialog",
-                mutableListOf(getColorByAttr(android.R.attr.listDivider)).repeated(20).toIntArray(), 0, tag = "tag"
+                mutableListOf(
+                    getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f)
+                ).repeated(20).toIntArray(),
+                0, tag = "tag"
             )
                 .show(supportFragmentManager)
         }

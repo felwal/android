@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isGone
@@ -58,7 +59,7 @@ fun View.snackbar(text: String, long: Boolean = true, actionText: String = "", a
 @SuppressLint("RestrictedApi")
 fun Menu.setOptionalIconsVisible(visible: Boolean) = (this as? MenuBuilder)?.setOptionalIconsVisible(visible)
 
-val MenuItem.searchView get() = actionView as SearchView
+val MenuItem.searchView: SearchView get() = actionView as SearchView
 
 val SearchView.closeIcon: ImageView get() = findViewById(androidx.appcompat.R.id.search_close_btn)
 

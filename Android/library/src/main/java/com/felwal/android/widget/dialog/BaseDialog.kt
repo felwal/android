@@ -7,12 +7,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -52,7 +55,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
         unpackBundle(unpackBaseBundle())
 
-        return buildDialog()
+        return buildDialog().also { styleDialog(it) }
     }
 
     override fun onAttach(c: Context) {
@@ -91,6 +94,16 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     // build
 
     protected abstract fun buildDialog(): AlertDialog
+
+    private fun styleDialog(dialog: AlertDialog) {
+        // the content panel, which contains the message tv, has a minHeight of 48dp by default,
+        // which gives nice spacing between it and the dialog buttons.
+        // however, when the dialog contains a custom view,
+        // it creates a big ugly gap between the message and the custom panel.
+        if (dialog.customPanel?.isVisible == true) {
+            dialog.contentPanel?.minimumHeight = 0
+        }
+    }
 
     fun show(fm: FragmentManager) {
         if (!isAdded) super.show(fm, dialogTag)
@@ -213,3 +226,19 @@ abstract class MultiChoiceDialog : BaseDialog<MultiChoiceDialog.DialogListener>(
         fun onMultiChoiceDialogItemsSelected(itemStates: BooleanArray, tag: String)
     }
 }
+
+val AlertDialog.titleTextView: TextView? get() =
+    context.resources.getIdentifier("alertTitle", "id", context.packageName)
+        .takeIf { it > 0 }
+        ?.let { titleId -> findViewById(titleId) }
+
+val AlertDialog.titleTextViewAndroid: TextView? get() =
+    context.resources.getIdentifier("alertTitle", "id", "android")
+        .takeIf { it > 0 }
+        ?.let { titleId -> findViewById(titleId) }
+
+val AlertDialog.messageTextView: TextView? get() = findViewById(android.R.id.message)
+
+val AlertDialog.customPanel: FrameLayout? get() = findViewById(R.id.customPanel)
+
+val AlertDialog.contentPanel: FrameLayout? get() = findViewById(R.id.contentPanel)

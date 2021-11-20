@@ -2,8 +2,13 @@ package com.felwal.android.widget.dialog
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.marginBottom
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import com.felwal.android.R
 import com.felwal.android.databinding.FwDialogTextBinding
 import com.felwal.android.util.string
