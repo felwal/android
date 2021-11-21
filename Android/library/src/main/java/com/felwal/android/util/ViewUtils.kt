@@ -107,6 +107,10 @@ fun View.enableRipple() =
 fun View.enableActionItemRipple() =
     setBackgroundResource(context.getResIdByAttr(android.R.attr.actionBarItemBackground))
 
+fun View.canScrollUp() = canScrollVertically(-1)
+
+fun View.canScrollDown() = canScrollVertically(1)
+
 // anim
 
 fun View.crossfadeIn(toAlpha: Float) {

@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/fw_iv_color"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="@dimen/fw_diameter_color"
+        android:layout_height="@dimen/fw_diameter_color"
         android:layout_marginVertical="@dimen/fw_spacing_tiny"
         android:background="@drawable/fw_ripple_oval"
         android:backgroundTint="?colorAccent"

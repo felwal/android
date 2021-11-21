@@ -16,11 +16,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.felwal.android.R
 import com.felwal.android.databinding.FwItemDialogListBinding
+import com.felwal.android.util.canScrollDown
+import com.felwal.android.util.canScrollUp
 import com.felwal.android.util.getDrawableCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -179,24 +180,24 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         }
     }
 
-    protected fun setDividers(sv: NestedScrollView, vDividerTop: View?, vDividerBottom: View?) {
+    protected fun setDividers(vList: View, vDividerTop: View?, vDividerBottom: View?) {
         // default visibility
-        updateDividers(sv, vDividerTop, vDividerBottom)
+        updateDividers(vList, vDividerTop, vDividerBottom)
 
         // on scroll visibility
-        sv.setOnScrollChangeListener { _, _, _, _, _ ->
-            updateDividers(sv, vDividerTop, vDividerBottom)
+        vList.setOnScrollChangeListener { _, _, _, _, _ ->
+            updateDividers(vList, vDividerTop, vDividerBottom)
         }
 
         // on layout size change visibility (includes orientation change)
-        sv.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            updateDividers(sv, vDividerTop, vDividerBottom)
+        vList.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            updateDividers(vList, vDividerTop, vDividerBottom)
         }
     }
 
-    private fun updateDividers(sv: NestedScrollView, vDividerTop: View?, vDividerBottom: View?) {
-        vDividerTop?.isInvisible = !sv.canScrollVertically(-1)
-        vDividerBottom?.isInvisible = !sv.canScrollVertically(1)
+    private fun updateDividers(vList: View, vDividerTop: View?, vDividerBottom: View?) {
+        vDividerTop?.isInvisible = !vList.canScrollUp()
+        vDividerBottom?.isInvisible = !vList.canScrollDown()
     }
 
     protected fun catchClassCast(action: () -> Unit) {

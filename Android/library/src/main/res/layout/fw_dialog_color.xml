@@ -6,26 +6,23 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/fw_spacing_tiny">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/fw_sv"
+    <GridView
+        android:id="@+id/fw_gv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
+        android:columnWidth="@dimen/fw_diameter_color"
+        android:horizontalSpacing="@dimen/fw_spacing_dialog_horizontal_color"
+        android:verticalSpacing="@dimen/fw_spacing_dialog_vertical_color"
+        android:numColumns="auto_fit"
+        android:stretchMode="spacingWidth"
+        android:paddingHorizontal="@dimen/fw_spacing_dialog_horizontal"
+        android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay"
         app:layout_constraintBottom_toTopOf="@+id/fw_v_divider_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TableLayout
-            android:id="@+id/fw_tl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/fw_spacing_dialog_horizontal_color"
-            android:stretchColumns="*"
-            android:shrinkColumns="*" />
-
-    </androidx.core.widget.NestedScrollView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/fw_v_divider_top"

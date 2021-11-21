@@ -1,7 +1,10 @@
 package com.felwal.android.widget.dialog
 
 import android.os.Bundle
-import android.widget.TableRow
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
@@ -10,14 +13,10 @@ import com.felwal.android.databinding.FwDialogColorBinding
 import com.felwal.android.databinding.FwItemDialogColorBinding
 import com.felwal.android.util.backgroundTint
 import com.felwal.android.util.getDrawableCompatWithTint
-import com.felwal.android.util.isPortrait
 import com.felwal.android.util.orEmpty
 
 private const val ARG_COLORS = "colors"
 private const val ARG_CHECKED_INDEX = "checkedIndex"
-
-private const val COLUMN_COUNT_PORTRAIT = 4
-private const val COLUMN_COUNT_LANDSCAPE = 5
 
 class ColorDialog : SingleChoiceDialog() {
 
@@ -42,37 +41,37 @@ class ColorDialog : SingleChoiceDialog() {
         setTitleIfNonEmpty(title)
 
         // widget
-        setDividers(binding.fwSv, binding.fwVDividerTop, binding.fwVDividerBottom)
+        setDividers(binding.fwGv, binding.fwVDividerTop, binding.fwVDividerBottom)
 
         // items
-        var tr = TableRow(binding.fwTl.context)
-        binding.fwTl.addView(tr)
-        val columnCount = if (context.isPortrait) COLUMN_COUNT_PORTRAIT else COLUMN_COUNT_LANDSCAPE
-        for ((i, color) in colors.withIndex()) {
-            // inflate row
-            if (i != 0 && i % columnCount == 0) {
-                tr = TableRow(context)
-                binding.fwTl.addView(tr)
-            }
+        binding.fwGv.adapter = object : ArrayAdapter<Int>(requireContext(), 0, colors.toList()) {
 
-            // inflate item
-            val itemBinding = FwItemDialogColorBinding.inflate(inflater, tr, false)
-            itemBinding.fwIvColor.backgroundTint = color
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                // find views
+                val clItem = convertView
+                    ?: FwItemDialogColorBinding.inflate(layoutInflater, binding.fwGv, false).root
+                val ivColor = clItem.findViewById<ImageView>(R.id.fw_iv_color)
 
-            // set checked drawable
-            if (i == checkedIndex) {
-                val icon = context.getDrawableCompatWithTint(R.drawable.fw_ic_check_24, R.attr.colorSurface)
-                itemBinding.fwIvColor.setImageDrawable(icon)
-            }
+                // set color
+                ivColor.backgroundTint = getItem(position)
 
-            itemBinding.fwIvColor.setOnClickListener {
-                catchClassCast {
-                    listener?.onSingleChoiceDialogItemSelected(i, dialogTag)
+                // set checked drawable
+                if (position == checkedIndex) {
+                    val icon = context.getDrawableCompatWithTint(R.drawable.fw_ic_check_24, R.attr.colorSurface)
+                    ivColor.setImageDrawable(icon)
                 }
-                dialog?.cancel()
-            }
+                else ivColor.setImageDrawable(null)
 
-            tr.addView(itemBinding.root)
+                // set listener
+                ivColor.setOnClickListener {
+                    catchClassCast {
+                        listener?.onSingleChoiceDialogItemSelected(position, dialogTag)
+                    }
+                    dialog?.cancel()
+                }
+
+                return clItem
+            }
         }
 
         // button
