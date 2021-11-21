@@ -10,6 +10,7 @@ import com.felwal.android.sample.databinding.ItemMainBreakBinding
 import com.felwal.android.sample.databinding.ItemMainButtonBinding
 import com.felwal.android.sample.databinding.ItemMainHeaderBinding
 import com.felwal.android.util.getColorByAttr
+import com.felwal.android.util.getDrawableCompatWithTint
 import com.felwal.android.util.multiplyAlphaComponent
 import com.felwal.android.util.popup
 import com.felwal.android.util.repeated
@@ -182,6 +183,8 @@ class MainActivity : AppCompatActivity(),
         val tvBinding = ItemMainHeaderBinding.inflate(layoutInflater, binding.ll, false)
 
         tvBinding.tv.text = title
+        //tvBinding.iv.setImageDrawable(getDrawableCompatWithTint(R.drawable.fw_ic_check_24, R.attr.colorControlNormal))
+
         binding.ll.addView(tvBinding.root)
     }
 

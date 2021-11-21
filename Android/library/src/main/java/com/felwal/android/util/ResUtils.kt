@@ -14,6 +14,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IntegerRes
 import androidx.annotation.PluralsRes
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 
 // get res
 
@@ -53,21 +54,17 @@ fun Context.getResIdByAttr(@AttrRes attr: Int): Int {
     val resId = typedArray.getResourceId(0, 0)
     typedArray.recycle()
     return resId
+
+    // a different method, not sure if one is better than the other
+    /*val typedValue = TypedValue()
+    theme.resolveAttribute(attr, typedValue, true)
+    return = typedValue.resourceId*/
 }
 
 @ColorInt
-fun Context.getColorByAttr(@AttrRes attr: Int): Int {
-    val typedValue = TypedValue()
-    theme.resolveAttribute(attr, typedValue, true)
-    return typedValue.data
-}
+fun Context.getColorByAttr(@AttrRes attr: Int): Int = getColor(getResIdByAttr(attr))
 
-fun Context.getDrawableByAttr(@AttrRes attr: Int): Drawable? {
-    val typedValue = TypedValue()
-    theme.resolveAttribute(attr, typedValue, true)
-    val resId = typedValue.resourceId
-    return getDrawableCompat(resId)
-}
+fun Context.getDrawableByAttr(@AttrRes attr: Int): Drawable? = getDrawableCompat(getResIdByAttr(attr))
 
 fun Context.getBooleanByAttr(@AttrRes attr: Int): Boolean = getBoolean(getResIdByAttr(attr))
 

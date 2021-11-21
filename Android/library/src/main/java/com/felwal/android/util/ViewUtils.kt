@@ -17,7 +17,10 @@ import androidx.annotation.ColorInt
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isGone
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.felwal.android.R
 import com.google.android.material.snackbar.Snackbar
 
@@ -110,6 +113,25 @@ fun View.enableActionItemRipple() =
 fun View.canScrollUp() = canScrollVertically(-1)
 
 fun View.canScrollDown() = canScrollVertically(1)
+
+fun <T, VH : RecyclerView.ViewHolder> ListAdapter<T, VH>.submitListKeepScroll(
+    list: List<T>,
+    manager: RecyclerView.LayoutManager?,
+    commitCallback: (() -> Unit)? = null
+) {
+    //  save state
+    val recyclerViewState = manager?.onSaveInstanceState()
+
+    // submit items
+    submitList(list) {
+        // restore state
+        recyclerViewState?.let {
+            manager.onRestoreInstanceState(it)
+        }
+
+        commitCallback?.invoke()
+    }
+}
 
 // anim
 
