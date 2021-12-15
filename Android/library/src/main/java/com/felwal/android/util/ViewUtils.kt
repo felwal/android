@@ -3,13 +3,18 @@ package com.felwal.android.util
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.Layout
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
+import android.view.ViewPropertyAnimator
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,12 +24,13 @@ import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.felwal.android.R
 import com.google.android.material.snackbar.Snackbar
 
-const val ANIM_DURATION = 100
+const val ANIM_DURATION = 100L
 
 // visibility
 
@@ -133,26 +139,67 @@ fun <T, VH : RecyclerView.ViewHolder> ListAdapter<T, VH>.submitListKeepScroll(
     }
 }
 
-// anim
-
-fun View.crossfadeIn(toAlpha: Float) {
-    alpha = 0f
-    visibility = View.VISIBLE
-    animate()
-        .alpha(toAlpha)
-        .setDuration(ANIM_DURATION.toLong())
-        .setListener(null)
+fun View.getActivity(): Activity? {
+    var c = context
+    while (c is ContextWrapper) {
+        if (c is Activity)  return c
+        c = c.baseContext
+    }
+    return null
 }
 
-fun View.crossfadeIn() = crossfadeIn(1f)
+fun View.getChildAt(index: Int): View? = (this as? ViewGroup)?.getChildAt(index)
 
-fun View.crossfadeOut() {
-    animate()
-        .alpha(0f)
-        .setDuration(ANIM_DURATION.toLong())
-        .setListener(object : AnimatorListenerAdapter() {
+val Activity.contentView: View? get() = window.decorView.rootView.rootView
+    .getChildAt(0)
+    ?.getChildAt(1)
+    ?.getChildAt(0)
+    ?.getChildAt(1)
+    ?.getChildAt(0)
+
+val Context.layoutInflater: LayoutInflater get() = LayoutInflater.from(this)
+
+// anim
+
+fun View.crossfadeIn(
+    duration: Long,
+    toAlpha: Float = 1f,
+    listener: ((Animator?) -> Unit)? = null
+): ViewPropertyAnimator {
+    alpha = 0f
+    isVisible = true
+    return animate().apply {
+        alpha(toAlpha)
+        setDuration(duration)
+        setListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
-                visibility = View.GONE
+                listener?.invoke(animation)
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+                listener?.invoke(animation)
             }
         })
+        start()
+    }
+}
+
+fun View.crossfadeOut(
+    duration: Long,
+    listener: ((Animator?) -> Unit)? = null
+): ViewPropertyAnimator = animate().apply {
+    alpha(0f)
+    setDuration(duration)
+    setListener(object : AnimatorListenerAdapter() {
+        override fun onAnimationEnd(animation: Animator) {
+            isVisible = false
+            listener?.invoke(animation)
+        }
+
+        override fun onAnimationCancel(animation: Animator?) {
+            isVisible = false
+            listener?.invoke(animation)
+        }
+    })
+    start()
 }

@@ -30,6 +30,7 @@
 
     <!-- layout -->
 
+    <dimen name="fw_height_dialog_item">45dp</dimen>
     <dimen name="fw_height_sheet_item">45dp</dimen>
     <dimen name="fw_height_sheet_peek">120dp</dimen>
     <dimen name="fw_height_sorter">50dp</dimen>
@@ -48,5 +49,12 @@
     <dimen name="fw_type_dialog_body">16sp</dimen>
     <dimen name="fw_type_dialog_item">16sp</dimen>
     <dimen name="fw_type_sorter">14sp</dimen>
+
+    <dimen name="fw_spacing_fab">@dimen/fw_spacing_small</dimen>
+    <dimen name="fw_elev_fab">6dp</dimen>
+    <dimen name="fw_elev_fam_overlay">9dp</dimen>
+    <dimen name="fw_elev_fam">10dp</dimen>
+    <dimen name="fw_diameter_fab_mini_container">48dp</dimen>
+    <dimen name="fw_elev_fab_pressed_overlay">15dp</dimen>
 
 </resources>

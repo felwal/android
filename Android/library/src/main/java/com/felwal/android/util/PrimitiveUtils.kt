@@ -1,12 +1,9 @@
 package com.felwal.android.util
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
-import android.content.res.TypedArray
 import android.graphics.Color
 import android.util.TypedValue
-import androidx.annotation.ArrayRes
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 import kotlin.math.round

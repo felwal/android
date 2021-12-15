@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/fw_spacing_tiny"
+    android:paddingBottom="@dimen/fw_spacing_fab"
+    android:paddingStart="@dimen/fw_spacing_small"
+    android:paddingEnd="@dimen/fw_spacing_fab"
+    android:layout_gravity="bottom|end"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:theme="?fw_floatingActionMenuTheme">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fw_spacing_diminutive"
+        android:layout_gravity="end|bottom"
+        android:clipToPadding="false"
+        android:clipChildren="false">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fw_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            app:backgroundTint="?fw_closedFabColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="?fw_closedIconSrc"
+            app:tint="?fw_closedIconTint"
+            tools:elevation="@dimen/fw_elev_fab"
+            style="?fw_mainFabStyle" />
+
+        <ImageView
+            android:id="@+id/fw_iv_fab_closed_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/fw_elev_fab_pressed_overlay"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="?fw_closedIconSrc"
+            app:tint="?fw_closedIconTint"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/fw_iv_fab_opened_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/fw_elev_fab_pressed_overlay"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="?fw_openedIconSrc"
+            app:tint="?fw_openedIconTint"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

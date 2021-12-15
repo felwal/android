@@ -10,7 +10,7 @@ import com.felwal.android.sample.databinding.ItemMainBreakBinding
 import com.felwal.android.sample.databinding.ItemMainButtonBinding
 import com.felwal.android.sample.databinding.ItemMainHeaderBinding
 import com.felwal.android.util.getColorByAttr
-import com.felwal.android.util.getDrawableCompatWithTint
+import com.felwal.android.util.getDrawableCompat
 import com.felwal.android.util.multiplyAlphaComponent
 import com.felwal.android.util.popup
 import com.felwal.android.util.repeated
@@ -33,7 +33,8 @@ import com.felwal.android.widget.sheet.SortSheet
 import com.felwal.android.widget.sheet.Sorter
 import com.felwal.android.widget.sheet.listSheet
 
-class MainActivity : AppCompatActivity(),
+class MainActivity :
+    AppCompatActivity(),
     SortSheet.SheetListener,
     SingleChoiceDialog.DialogListener {
 
@@ -49,8 +50,29 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.fam.onSetContentView()
 
+        initFam()
         inflateItems()
+    }
+
+    private fun initFam() {
+        // fam
+        binding.fam.apply {
+            addItem("Item", getDrawableCompat(R.drawable.fw_ic_check_24)) {
+                snackbar("item clicked")
+                closeMenu()
+            }
+            addItem("Item", getDrawableCompat(R.drawable.fw_ic_arrow_up_24)) {
+                snackbar("item clicked")
+                closeMenu()
+            }
+            addItem("Item", getDrawableCompat(R.drawable.fw_ic_arrow_down_24)) {
+                snackbar("item clicked")
+                closeMenu()
+            }
+        }
+        binding.fam.setAutoUpdateVisibilityOnScroll(binding.sv)
     }
 
     private fun inflateItems() {

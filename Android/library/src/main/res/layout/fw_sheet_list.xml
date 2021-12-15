@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorSurface"
+    android:background="?colorSurface"
     app:behavior_hideable="false"
     app:behavior_peekHeight="@dimen/fw_height_sheet_peek"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">

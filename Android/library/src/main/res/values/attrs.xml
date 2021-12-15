@@ -7,4 +7,31 @@
 
     <attr name="fw_dialogTextFieldStyle" format="reference" />
 
+    <attr name="fw_floatingActionMenuTheme" format="reference" />
+
+    <declare-styleable name="FloatingActionMenu">
+        <attr name="fw_mainFabStyle" format="reference" />
+        <attr name="fw_miniFabStyle" format="reference" />
+
+        <attr name="fw_closedFabColor" format="color|reference" />
+        <attr name="fw_openedFabColor" format="color|reference" />
+        <attr name="fw_miniFabColor" format="color|reference" />
+
+        <attr name="fw_closedIconTint" format="color|reference" />
+        <attr name="fw_openedIconTint" format="color|reference" />
+        <attr name="fw_miniIconTint" format="color|reference" />
+
+        <attr name="fw_closedIconSrc" format="reference" />
+        <attr name="fw_openedIconSrc" format="reference" />
+
+        <attr name="fw_overlayAlpha" format="float|reference" />
+        <attr name="fw_overlayElevation" format="dimension|reference" />
+
+        <attr name="fw_animDuration" format="integer|reference" />
+        <attr name="fw_animRotation" format="float|reference" />
+
+        <attr name="fw_textAppearance" format="reference" />
+        <attr name="fw_firstMenuItemAsMainFab" format="boolean|reference" />
+    </declare-styleable>
+
 </resources>

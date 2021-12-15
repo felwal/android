@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="none">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/ll"
+    <ScrollView
+        android:id="@+id/sv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/fw_spacing_small"
-        android:orientation="vertical"
-        tools:context="com.felwal.android.sample.MainActivity" />
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</ScrollView>
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/fw_spacing_small"
+            android:orientation="vertical"
+            tools:context="com.felwal.android.sample.MainActivity" />
+
+    </ScrollView>
+
+    <com.felwal.android.widget.FloatingActionMenu
+        android:id="@+id/fam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="?fw_floatingActionMenuTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    
+</androidx.constraintlayout.widget.ConstraintLayout>
