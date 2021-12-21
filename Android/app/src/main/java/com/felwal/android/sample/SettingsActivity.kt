@@ -9,7 +9,7 @@ import com.felwal.android.widget.dialog.DecimalDialog
 import com.felwal.android.widget.dialog.SingleChoiceDialog
 import com.felwal.android.widget.dialog.TextDialog
 
-open class SettingsActivity :
+class SettingsActivity :
     AbsSettingsActivity(dividerMode = DividerMode.AFTER_SECTION, indentEverything = true),
     SingleChoiceDialog.DialogListener,
     TextDialog.DialogListener,

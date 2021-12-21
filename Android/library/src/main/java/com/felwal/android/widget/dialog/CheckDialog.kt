@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.R
-import com.felwal.android.util.asIndicesOfTrueBooleans
+import com.felwal.android.util.asIndicesOfTruths
 import com.felwal.android.util.firsts
 import com.felwal.android.util.orEmpty
 import com.felwal.android.util.seconds
@@ -77,7 +77,7 @@ class CheckDialog : MultiChoiceDialog() {
             tag: String
         ): CheckDialog = newInstance(
             title,
-            labels, checkedIndices.asIndicesOfTrueBooleans(labels.size),
+            labels, checkedIndices.asIndicesOfTruths(labels.size),
             posBtnTxtRes, negBtnTxtRes, tag
         )
 

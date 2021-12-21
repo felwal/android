@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewPropertyAnimator
 import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.felwal.android.R
@@ -24,9 +25,12 @@ import com.felwal.android.util.crossfadeIn
 import com.felwal.android.util.crossfadeOut
 import com.felwal.android.util.getActivity
 import com.felwal.android.util.getColorByAttr
+import com.felwal.android.util.getDrawableByAttrWithFilter
 import com.felwal.android.util.getDrawableCompat
+import com.felwal.android.util.getDrawableCompatWithFilter
 import com.felwal.android.util.layoutInflater
 import com.felwal.android.util.w
+import com.felwal.android.util.withFilter
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -141,6 +145,7 @@ class FloatingActionMenu(context: Context, attrs: AttributeSet) : ConstraintLayo
 
     /**
      * Only use this if [View.setOnScrollChangeListener] is not called somewhere else.
+     * Otherwise use [updateVisibilityOnScroll].
      */
     fun setAutoUpdateVisibilityOnScroll(scrollingContainer: View) =
         scrollingContainer.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
@@ -154,13 +159,15 @@ class FloatingActionMenu(context: Context, attrs: AttributeSet) : ConstraintLayo
         else if (fab.isOrWillBeHidden && dy < 0) fab.show()
     }
 
-    fun addItem(title: String, icon: Drawable?, onClick: (View) -> Unit) {
+    fun addItem(title: String, @DrawableRes iconRes: Int, onClick: (View) -> Unit) {
         val itemBinding = FwItemFloatingactionmenuMiniBinding.inflate(inflater, binding.root, false)
         // neccessary for getting the right index
         binding.root.addView(itemBinding.root, 0)
 
         itemBinding.tvMenuItemTitle.text = title
-        itemBinding.fabMenuItem.setImageDrawable(icon)
+        context.getDrawableCompat(iconRes)?.withFilter(miniIconTint)?.let {
+            itemBinding.fabMenuItem.setImageDrawable(it)
+        }
         itemBinding.fabMenuItem.setOnClickListener(onClick)
 
         itemBindings.add(itemBinding)

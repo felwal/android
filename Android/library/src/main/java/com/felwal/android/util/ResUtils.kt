@@ -2,9 +2,11 @@ package com.felwal.android.util
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.PorterDuff
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.util.TypedValue
 import androidx.annotation.ArrayRes
 import androidx.annotation.AttrRes
 import androidx.annotation.BoolRes
@@ -14,7 +16,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IntegerRes
 import androidx.annotation.PluralsRes
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
 
 // get res
 
@@ -88,17 +89,36 @@ fun Context.getResIdArrayByAttr(@AttrRes attr: Int): IntArray = getResIdArray(ge
 fun Context.getDrawableCompatWithTint(@DrawableRes id: Int, @AttrRes colorAttr: Int): Drawable? =
     getDrawableCompat(id)?.withTint(getColorByAttr(colorAttr))
 
-fun Context.getDrawableCompatWithFilter(@DrawableRes id: Int, @AttrRes colorId: Int): Drawable? =
-    getDrawableCompat(id)?.withFilter(getColorByAttr(colorId))
+fun Context.getDrawableCompatWithFilter(@DrawableRes id: Int, @AttrRes colorAttr: Int): Drawable? =
+    getDrawableCompat(id)?.withFilter(getColorByAttr(colorAttr))
 
 fun Context.getDrawableByAttrWithTint(@AttrRes id: Int, @AttrRes colorAttr: Int): Drawable? =
     getDrawableByAttr(id)?.withTint(getColorByAttr(colorAttr))
 
-fun Context.getDrawableByAttrWithFilter(@AttrRes id: Int, @AttrRes colorId: Int): Drawable? =
-    getDrawableByAttr(id)?.withFilter(getColorByAttr(colorId))
+fun Context.getDrawableByAttrWithFilter(@AttrRes id: Int, @AttrRes colorAttr: Int): Drawable? =
+    getDrawableByAttr(id)?.withFilter(getColorByAttr(colorAttr))
 
 // drawable
 
 fun Drawable.withTint(@ColorInt tint: Int): Drawable = mutate().also { setTint(tint) }
 
 fun Drawable.withFilter(@ColorInt tint: Int): Drawable = mutate().also { setColorFilter(tint, PorterDuff.Mode.SRC_IN) }
+
+fun Drawable.toBitmap(): Bitmap? {
+    (this as? BitmapDrawable)?.bitmap?.let { return it }
+
+    val bitmap =
+        if (intrinsicWidth <= 0 || intrinsicHeight <= 0) {
+            // Single color bitmap will be created of 1x1 pixel
+            Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+        }
+        else {
+            Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
+        }
+
+    val canvas = Canvas(bitmap)
+    setBounds(0, 0, canvas.width, canvas.height)
+    draw(canvas)
+
+    return bitmap
+}

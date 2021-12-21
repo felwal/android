@@ -6,13 +6,18 @@
     <style name="Theme.Felwal.Base" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:navigationBarColor">?android:colorBackground</item>
 
-        <!-- sortsheet -->
+        <!-- sheet -->
         <item name="fw_sortSheetAscendingIcon">@drawable/fw_ic_arrow_up_24</item>
         <item name="fw_sortSheetDescendingIcon">@drawable/fw_ic_arrow_down_24</item>
         <item name="fw_sortSheetHighlightColor">?colorControlActivated</item>
 
         <!-- dialog -->
+        <item name="fw_dialogTitleTextViewStyle">@style/Widget.Felwal.TextView.Dialog.Title</item>
+        <item name="fw_dialogBodyTextViewStyle">@style/Widget.Felwal.TextView.Dialog.Body</item>
+        <item name="fw_dialogItemTextViewStyle">@style/Widget.Felwal.TextView.Dialog.Item</item>
         <item name="fw_dialogTextFieldStyle">@style/Widget.Felwal.TextInputLayout.FilledBox.Dense</item>
+        <item name="fw_dialogTextFieldTextAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="fw_colorDialogSelectedIcon">@drawable/fw_ic_check_24</item>
 
         <!-- settings -->
         <item name="fw_settingHeaderTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>

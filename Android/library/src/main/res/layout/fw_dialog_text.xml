@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/fw_spacing_dialog_horizontal"
-    android:paddingTop="@dimen/fw_spacing_dialog_horizontal_textfield_top"
-    android:paddingBottom="@dimen/fw_spacing_dialog_horizontal_textfield_bottom">
+    android:paddingHorizontal="@dimen/fw_spacing_dialog_horizontal_textfield"
+    android:paddingTop="@dimen/fw_spacing_dialog_top_textfield"
+    android:paddingBottom="@dimen/fw_spacing_dialog_bottom_textfield">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/fw_tf"

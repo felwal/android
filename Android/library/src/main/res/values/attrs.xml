@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- attrs -->
+
+    <!-- sheet -->
     <attr name="fw_sortSheetAscendingIcon" format="reference" />
     <attr name="fw_sortSheetDescendingIcon" format="reference" />
     <attr name="fw_sortSheetHighlightColor" format="color|reference" />
 
+    <!-- dialog -->
+    <attr name="fw_dialogTitleTextViewStyle" format="reference" />
+    <attr name="fw_dialogBodyTextViewStyle" format="reference" />
+    <attr name="fw_dialogItemTextViewStyle" format="reference" />
     <attr name="fw_dialogTextFieldStyle" format="reference" />
+    <attr name="fw_dialogTextFieldTextAppearance" format="reference" />
+    <attr name="fw_colorDialogSelectedIcon" format="reference" />
 
+    <!-- fam -->
     <attr name="fw_floatingActionMenuTheme" format="reference" />
 
+    <!-- settings -->
     <attr name="fw_settingHeaderTextAppearance" format="reference" />
     <attr name="fw_settingItemTextAppearance" format="reference" />
     <attr name="fw_settingDescTextAppearance" format="reference" />
     <attr name="fw_settingItemIconTint" format="color|reference" />
+
+    <!-- views -->
 
     <declare-styleable name="FloatingActionMenu">
         <attr name="fw_mainFabStyle" format="reference" />

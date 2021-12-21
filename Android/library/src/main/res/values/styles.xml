@@ -7,11 +7,11 @@
         <!-- shape -->
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Felwal.Dialog</item>
         <!-- title -->
-        <item name="materialAlertDialogTitleTextStyle">@style/Widget.Felwal.TextView.Dialog.Title</item>
+        <item name="materialAlertDialogTitleTextStyle">?attr/fw_dialogTitleTextViewStyle</item>
         <!-- message -->
-        <item name="materialAlertDialogBodyTextStyle">@style/Widget.Felwal.TextView.Dialog.Body</item>
+        <item name="materialAlertDialogBodyTextStyle">?attr/fw_dialogBodyTextViewStyle</item>
         <!-- multi/single choice item -->
-        <item name="android:checkedTextViewStyle">@style/Widget.Felwal.TextView.Dialog.Item</item>
+        <item name="android:checkedTextViewStyle">?attr/fw_dialogItemTextViewStyle</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.Felwal.Dialog" parent="">
@@ -78,11 +78,13 @@
     </style>
 
     <style name="Widget.Felwal.TextInputLayout.FilledBox.Dense.EditText" parent="@style/Widget.MaterialComponents.TextInputEditText.FilledBox.Dense">
-        <item name="android:paddingVertical">@dimen/fw_spacing_textfield_compact_vertical</item>
+        <item name="android:paddingVertical">@dimen/fw_spacing_textfield_dense_vertical</item>
+        <item name="android:textAppearance">?fw_dialogTextFieldTextAppearance</item>
     </style>
 
     <style name="Widget.Felwal.TextInputLayout.OutlinedBox.Dense.EditText" parent="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
-        <item name="android:paddingVertical">@dimen/fw_spacing_textfield_compact_vertical</item>
+        <item name="android:paddingVertical">@dimen/fw_spacing_textfield_dense_vertical</item>
+        <item name="android:textAppearance">?fw_dialogTextFieldTextAppearance</item>
     </style>
 
     <!-- fab -->

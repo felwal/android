@@ -12,6 +12,7 @@ import com.felwal.android.R
 import com.felwal.android.databinding.FwDialogColorBinding
 import com.felwal.android.databinding.FwItemDialogColorBinding
 import com.felwal.android.util.backgroundTint
+import com.felwal.android.util.getDrawableByAttrWithTint
 import com.felwal.android.util.getDrawableCompatWithTint
 import com.felwal.android.util.orEmpty
 
@@ -56,11 +57,10 @@ class ColorDialog : SingleChoiceDialog() {
                 ivColor.backgroundTint = getItem(position)
 
                 // set checked drawable
-                if (position == checkedIndex) {
-                    val icon = context.getDrawableCompatWithTint(R.drawable.fw_ic_check_24, R.attr.colorSurface)
-                    ivColor.setImageDrawable(icon)
-                }
-                else ivColor.setImageDrawable(null)
+                ivColor.setImageDrawable(
+                    if (position != checkedIndex) null
+                    else context.getDrawableByAttrWithTint(R.attr.fw_colorDialogSelectedIcon, R.attr.colorSurface)
+                )
 
                 // set listener
                 ivColor.setOnClickListener {

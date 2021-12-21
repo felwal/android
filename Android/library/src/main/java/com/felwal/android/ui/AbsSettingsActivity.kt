@@ -53,9 +53,10 @@ abstract class AbsSettingsActivity(
         inflateSettingItems()
     }
 
-    protected fun inflateSections(vararg sections: ItemSection) {
+    protected fun inflateSections(vararg sections: ItemSection?) {
         for ((index, section) in sections.withIndex()) {
-            section.inflate(isLastSection = index == sections.size - 1)
+            // safecall to allow passing items with takeIf(), allowing to check for e.g. developer mode
+            section?.inflate(isLastSection = index == sections.size - 1)
         }
     }
 
@@ -285,7 +286,7 @@ abstract class AbsSettingsActivity(
             inflateDialogItem(
                 title, desc ?: "", hideDivider, iconRes,
                 checkDialog(
-                    title = title, posBtnTxtRes = NO_RES,
+                    title = title, posBtnTxtRes = R.string.fw_dialog_btn_set,
                     labels = values, checkedIndices = selectedIndices,
                     tag = tag
                 )
@@ -318,7 +319,7 @@ abstract class AbsSettingsActivity(
         }
     }
 
-    private fun inflateDialogItem(
+    protected fun inflateDialogItem(
         title: String,
         value: String,
         hideDivider: Boolean,
@@ -331,7 +332,7 @@ abstract class AbsSettingsActivity(
         }
     }
 
-    private fun inflateSwitchItem(
+    protected fun inflateSwitchItem(
         title: String,
         descOn: String,
         descOff: String,
@@ -354,7 +355,7 @@ abstract class AbsSettingsActivity(
         }
     }
 
-    private fun inflateClickItem(
+    protected fun inflateClickItem(
         title: String,
         value: String,
         hideDivider: Boolean,

@@ -62,15 +62,15 @@ class MainActivity :
     private fun initFam() {
         // fam
         binding.fam.apply {
-            addItem("Item", getDrawableCompat(R.drawable.fw_ic_check_24)) {
+            addItem("Item", R.drawable.fw_ic_check_24) {
                 snackbar("item clicked")
                 closeMenu()
             }
-            addItem("Item", getDrawableCompat(R.drawable.fw_ic_arrow_up_24)) {
+            addItem("Item", R.drawable.fw_ic_arrow_up_24) {
                 snackbar("item clicked")
                 closeMenu()
             }
-            addItem("Item", getDrawableCompat(R.drawable.fw_ic_arrow_down_24)) {
+            addItem("Item", R.drawable.fw_ic_arrow_down_24) {
                 snackbar("item clicked")
                 closeMenu()
             }
@@ -109,8 +109,10 @@ class MainActivity :
                 .show(supportFragmentManager)
         }
         btn("Ternary") {
-            alertDialog("Alert dialog", "Message", neuBtnTxtRes = R.string.app_name, tag = "tag")
-                .show(supportFragmentManager)
+            alertDialog(
+                "Alert dialog", "Long ${"long ".repeat(200)}message",
+                neuBtnTxtRes = R.string.app_name, tag = "tag"
+            ).show(supportFragmentManager)
         }
 
         sectionBreak()
@@ -138,8 +140,7 @@ class MainActivity :
                     getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f)
                 ).repeated(20).toIntArray(),
                 0, tag = "tag"
-            )
-                .show(supportFragmentManager)
+            ).show(supportFragmentManager)
         }
 
         sectionBreak()
@@ -181,8 +182,7 @@ class MainActivity :
                 "List sheet", arrayOf("Item").repeated(3),
                 intArrayOf(R.drawable.fw_ic_check_24, R.drawable.fw_ic_arrow_up_24, R.drawable.fw_ic_arrow_down_24),
                 "tag"
-            )
-                .show(supportFragmentManager)
+            ).show(supportFragmentManager)
         }
         btn("Sort (with title)") {
             SortSheet.newInstance("Sort by", sorter, "tag")

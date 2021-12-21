@@ -28,17 +28,21 @@ fun <E> List<E>.indicesOf(sublist: List<E>): List<Int> = sublist.map { indexOf(i
 
 fun <E> Array<E>.indicesOf(subarray: Array<E>): IntArray = subarray.map { indexOf(it) }.toIntArray()
 
-fun List<Int>.asIndicesOfTrueBooleans(size: Int): List<Boolean> {
+fun List<Int>.asIndicesOfTruths(size: Int): List<Boolean> {
     val itemStates = MutableList(size) { false }
     forEach { itemStates[it] = true }
     return itemStates
 }
 
-fun IntArray.asIndicesOfTrueBooleans(size: Int): BooleanArray {
+fun IntArray.asIndicesOfTruths(size: Int): BooleanArray {
     val itemStates = BooleanArray(size) { false }
     forEach { itemStates[it] = true }
     return itemStates
 }
+
+fun List<Boolean>.toIndicesOfTruths(): List<Int> = mapIndexed { index, b -> if (b) index else null }.filterNotNull()
+
+fun BooleanArray.toIndicesOfTruths(): IntArray = mapIndexed { index, b -> if (b) index else null }.filterNotNull().toIntArray()
 
 fun <E> List<E>.filter(include: BooleanArray): List<E> = filterIndexed { index, _ -> include[index] }
 
