@@ -6,6 +6,7 @@
     <!-- button -->
     <string name="fw_dialog_btn_ok">OK</string>
     <string name="fw_dialog_btn_cancel">Cancel</string>
+    <string name="fw_dialog_btn_set">Set</string>
 
     <!-- toast -->
 

@@ -11,11 +11,13 @@ import com.felwal.android.sample.databinding.ItemMainButtonBinding
 import com.felwal.android.sample.databinding.ItemMainHeaderBinding
 import com.felwal.android.util.getColorByAttr
 import com.felwal.android.util.getDrawableCompat
+import com.felwal.android.util.launchActivity
 import com.felwal.android.util.multiplyAlphaComponent
 import com.felwal.android.util.popup
 import com.felwal.android.util.repeated
 import com.felwal.android.util.snackbar
 import com.felwal.android.util.toast
+import com.felwal.android.widget.dialog.AlertDialog
 import com.felwal.android.widget.dialog.NO_RES
 import com.felwal.android.widget.dialog.SingleChoiceDialog
 import com.felwal.android.widget.dialog.alertDialog
@@ -35,6 +37,7 @@ import com.felwal.android.widget.sheet.listSheet
 
 class MainActivity :
     AppCompatActivity(),
+    AlertDialog.DialogListener,
     SortSheet.SheetListener,
     SingleChoiceDialog.DialogListener {
 
@@ -232,5 +235,9 @@ class MainActivity :
 
     override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String) {
         updateDayNight(selectedIndex == 1)
+    }
+
+    override fun onAlertDialogPositiveClick(passValue: String?, tag: String) {
+        launchActivity<SettingsActivity>()
     }
 }

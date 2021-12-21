@@ -9,6 +9,11 @@
 
     <attr name="fw_floatingActionMenuTheme" format="reference" />
 
+    <attr name="fw_settingHeaderTextAppearance" format="reference" />
+    <attr name="fw_settingItemTextAppearance" format="reference" />
+    <attr name="fw_settingDescTextAppearance" format="reference" />
+    <attr name="fw_settingItemIconTint" format="color|reference" />
+
     <declare-styleable name="FloatingActionMenu">
         <attr name="fw_mainFabStyle" format="reference" />
         <attr name="fw_miniFabStyle" format="reference" />
