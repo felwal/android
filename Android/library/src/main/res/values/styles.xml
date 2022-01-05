@@ -15,7 +15,7 @@
     </style>
 
     <style name="ShapeAppearanceOverlay.Felwal.Dialog" parent="">
-        <item name="cornerSize">@dimen/fw_corner_radius_medium_component</item>
+        <item name="cornerSize">?fw_cornerSizeMediumComponent</item>
     </style>
 
     <style name="Widget.Felwal.TextView.Dialog.Title" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
@@ -160,17 +160,17 @@
 
     <style name="ShapeAppearance.Felwal.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/fw_corner_radius_small_component</item>
+        <item name="cornerSize">?fw_cornerSizeSmallComponent</item>
     </style>
 
     <style name="ShapeAppearance.Felwal.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/fw_corner_radius_medium_component</item>
+        <item name="cornerSize">?fw_cornerSizeMediumComponent</item>
     </style>
 
     <style name="ShapeAppearance.Felwal.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/fw_corner_radius_large_component</item>
+        <item name="cornerSize">?fw_cornerSizeLargeComponent</item>
     </style>
 
     <!-- text appearance -->

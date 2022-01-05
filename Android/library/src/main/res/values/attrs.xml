@@ -3,6 +3,11 @@
 
     <!-- attrs -->
 
+    <!-- shape appearance -->
+    <attr name="fw_cornerSizeSmallComponent" format="dimension|reference" />
+    <attr name="fw_cornerSizeMediumComponent" format="dimension|reference" />
+    <attr name="fw_cornerSizeLargeComponent" format="dimension|reference" />
+
     <!-- sheet -->
     <attr name="fw_sortSheetAscendingIcon" format="reference" />
     <attr name="fw_sortSheetDescendingIcon" format="reference" />

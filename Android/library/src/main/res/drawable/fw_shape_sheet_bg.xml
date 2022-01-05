@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <corners
-        android:topLeftRadius="@dimen/fw_corner_radius_large_component"
-        android:topRightRadius="@dimen/fw_corner_radius_large_component" />
+        android:topLeftRadius="?fw_cornerSizeLargeComponent"
+        android:topRightRadius="?fw_cornerSizeLargeComponent" />
 
     <solid android:color="?colorSurface" />
 
