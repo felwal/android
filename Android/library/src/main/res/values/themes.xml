@@ -60,6 +60,7 @@
 
         <!-- dialog theme -->
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Felwal.Dialog</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Felwal.Sheet</item>
 
         <!-- fam theme -->
         <item name="fw_floatingActionMenuTheme">@style/ThemeOverlay.Felwal.Fam</item>

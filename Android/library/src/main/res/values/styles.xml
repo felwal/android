@@ -33,6 +33,19 @@
         <item name="android:textAppearance">@style/TextAppearance.Felwal.Dialog.Item</item>
     </style>
 
+    <!-- sheet -->
+
+    <style name="ThemeOverlay.Felwal.Sheet" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <!-- workaround to not get flat corners in expanded state. -->
+        <!-- requeries setting `android:background="@drawable/fw_shape_sheet_bg"` in sheet layout. -->
+        <!-- https://github.com/material-components/material-components-android/issues/1278 -->
+        <item name="bottomSheetStyle">@style/Widget.Felwal.Sheet</item>
+    </style>
+
+    <style name="Widget.Felwal.Sheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
     <!-- popup menu -->
 
     <style name="Widget.Felwal.PopupMenu" parent="Widget.MaterialComponents.PopupMenu">
