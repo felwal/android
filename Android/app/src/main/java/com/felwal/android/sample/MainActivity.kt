@@ -2,12 +2,14 @@ package com.felwal.android.sample
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.felwal.android.lang.Trilean
 import com.felwal.android.sample.databinding.ActivityMainBinding
 import com.felwal.android.sample.databinding.ItemMainBreakBinding
 import com.felwal.android.sample.databinding.ItemMainButtonBinding
+import com.felwal.android.sample.databinding.ItemMainGroupBinding
 import com.felwal.android.sample.databinding.ItemMainHeaderBinding
 import com.felwal.android.util.getColorByAttr
 import com.felwal.android.util.getDrawableCompat
@@ -79,6 +81,14 @@ class MainActivity :
     }
 
     private fun inflateItems() {
+        btn("Settings") {
+            launchActivity<SettingsActivity>()
+        }
+        group("Theme",
+            Btn("Day") { updateDayNight(true) },
+            Btn("Night") { updateDayNight(false) }
+        )
+
         // menu
 
         header("Menu")
@@ -100,20 +110,22 @@ class MainActivity :
 
         header("Dialog")
 
-        btn("Unary") {
-            alertDialog("Alert dialog", "Message", negBtnTxtRes = NO_RES, tag = "tag")
-                .show(supportFragmentManager)
-        }
-        btn("Binary") {
-            alertDialog("Alert dialog", "Message", tag = "tag")
-                .show(supportFragmentManager)
-        }
-        btn("Ternary") {
-            alertDialog(
-                "Alert dialog", "Long ${"long ".repeat(200)}message",
-                neuBtnTxtRes = R.string.app_name, tag = "tag"
-            ).show(supportFragmentManager)
-        }
+        group("Alert",
+            Btn("Unary") {
+                alertDialog("Alert dialog", "Message", negBtnTxtRes = NO_RES, tag = "tag")
+                    .show(supportFragmentManager)
+            },
+            Btn("Binary") {
+                alertDialog("Alert dialog", "Message", tag = "tag")
+                    .show(supportFragmentManager)
+            },
+            Btn("Ternary") {
+                alertDialog(
+                    "Alert dialog", "Long ${"long ".repeat(200)}message",
+                    neuBtnTxtRes = R.string.app_name, tag = "tag"
+                ).show(supportFragmentManager)
+            }
+        )
 
         sectionBreak()
 
@@ -125,14 +137,16 @@ class MainActivity :
             )
                 .show(supportFragmentManager)
         }
-        btn("Radio") {
-            radioDialog("Radio dialog", listOf("Item").repeated(20), 0, tag = "tag")
-                .show(supportFragmentManager)
-        }
-        btn("Radio (simple)") {
-            radioDialog("Radio dialog", listOf("Item").repeated(20), 0, posBtnTxtRes = null, tag = "tag")
-                .show(supportFragmentManager)
-        }
+        group("Radio",
+            Btn("Confirmation") {
+                radioDialog("Radio dialog", listOf("Item").repeated(20), 0, tag = "tag")
+                    .show(supportFragmentManager)
+            },
+            Btn("Simple") {
+                radioDialog("Radio dialog", listOf("Item").repeated(20), 0, posBtnTxtRes = null, tag = "tag")
+                    .show(supportFragmentManager)
+            }
+        )
         btn("Color") {
             colorDialog(
                 "Color dialog",
@@ -184,24 +198,42 @@ class MainActivity :
                 "tag"
             ).show(supportFragmentManager)
         }
-        btn("Sort (with title)") {
-            SortSheet.newInstance("Sort by", sorter, "tag")
-                .show(supportFragmentManager)
-        }
-        btn("Sort (without title)") {
-            SortSheet.newInstance("", sorter, "tag")
-                .show(supportFragmentManager)
-        }
+        group("Sort",
+            Btn("With title") {
+                SortSheet.newInstance("Sort by", sorter, "tag")
+                    .show(supportFragmentManager)
+            },
+            Btn("Without title") {
+                SortSheet.newInstance("", sorter, "tag")
+                    .show(supportFragmentManager)
+            }
+        )
     }
 
     // inflate tool
 
-    private fun btn(label: String, onClick: (View) -> Unit) {
-        val btnBinding = ItemMainButtonBinding.inflate(layoutInflater, binding.ll, false)
+    private inner class Btn(val label: String, val onClick: (View) -> Unit) {
+        fun inflate(root: ViewGroup = binding.ll) = btn(label, root, onClick)
+    }
+
+    private fun btn(label: String, onClick: (View) -> Unit) = btn(label, binding.ll, onClick)
+
+    private fun btn(label: String, root: ViewGroup, onClick: (View) -> Unit) {
+        val btnBinding = ItemMainButtonBinding.inflate(layoutInflater, root, false)
 
         btnBinding.tv.text = label
         btnBinding.root.setOnClickListener(onClick)
-        binding.ll.addView(btnBinding.root)
+        root.addView(btnBinding.root)
+    }
+
+    private fun group(label: String, vararg btns: Btn) {
+        val groupBinding = ItemMainGroupBinding.inflate(layoutInflater, binding.ll, false)
+
+        groupBinding.tv.text = label
+
+        for (btn in btns) btn.inflate(groupBinding.root)
+
+        binding.ll.addView(groupBinding.root)
     }
 
     private fun header(title: String) {
@@ -238,6 +270,5 @@ class MainActivity :
     }
 
     override fun onAlertDialogPositiveClick(passValue: String?, tag: String) {
-        launchActivity<SettingsActivity>()
     }
 }

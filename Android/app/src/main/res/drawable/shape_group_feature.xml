@@ -5,10 +5,10 @@
 
     <item>
         <shape>
-            <solid android:color="?colorSurface" />
-            <!--<stroke
+            <solid android:color="?android:colorBackground" />
+            <stroke
                 android:width="@dimen/fw_height_divider"
-                android:color="?android:listDivider" />-->
+                android:color="?android:listDivider" />
             <corners android:radius="@dimen/corner_radius_btn_feature" />
         </shape>
     </item>
