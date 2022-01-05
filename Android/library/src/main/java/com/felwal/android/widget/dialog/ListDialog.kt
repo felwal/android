@@ -22,10 +22,6 @@ class ListDialog : SingleChoiceDialog() {
             labels = getStringArray(ARG_LABELS).orEmpty()
             iconsRes = getIntArray(ARG_ICONS).orEmpty()
         }
-
-        if (labels.size != iconsRes.size) {
-            throw IndexOutOfBoundsException("labels and iconsRes must have equal size")
-        }
     }
 
     override fun buildDialog(): AlertDialog = builder.run {
@@ -37,7 +33,7 @@ class ListDialog : SingleChoiceDialog() {
         setMessageIfNonEmpty(message)
 
         // widget
-        setDividers(binding.fwSv, binding.fwVDividerTop, null)
+        setDividers(binding.fwSv, binding.fwVDividerTop, binding.fwVDividerBottom)
 
         // items
         setItems(labels, iconsRes, binding.fwLl) { index ->
@@ -57,7 +53,7 @@ class ListDialog : SingleChoiceDialog() {
             title: String,
             message: String = "",
             labels: Array<String>,
-            @DrawableRes icons: IntArray?,
+            @DrawableRes icons: IntArray? = null,
             tag: String
         ): ListDialog = ListDialog().apply {
             arguments = putBaseBundle(title, message, NO_RES, NO_RES, tag).apply {
@@ -72,6 +68,6 @@ fun listDialog(
     title: String,
     message: String = "",
     labels: Array<String>,
-    @DrawableRes icons: IntArray?,
+    @DrawableRes icons: IntArray? = null,
     tag: String
 ): ListDialog = ListDialog.newInstance(title, message, labels, icons, tag)

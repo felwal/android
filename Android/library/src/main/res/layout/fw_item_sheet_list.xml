@@ -4,8 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/fw_height_sheet_item"
-    android:background="?selectableItemBackground">
+    android:layout_height="@dimen/fw_height_item"
+    android:background="?selectableItemBackground"
+    tools:context=".ui.AbsSettingsActivity">
 
     <ImageView
         android:id="@+id/fw_iv_icon"
@@ -16,6 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="?colorControlNormal"
+        tools:src="@drawable/fw_ic_check_24"
+        tools:tint="@color/fw_grey25"
         tools:visibility="visible" />
 
     <TextView

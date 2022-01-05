@@ -11,6 +11,7 @@ import com.felwal.android.sample.databinding.ItemMainBreakBinding
 import com.felwal.android.sample.databinding.ItemMainButtonBinding
 import com.felwal.android.sample.databinding.ItemMainGroupBinding
 import com.felwal.android.sample.databinding.ItemMainHeaderBinding
+import com.felwal.android.util.contentView
 import com.felwal.android.util.getColorByAttr
 import com.felwal.android.util.getDrawableCompat
 import com.felwal.android.util.launchActivity
@@ -20,6 +21,7 @@ import com.felwal.android.util.repeated
 import com.felwal.android.util.snackbar
 import com.felwal.android.util.toast
 import com.felwal.android.widget.dialog.AlertDialog
+import com.felwal.android.widget.dialog.MultiChoiceDialog
 import com.felwal.android.widget.dialog.NO_RES
 import com.felwal.android.widget.dialog.SingleChoiceDialog
 import com.felwal.android.widget.dialog.alertDialog
@@ -41,15 +43,20 @@ class MainActivity :
     AppCompatActivity(),
     AlertDialog.DialogListener,
     SortSheet.SheetListener,
-    SingleChoiceDialog.DialogListener {
+    SingleChoiceDialog.DialogListener,
+    MultiChoiceDialog.DialogListener {
 
     private lateinit var binding: ActivityMainBinding
+
+    private val fm get() = supportFragmentManager
 
     private var sorter = Sorter(
         SortMode("Recent", Trilean.NEG, false),
         SortMode("Name", Trilean.NEU, false),
         SortMode("Avg distance", Trilean.POS, true)
     )
+
+    //
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +67,8 @@ class MainActivity :
         initFam()
         inflateItems()
     }
+
+    //
 
     private fun initFam() {
         // fam
@@ -113,39 +122,49 @@ class MainActivity :
         group("Alert",
             Btn("Unary") {
                 alertDialog("Alert dialog", "Message", negBtnTxtRes = NO_RES, tag = "tag")
-                    .show(supportFragmentManager)
+                    .show(fm)
             },
             Btn("Binary") {
                 alertDialog("Alert dialog", "Message", tag = "tag")
-                    .show(supportFragmentManager)
+                    .show(fm)
             },
             Btn("Ternary") {
                 alertDialog(
                     "Alert dialog", "Long ${"long ".repeat(200)}message",
                     neuBtnTxtRes = R.string.app_name, tag = "tag"
-                ).show(supportFragmentManager)
+                ).show(fm)
             }
         )
 
         sectionBreak()
 
-        btn("List") {
-            listDialog(
-                "List dialog", "", arrayOf("Item").repeated(12),
-                intArrayOf(R.drawable.fw_ic_check_24, R.drawable.fw_ic_arrow_up_24, R.drawable.fw_ic_arrow_down_24).repeated(4),
-                tag = "tag"
-            )
-                .show(supportFragmentManager)
-        }
+        group("List",
+            Btn("List") {
+                listDialog("List dialog", "", labels(12), icons(12), tag = "tag")
+                    .show(fm)
+            },
+            Btn("No icons") {
+                listDialog("List dialog", "", labels(12), tag = "tag")
+                    .show(fm)
+            },
+            Btn("No title") {
+                listDialog("", "", labels(3), icons(3), tag = "tag")
+                    .show(fm)
+            }
+        )
         group("Radio",
             Btn("Confirmation") {
-                radioDialog("Radio dialog", listOf("Item").repeated(20), 0, tag = "tag")
-                    .show(supportFragmentManager)
+                radioDialog("Radio dialog", labels(20).toList(), 0, tag = "tag")
+                    .show(fm)
             },
             Btn("Simple") {
-                radioDialog("Radio dialog", listOf("Item").repeated(20), 0, posBtnTxtRes = null, tag = "tag")
-                    .show(supportFragmentManager)
-            }
+                radioDialog("Radio dialog", labels(20).toList(), 0, posBtnTxtRes = null, tag = "tag")
+                    .show(fm)
+            },
+            Btn("Icons") {
+                radioDialog("Radio dialog", labels(3).toList(), 0, icons(3), tag = "tag")
+                    .show(fm)
+            },
         )
         btn("Color") {
             colorDialog(
@@ -154,60 +173,69 @@ class MainActivity :
                     getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f)
                 ).repeated(20).toIntArray(),
                 0, tag = "tag"
-            ).show(supportFragmentManager)
+            ).show(fm)
         }
 
         sectionBreak()
 
-        btn("Check") {
-            checkDialog("Check dialog", arrayOf("Item").repeated(20), intArrayOf(0), tag = "tag")
-                .show(supportFragmentManager)
-        }
+        group("Check",
+            Btn("Check") {
+                checkDialog("Check dialog", labels(20), intArrayOf(0), tag = "tag")
+                    .show(fm)
+            },
+            Btn("Icons") {
+                checkDialog("Check dialog", labels(3), intArrayOf(0), icons(3), tag = "tag")
+                    .show(fm)
+            },
+        )
+
         btn("Chip") {
-            chipDialog("Chip dialog", arrayOf("Item").repeated(20), intArrayOf(0), tag = "tag")
-                .show(supportFragmentManager)
+            chipDialog("Chip dialog", labels(20), intArrayOf(0), tag = "tag")
+                .show(fm)
         }
 
         sectionBreak()
 
         btn("Slider") {
             sliderDialog("Slider dialog", min = 0f, max = 10f, step = 1f, value = 5f, tag = "tag")
-                .show(supportFragmentManager)
+                .show(fm)
         }
         btn("Number") {
             numberDialog("Number dialog", text = 10, hint = "Hint", tag = "tag")
-                .show(supportFragmentManager)
+                .show(fm)
         }
         btn("Decimal") {
             decimalDialog("Decimal dialog", text = 10f, hint = "Hint", tag = "tag")
-                .show(supportFragmentManager)
+                .show(fm)
         }
         btn("Text") {
             textDialog("Text dialog", "Message", "Text", "Hint", tag = "tag")
-                .show(supportFragmentManager)
+                .show(fm)
         }
 
         // bottom sheet
 
         header("Bottom sheet")
 
-        btn("List") {
-            listSheet(
-                "List sheet", arrayOf("Item").repeated(3),
-                intArrayOf(R.drawable.fw_ic_check_24, R.drawable.fw_ic_arrow_up_24, R.drawable.fw_ic_arrow_down_24),
-                "tag"
-            ).show(supportFragmentManager)
-        }
-        group("Sort",
-            Btn("With title") {
-                SortSheet.newInstance("Sort by", sorter, "tag")
-                    .show(supportFragmentManager)
+        group("List",
+            Btn("List") {
+                listSheet("List sheet", labels(3), icons(3), "tag")
+                    .show(fm)
             },
-            Btn("Without title") {
-                SortSheet.newInstance("", sorter, "tag")
-                    .show(supportFragmentManager)
-            }
+            Btn("No title") {
+                listSheet("", labels(3), icons(3), "tag")
+                    .show(fm)
+            },
+            Btn("No icons") {
+                listSheet("List sheet", labels(3), tag = "tag")
+                    .show(fm)
+            },
         )
+
+        btn("Sort") {
+            SortSheet.newInstance("Sort by", sorter, "tag")
+                .show(fm)
+        }
     }
 
     // inflate tool
@@ -256,19 +284,35 @@ class MainActivity :
         if (day) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
     )
 
-    // listener
+    private fun labels(count: Int) = listOf("Item").repeated(count).toTypedArray()
+
+    private fun icons(count: Int): IntArray =
+        if (count % 3 == 0) {
+            intArrayOf(R.drawable.fw_ic_check_24, R.drawable.fw_ic_arrow_up_24, R.drawable.fw_ic_arrow_down_24)
+                .repeated(count / 3)
+        }
+        else intArrayOf(R.drawable.fw_ic_check_24).repeated(count)
+
+    // dialog listener
+
+    override fun onAlertDialogPositiveClick(passValue: String?, tag: String) {
+    }
+
+    override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String) {
+        //updateDayNight(selectedIndex == 1)
+        contentView?.snackbar(selectedIndex.toString())
+    }
+
+    override fun onMultiChoiceDialogItemsSelected(itemStates: BooleanArray, tag: String) {
+        contentView?.snackbar(itemStates.contentToString())
+    }
+
+    // sheet listener
 
     override fun onSortSheetItemClick(checkedIndex: Int) {
         sorter.select(checkedIndex)
         sorter = sorter.copy()
 
         updateDayNight(true)
-    }
-
-    override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String) {
-        updateDayNight(selectedIndex == 1)
-    }
-
-    override fun onAlertDialogPositiveClick(passValue: String?, tag: String) {
     }
 }

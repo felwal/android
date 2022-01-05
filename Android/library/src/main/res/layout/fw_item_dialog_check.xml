@@ -7,6 +7,34 @@
     android:layout_height="@dimen/fw_height_item"
     android:background="?selectableItemBackground">
 
+    <CheckBox
+        android:id="@+id/fw_cb_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fw_spacing_dialog_horizontal_checkbox"
+        android:focusable="false"
+        android:clickable="false"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <CheckBox
+        android:id="@+id/fw_cb_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fw_spacing_dialog_horizontal_checkbox"
+        android:focusable="false"
+        android:clickable="false"
+        android:background="@android:color/transparent"
+        android:button="@null"
+        android:drawableRight="?android:listChoiceIndicatorMultiple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
     <ImageView
         android:id="@+id/fw_iv_icon"
         android:layout_width="24dp"
@@ -24,7 +52,8 @@
         android:id="@+id/fw_tv_label"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/fw_spacing_dialog_horizontal"
+        android:layout_marginStart="@dimen/fw_spacing_dialog_horizontal"
+        android:layout_marginEnd="@dimen/fw_spacing_dialog_horizontal"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.Felwal.Dialog.Item"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -18,6 +18,8 @@
     <dimen name="fw_spacing_dialog_top_textfield">@dimen/fw_spacing_small</dimen>
     <dimen name="fw_spacing_dialog_bottom_textfield">@dimen/fw_spacing_tiny</dimen>
     <dimen name="fw_spacing_dialog_horizontal">24dp</dimen>
+    <dimen name="fw_spacing_dialog_horizontal_checkbox">19dp</dimen>
+    <dimen name="fw_spacing_dialog_horizontal_radiobutton">19dp</dimen>
     <dimen name="fw_spacing_dialog_horizontal_textfield">14dp</dimen>
     <dimen name="fw_spacing_dialog_horizontal_slider">12dp</dimen>
     <dimen name="fw_spacing_dialog_horizontal_color">16dp</dimen>
@@ -38,8 +40,7 @@
 
     <!-- layout -->
 
-    <dimen name="fw_height_dialog_item">45dp</dimen>
-    <dimen name="fw_height_sheet_item">45dp</dimen>
+    <dimen name="fw_height_item">48dp</dimen>
     <dimen name="fw_height_sheet_peek">120dp</dimen>
     <dimen name="fw_height_sorter">50dp</dimen>
     <dimen name="fw_height_divider">1dp</dimen>

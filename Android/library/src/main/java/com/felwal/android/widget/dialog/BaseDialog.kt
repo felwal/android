@@ -19,7 +19,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.felwal.android.R
+import com.felwal.android.databinding.FwItemDialogCheckBinding
 import com.felwal.android.databinding.FwItemDialogListBinding
+import com.felwal.android.databinding.FwItemDialogRadioBinding
 import com.felwal.android.util.canScrollDown
 import com.felwal.android.util.canScrollUp
 import com.felwal.android.util.getDrawableCompat
@@ -47,6 +49,8 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     @StringRes protected var posBtnTxtRes: Int = R.string.fw_dialog_btn_ok
     @StringRes protected var negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel
+
+    protected open val hasButtons get() = posBtnTxtRes != NO_RES || negBtnTxtRes != NO_RES
 
     // DialogFragment
 
@@ -110,7 +114,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         if (!isAdded) super.show(fm, dialogTag)
     }
 
-    // tool
+    // set text
 
     protected fun MaterialAlertDialogBuilder.setTitleIfNonEmpty(title: String) {
         if (title != "") setTitle(title)
@@ -119,6 +123,8 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     protected fun MaterialAlertDialogBuilder.setMessageIfNonEmpty(message: String) {
         if (message != "") setMessage(message)
     }
+
+    // set button
 
     protected fun AlertDialog.Builder.setPositiveButton(
         @StringRes resId: Int,
@@ -147,12 +153,18 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     protected fun AlertDialog.Builder.setCancelButton(@StringRes resId: Int): AlertDialog.Builder =
         setNegativeButton(resId) { dialog -> dialog.cancel() }
 
+    // set items
+
     protected fun setItems(
         labels: Array<out String>,
-        @DrawableRes iconsRes: IntArray?,
+        @DrawableRes iconsRes: IntArray? = null,
         ll: LinearLayout,
         listener: (which: Int) -> Unit
     ) {
+        if (iconsRes != null && iconsRes.isNotEmpty() && iconsRes.size != labels.size) {
+            throw IndexOutOfBoundsException("`iconsRes` must be null, empty or have equal size as `labels`.")
+        }
+
         for ((i, label) in labels.withIndex()) {
             val itemBinding = FwItemDialogListBinding.inflate(inflater, ll, false)
 
@@ -180,9 +192,123 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         }
     }
 
+    protected fun setSingleChoiceItems(
+        labels: Array<out String>,
+        checkedIndex: Int,
+        @DrawableRes iconsRes: IntArray? = null,
+        ll: LinearLayout,
+        listener: (which: Int) -> Unit
+    ) {
+        if (iconsRes != null && iconsRes.isNotEmpty() && iconsRes.size != labels.size) {
+            throw IndexOutOfBoundsException("`iconsRes` must be null, empty or have equal size as `labels`.")
+        }
+
+        // use this for deselecting items
+        val itemBindings = mutableListOf<FwItemDialogRadioBinding>()
+
+        for ((i, label) in labels.withIndex()) {
+            val itemBinding = FwItemDialogRadioBinding.inflate(inflater, ll, false)
+
+            // label
+            itemBinding.fwTvLabel.text = label
+
+            // icon
+            if (iconsRes != null && iconsRes.isNotEmpty()) {
+                val iconRes = iconsRes[i]
+                if (iconRes != NO_RES) {
+                    val icon = requireContext().getDrawableCompat(iconRes)
+                    itemBinding.fwIvIcon.setImageDrawable(icon)
+                }
+                itemBinding.fwRbStart.isGone = true
+            }
+            else {
+                // invisible to keep label correctly positioned
+                itemBinding.fwIvIcon.isInvisible = true
+                itemBinding.fwRbEnd.isGone = true
+            }
+
+            // selection
+            if (i == checkedIndex) {
+                itemBinding.fwRbStart.isChecked = true
+                itemBinding.fwRbEnd.isChecked = true
+            }
+
+            ll.addView(itemBinding.root)
+            itemBindings.add(itemBinding)
+
+            itemBinding.root.setOnClickListener {
+                // deselect all other
+                itemBindings.forEach {
+                    it.fwRbStart.isChecked = false
+                    it.fwRbEnd.isChecked = false
+                }
+
+                // select this
+                itemBinding.fwRbStart.isChecked = true
+                itemBinding.fwRbEnd.isChecked = true
+
+                listener(i)
+            }
+        }
+    }
+
+    protected fun setMultiChoiceItems(
+        labels: Array<out String>,
+        itemStates: BooleanArray,
+        @DrawableRes iconsRes: IntArray? = null,
+        ll: LinearLayout,
+        listener: (which: Int, isChecked: Boolean) -> Unit
+    ) {
+        if (iconsRes != null && iconsRes.isNotEmpty() && iconsRes.size != labels.size) {
+            throw IndexOutOfBoundsException("`iconsRes` must be null, empty or have equal size as `labels`.")
+        }
+        if (labels.size != itemStates.size) {
+            throw IndexOutOfBoundsException("`labels` and `itemStates` must have equal size")
+        }
+
+        for ((i, label) in labels.withIndex()) {
+            val itemBinding = FwItemDialogCheckBinding.inflate(inflater, ll, false)
+
+            // label
+            itemBinding.fwTvLabel.text = label
+
+            // icon
+            if (iconsRes != null && iconsRes.isNotEmpty()) {
+                val iconRes = iconsRes[i]
+                if (iconRes != NO_RES) {
+                    val icon = requireContext().getDrawableCompat(iconRes)
+                    itemBinding.fwIvIcon.setImageDrawable(icon)
+                }
+                itemBinding.fwCbStart.isGone = true
+            }
+            else {
+                // invisible to keep label correctly positioned
+                itemBinding.fwIvIcon.isInvisible = true
+                itemBinding.fwCbEnd.isGone = true
+            }
+
+            // selection
+            itemBinding.fwCbStart.isChecked = itemStates[i]
+            itemBinding.fwCbEnd.isChecked = itemStates[i]
+
+            ll.addView(itemBinding.root)
+
+            itemBinding.root.setOnClickListener {
+                // toggle
+                itemBinding.fwCbStart.toggle()
+                itemBinding.fwCbEnd.toggle()
+
+                listener(i, itemBinding.fwCbStart.isChecked)
+            }
+        }
+    }
+
+    // more tools
+
     protected fun setDividers(vList: View, vDividerTop: View?, vDividerBottom: View?) {
         // default visibility
         updateDividers(vList, vDividerTop, vDividerBottom)
+        if (!hasButtons) vDividerBottom?.isInvisible = true
 
         // on scroll visibility
         vList.setOnScrollChangeListener { _, _, _, _, _ ->
@@ -197,7 +323,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     private fun updateDividers(vList: View, vDividerTop: View?, vDividerBottom: View?) {
         vDividerTop?.isInvisible = !vList.canScrollUp()
-        vDividerBottom?.isInvisible = !vList.canScrollDown()
+        if (hasButtons) vDividerBottom?.isInvisible = !vList.canScrollDown()
     }
 
     protected fun catchClassCast(action: () -> Unit) {

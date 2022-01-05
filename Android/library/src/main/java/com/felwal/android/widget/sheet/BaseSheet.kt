@@ -89,6 +89,10 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
         ll: LinearLayout,
         listener: (which: Int) -> Unit
     ) {
+        if (iconsRes != null && iconsRes.isNotEmpty() && iconsRes.size != labels.size) {
+            throw IndexOutOfBoundsException("`iconsRes` must be null, empty or have equal size as `labels`.")
+        }
+
         for ((i, label) in labels.withIndex()) {
             val itemBinding = FwItemSheetListBinding.inflate(inflater, ll, false)
 

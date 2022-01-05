@@ -14,6 +14,8 @@ class AlertDialog : BaseDialog<AlertDialog.DialogListener>() {
     private var passValue: String? = null
     @StringRes private var neuBtnTxtRes: Int = NO_RES
 
+    override val hasButtons get() = super.hasButtons || neuBtnTxtRes != NO_RES
+
     // BaseDialog
 
     override fun unpackBundle(bundle: Bundle?) {

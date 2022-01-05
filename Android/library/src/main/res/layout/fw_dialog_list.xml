@@ -36,4 +36,13 @@
         app:layout_constraintTop_toTopOf="parent"
         style="@style/Widget.Felwal.Divider" />
 
+    <View
+        android:id="@+id/fw_v_divider_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fw_height_divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/Widget.Felwal.Divider" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
