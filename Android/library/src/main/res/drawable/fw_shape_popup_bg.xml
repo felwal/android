@@ -4,7 +4,7 @@
 
     <solid android:color="?colorSurface" />
 
-    <corners android:radius="@dimen/fw_corner_radius_popup" />
+    <corners android:radius="@dimen/fw_corner_radius_small_component" />
 
     <padding
         android:top="@dimen/fw_spacing_popup_vertical"

@@ -64,16 +64,16 @@ abstract class AbsSettingsActivity(
 
     protected inner class ItemSection(
         val title: String,
-        private vararg val items: SettingItem
+        private vararg val items: SettingItem?
     ) {
-
         fun inflate(isLastSection: Boolean) {
             inflateHeader(title)
 
             for ((index, item) in items.withIndex()) {
                 val isLastItem = index == items.size - 1
 
-                item.inflate(
+                // safecall to allow passing items with takeIf(), allowing to check for e.g. developer mode
+                item?.inflate(
                     if (isLastSection && isLastItem) true
                     else when (dividerMode) {
                         DividerMode.ALWAYS -> false

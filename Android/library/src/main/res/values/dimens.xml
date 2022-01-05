@@ -47,8 +47,9 @@
     <dimen name="fw_diameter_color">48dp</dimen>
 
     <!-- corner -->
-    <dimen name="fw_corner_radius_dialog">8dp</dimen>
-    <dimen name="fw_corner_radius_popup">4dp</dimen>
+    <dimen name="fw_corner_radius_small_component">4dp</dimen>
+    <dimen name="fw_corner_radius_medium_component">8dp</dimen>
+    <dimen name="fw_corner_radius_large_component">8dp</dimen>
 
     <!-- typography -->
 

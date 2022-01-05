@@ -25,21 +25,26 @@
         <item name="fw_settingDescTextAppearance">@style/TextAppearance.MaterialComponents.Body2</item>
         <item name="fw_settingItemIconTint">?colorControlNormal</item>
 
-        <!-- no action bar -->
+        <!-- remove action bar -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
-        <!-- remove the MaterialComponents automatic brightening of surface color in dark mode -->
+        <!-- remove MaterialComponents automatic brightening of surface color in dark mode -->
         <item name="elevationOverlayEnabled">false</item>
-
-        <!-- type -->
-        <item name="textAllCaps">false</item>
-        <item name="android:textAllCaps">false</item>
 
         <!-- AppCompat's colorAccent fills the same role as MaterialComponents' colorSecondary -->
         <!-- prefer colorSecondary -->
         <item name="colorAccent">?colorSecondary</item>
         <item name="android:colorAccent">?colorSecondary</item>
+
+        <!-- type -->
+        <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
+
+        <!-- shape -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Felwal.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Felwal.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Felwal.LargeComponent</item>
 
         <!-- popup style -->
         <item name="popupMenuStyle">@style/Widget.Felwal.PopupMenu</item>

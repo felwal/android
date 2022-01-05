@@ -4,7 +4,7 @@
     <!-- dialog -->
 
     <style name="ThemeOverlay.Felwal.Dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <!-- shape -->
+        <!-- shape (background and buttons) -->
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Felwal.Dialog</item>
         <!-- title -->
         <item name="materialAlertDialogTitleTextStyle">?attr/fw_dialogTitleTextViewStyle</item>
@@ -15,7 +15,7 @@
     </style>
 
     <style name="ShapeAppearanceOverlay.Felwal.Dialog" parent="">
-        <item name="cornerSize">@dimen/fw_corner_radius_dialog</item>
+        <item name="cornerSize">@dimen/fw_corner_radius_medium_component</item>
     </style>
 
     <style name="Widget.Felwal.TextView.Dialog.Title" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
@@ -143,7 +143,24 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
-    <!-- textappearance -->
+    <!-- shape appearance -->
+
+    <style name="ShapeAppearance.Felwal.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/fw_corner_radius_small_component</item>
+    </style>
+
+    <style name="ShapeAppearance.Felwal.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/fw_corner_radius_medium_component</item>
+    </style>
+
+    <style name="ShapeAppearance.Felwal.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/fw_corner_radius_large_component</item>
+    </style>
+
+    <!-- text appearance -->
 
     <style name="TextAppearance.Felwal" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">sans-serif</item>
