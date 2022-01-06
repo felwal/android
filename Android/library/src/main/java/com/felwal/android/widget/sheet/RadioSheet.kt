@@ -1,22 +1,30 @@
 package com.felwal.android.widget.sheet
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import com.felwal.android.R
 import com.felwal.android.databinding.FwSheetListBinding
 import com.felwal.android.util.orEmpty
+import com.felwal.android.widget.dialog.NO_RES
+import com.felwal.android.widget.dialog.RadioDialog
 
 private const val ARG_LABELS = "labels"
+private const val ARG_CHECKED_INDEX = "checkedIndex"
 private const val ARG_ICONS = "icons"
 
-class ListSheet : SingleChoiceSheet() {
+class RadioSheet : SingleChoiceSheet() {
 
     private lateinit var labels: Array<out String>
+    private var checkedIndex = 0
     @DrawableRes private var iconsRes: IntArray = intArrayOf()
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
             labels = getStringArray(ARG_LABELS).orEmpty()
+            checkedIndex = getInt(ARG_CHECKED_INDEX, 0).coerceIn(0, labels.size)
             iconsRes = getIntArray(ARG_ICONS).orEmpty()
         }
     }
@@ -28,13 +36,18 @@ class ListSheet : SingleChoiceSheet() {
         setTitleIfNonEmpty(title, binding)
 
         // items
-        setItems(labels, iconsRes, binding.fwLl) { selectedIndex ->
-            catchClassCast {
-                listener?.onSingleChoiceSheetItemSelected(selectedIndex, sheetTag)
-            }
+        setSingleChoiceItems(labels, checkedIndex, iconsRes, binding.fwLl) { selectedIndex ->
+            checkedIndex = selectedIndex
         }
 
         return binding.root
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        catchClassCast {
+            listener?.onSingleChoiceSheetItemSelected(checkedIndex, sheetTag)
+        }
+        super.onDismiss(dialog)
     }
 
     //
@@ -42,22 +55,25 @@ class ListSheet : SingleChoiceSheet() {
     companion object {
         @JvmStatic
         fun newInstance(
-            title: String = "",
-            labels: Array<String>,
+            title: String,
+            labels: List<String>,
+            checkedIndex: Int,
             @DrawableRes icons: IntArray? = null,
             tag: String
-        ) = ListSheet().apply {
+        ): RadioSheet = RadioSheet().apply {
             arguments = putBaseBundle(title, tag).apply {
-                putStringArray(ARG_LABELS, labels)
+                putStringArray(ARG_LABELS, labels.toTypedArray())
+                putInt(ARG_CHECKED_INDEX, checkedIndex)
                 putIntArray(ARG_ICONS, icons.orEmpty())
             }
         }
     }
 }
 
-fun listSheet(
-    title: String = "",
-    labels: Array<String>,
+fun radioSheet(
+    title: String,
+    labels: List<String>,
+    checkedIndex: Int,
     @DrawableRes icons: IntArray? = null,
     tag: String
-): ListSheet = ListSheet.newInstance(title, labels, icons, tag)
+): RadioSheet = RadioSheet.newInstance(title, labels, checkedIndex, icons, tag)

@@ -155,7 +155,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     // set items
 
-    protected fun setItems(
+    fun setItems(
         labels: Array<out String>,
         @DrawableRes iconsRes: IntArray? = null,
         ll: LinearLayout,
@@ -166,7 +166,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         }
 
         for ((i, label) in labels.withIndex()) {
-            val itemBinding = FwItemDialogListBinding.inflate(inflater, ll, false)
+            val itemBinding = FwItemDialogListBinding.inflate(layoutInflater, ll, false)
 
             // label
             itemBinding.fwTvLabel.text = label
@@ -192,7 +192,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         }
     }
 
-    protected fun setSingleChoiceItems(
+    fun setSingleChoiceItems(
         labels: Array<out String>,
         checkedIndex: Int,
         @DrawableRes iconsRes: IntArray? = null,
@@ -207,7 +207,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         val itemBindings = mutableListOf<FwItemDialogRadioBinding>()
 
         for ((i, label) in labels.withIndex()) {
-            val itemBinding = FwItemDialogRadioBinding.inflate(inflater, ll, false)
+            val itemBinding = FwItemDialogRadioBinding.inflate(layoutInflater, ll, false)
 
             // label
             itemBinding.fwTvLabel.text = label
@@ -237,22 +237,25 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
             itemBindings.add(itemBinding)
 
             itemBinding.root.setOnClickListener {
-                // deselect all other
-                itemBindings.forEach {
-                    it.fwRbStart.isChecked = false
-                    it.fwRbEnd.isChecked = false
+                // dont reselect the same item twice
+                if (!itemBinding.fwRbStart.isChecked) {
+                    // deselect all other
+                    itemBindings.forEach {
+                        it.fwRbStart.isChecked = false
+                        it.fwRbEnd.isChecked = false
+                    }
+
+                    // select this
+                    itemBinding.fwRbStart.isChecked = true
+                    itemBinding.fwRbEnd.isChecked = true
+
+                    listener(i)
                 }
-
-                // select this
-                itemBinding.fwRbStart.isChecked = true
-                itemBinding.fwRbEnd.isChecked = true
-
-                listener(i)
             }
         }
     }
 
-    protected fun setMultiChoiceItems(
+    fun setMultiChoiceItems(
         labels: Array<out String>,
         itemStates: BooleanArray,
         @DrawableRes iconsRes: IntArray? = null,
@@ -267,7 +270,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         }
 
         for ((i, label) in labels.withIndex()) {
-            val itemBinding = FwItemDialogCheckBinding.inflate(inflater, ll, false)
+            val itemBinding = FwItemDialogCheckBinding.inflate(layoutInflater, ll, false)
 
             // label
             itemBinding.fwTvLabel.text = label
@@ -342,6 +345,8 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     interface DialogListener
 }
 
+//
+
 abstract class SingleChoiceDialog : BaseDialog<SingleChoiceDialog.DialogListener>() {
     interface DialogListener : BaseDialog.DialogListener {
         fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String)
@@ -353,6 +358,8 @@ abstract class MultiChoiceDialog : BaseDialog<MultiChoiceDialog.DialogListener>(
         fun onMultiChoiceDialogItemsSelected(itemStates: BooleanArray, tag: String)
     }
 }
+
+//
 
 val AlertDialog.titleTextView: TextView? get() =
     context.resources.getIdentifier("alertTitle", "id", context.packageName)

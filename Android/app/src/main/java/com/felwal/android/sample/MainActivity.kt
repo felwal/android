@@ -34,17 +34,23 @@ import com.felwal.android.widget.dialog.numberDialog
 import com.felwal.android.widget.dialog.radioDialog
 import com.felwal.android.widget.dialog.sliderDialog
 import com.felwal.android.widget.dialog.textDialog
+import com.felwal.android.widget.sheet.MultiChoiceSheet
+import com.felwal.android.widget.sheet.SingleChoiceSheet
 import com.felwal.android.widget.sheet.SortMode
 import com.felwal.android.widget.sheet.SortSheet
 import com.felwal.android.widget.sheet.Sorter
+import com.felwal.android.widget.sheet.checkSheet
 import com.felwal.android.widget.sheet.listSheet
+import com.felwal.android.widget.sheet.radioSheet
 
 class MainActivity :
     AppCompatActivity(),
     AlertDialog.DialogListener,
     SortSheet.SheetListener,
     SingleChoiceDialog.DialogListener,
-    MultiChoiceDialog.DialogListener {
+    MultiChoiceDialog.DialogListener,
+    SingleChoiceSheet.SheetListener,
+    MultiChoiceSheet.SheetListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -154,24 +160,24 @@ class MainActivity :
         )
         group("Radio",
             Btn("Confirmation") {
-                radioDialog("Radio dialog", labels(20).toList(), 0, tag = "tag")
+                radioDialog("Radio dialog", labels(9).toList(), 0, tag = "tag")
                     .show(fm)
             },
             Btn("Simple") {
-                radioDialog("Radio dialog", labels(20).toList(), 0, posBtnTxtRes = null, tag = "tag")
+                radioDialog("Radio dialog", labels(9).toList(), 0, posBtnTxtRes = null, tag = "tag")
                     .show(fm)
             },
             Btn("Icons") {
                 radioDialog("Radio dialog", labels(3).toList(), 0, icons(3), tag = "tag")
                     .show(fm)
-            },
+            }
         )
         btn("Color") {
             colorDialog(
                 "Color dialog",
                 mutableListOf(
                     getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f)
-                ).repeated(20).toIntArray(),
+                ).repeated(9).toIntArray(),
                 0, tag = "tag"
             ).show(fm)
         }
@@ -180,7 +186,7 @@ class MainActivity :
 
         group("Check",
             Btn("Check") {
-                checkDialog("Check dialog", labels(20), intArrayOf(0), tag = "tag")
+                checkDialog("Check dialog", labels(9), intArrayOf(0), tag = "tag")
                     .show(fm)
             },
             Btn("Icons") {
@@ -190,7 +196,7 @@ class MainActivity :
         )
 
         btn("Chip") {
-            chipDialog("Chip dialog", labels(20), intArrayOf(0), tag = "tag")
+            chipDialog("Chip dialog", labels(9), intArrayOf(0), tag = "tag")
                 .show(fm)
         }
 
@@ -230,6 +236,29 @@ class MainActivity :
                 listSheet("List sheet", labels(3), tag = "tag")
                     .show(fm)
             },
+
+        group("Radio",
+            Btn("Radio") {
+                radioSheet("Radio sheet", labels(3).toList(), 0, tag = "tag")
+                    .show(fm)
+            },
+            Btn("Icons") {
+                radioSheet("Radio sheet", labels(3).toList(), 0, icons(3), tag = "tag")
+                    .show(fm)
+            }
+        )
+
+        sectionBreak()
+
+        group("Check",
+            Btn("Check") {
+                checkSheet("Check sheet", labels(3), intArrayOf(0), tag = "tag")
+                    .show(fm)
+            },
+            Btn("Icons") {
+                checkSheet("Check sheet", labels(3), intArrayOf(0), icons(3), tag = "tag")
+                    .show(fm)
+            }
         )
 
         btn("Sort") {
@@ -314,5 +343,13 @@ class MainActivity :
         sorter = sorter.copy()
 
         updateDayNight(true)
+    }
+
+    override fun onSingleChoiceSheetItemSelected(selectedIndex: Int, tag: String) {
+        contentView?.snackbar(selectedIndex.toString())
+    }
+
+    override fun onMultiChoiceSheetItemsSelected(itemStates: BooleanArray, tag: String) {
+        contentView?.snackbar(itemStates.contentToString())
     }
 }

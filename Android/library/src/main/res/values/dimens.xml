@@ -26,7 +26,9 @@
     <dimen name="fw_spacing_dialog_vertical_color">0dp</dimen>
 
     <!-- sheet -->
-    <dimen name="fw_spacing_sheet_horizontal">@dimen/fw_spacing_small</dimen>
+    <dimen name="fw_spacing_sheet_horizontal">16dp</dimen>
+    <dimen name="fw_spacing_sheet_horizontal_checkbox">11dp</dimen>
+    <dimen name="fw_spacing_sheet_horizontal_radiobutton">11dp</dimen>
     <dimen name="fw_spacing_sheet_vertical">@dimen/fw_spacing_tiny</dimen>
 
     <!-- settings -->

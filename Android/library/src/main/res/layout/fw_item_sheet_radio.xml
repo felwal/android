@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/fw_height_item"
+    android:background="?selectableItemBackground"
+    tools:context=".ui.AbsSettingsActivity">
+
+    <RadioButton
+        android:id="@+id/fw_rb_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fw_spacing_sheet_horizontal_radiobutton"
+        android:focusable="false"
+        android:clickable="false"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <RadioButton
+        android:id="@+id/fw_rb_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fw_spacing_sheet_horizontal_radiobutton"
+        android:focusable="false"
+        android:clickable="false"
+        android:background="@android:color/transparent"
+        android:button="@null"
+        android:drawableRight="?android:listChoiceIndicatorSingle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/fw_iv_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="@dimen/fw_spacing_sheet_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?colorControlNormal"
+        tools:src="@drawable/fw_ic_check_24"
+        tools:tint="@color/fw_grey25"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/fw_tv_label"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/fw_spacing_sheet_horizontal"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.Felwal.Dialog.Item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fw_iv_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Item" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

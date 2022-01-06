@@ -9,8 +9,11 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 import androidx.core.view.isGone
+import androidx.core.view.isInvisible
 import androidx.fragment.app.FragmentManager
+import com.felwal.android.databinding.FwItemSheetCheckBinding
 import com.felwal.android.databinding.FwItemSheetListBinding
+import com.felwal.android.databinding.FwItemSheetRadioBinding
 import com.felwal.android.databinding.FwSheetListBinding
 import com.felwal.android.util.getDrawableCompat
 import com.felwal.android.widget.dialog.NO_RES
@@ -71,21 +74,11 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
         if (!isAdded) super.show(fm, sheetTag)
     }
 
-    // tool
+    // set items
 
-    protected fun setTitleIfNonEmpty(title: String, binding: FwSheetListBinding) {
-        if (title == "") {
-            binding.fwTvTitle.isGone = true
-            binding.fwVDivider.isGone = true
-        }
-        else {
-            binding.fwTvTitle.text = title
-        }
-    }
-
-    protected fun setItems(
+    fun setItems(
         labels: Array<out String>,
-        @DrawableRes iconsRes: IntArray?,
+        @DrawableRes iconsRes: IntArray? = null,
         ll: LinearLayout,
         listener: (which: Int) -> Unit
     ) {
@@ -94,7 +87,7 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
         }
 
         for ((i, label) in labels.withIndex()) {
-            val itemBinding = FwItemSheetListBinding.inflate(inflater, ll, false)
+            val itemBinding = FwItemSheetListBinding.inflate(layoutInflater, ll, false)
 
             // label
             itemBinding.fwTvLabel.text = label
@@ -120,6 +113,132 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
         }
     }
 
+    fun setSingleChoiceItems(
+        labels: Array<out String>,
+        checkedIndex: Int,
+        @DrawableRes iconsRes: IntArray? = null,
+        ll: LinearLayout,
+        listener: (which: Int) -> Unit
+    ) {
+        if (iconsRes != null && iconsRes.isNotEmpty() && iconsRes.size != labels.size) {
+            throw IndexOutOfBoundsException("`iconsRes` must be null, empty or have equal size as `labels`.")
+        }
+
+        // use this for deselecting items
+        val itemBindings = mutableListOf<FwItemSheetRadioBinding>()
+
+        for ((i, label) in labels.withIndex()) {
+            val itemBinding = FwItemSheetRadioBinding.inflate(layoutInflater, ll, false)
+
+            // label
+            itemBinding.fwTvLabel.text = label
+
+            // icon
+            if (iconsRes != null && iconsRes.isNotEmpty()) {
+                val iconRes = iconsRes[i]
+                if (iconRes != NO_RES) {
+                    val icon = requireContext().getDrawableCompat(iconRes)
+                    itemBinding.fwIvIcon.setImageDrawable(icon)
+                }
+                itemBinding.fwRbStart.isGone = true
+            }
+            else {
+                // invisible to keep label correctly positioned
+                itemBinding.fwIvIcon.isInvisible = true
+                itemBinding.fwRbEnd.isGone = true
+            }
+
+            // selection
+            if (i == checkedIndex) {
+                itemBinding.fwRbStart.isChecked = true
+                itemBinding.fwRbEnd.isChecked = true
+            }
+
+            ll.addView(itemBinding.root)
+            itemBindings.add(itemBinding)
+
+            itemBinding.root.setOnClickListener {
+                // dont reselect the same item twice
+                if (!itemBinding.fwRbStart.isChecked) {
+                    // deselect all other
+                    itemBindings.forEach {
+                        it.fwRbStart.isChecked = false
+                        it.fwRbEnd.isChecked = false
+                    }
+
+                    // select this
+                    itemBinding.fwRbStart.isChecked = true
+                    itemBinding.fwRbEnd.isChecked = true
+
+                    listener(i)
+                }
+            }
+        }
+    }
+
+    fun setMultiChoiceItems(
+        labels: Array<out String>,
+        itemStates: BooleanArray,
+        @DrawableRes iconsRes: IntArray? = null,
+        ll: LinearLayout,
+        listener: (which: Int, isChecked: Boolean) -> Unit
+    ) {
+        if (iconsRes != null && iconsRes.isNotEmpty() && iconsRes.size != labels.size) {
+            throw IndexOutOfBoundsException("`iconsRes` must be null, empty or have equal size as `labels`.")
+        }
+        if (labels.size != itemStates.size) {
+            throw IndexOutOfBoundsException("`labels` and `itemStates` must have equal size")
+        }
+
+        for ((i, label) in labels.withIndex()) {
+            val itemBinding = FwItemSheetCheckBinding.inflate(layoutInflater, ll, false)
+
+            // label
+            itemBinding.fwTvLabel.text = label
+
+            // icon
+            if (iconsRes != null && iconsRes.isNotEmpty()) {
+                val iconRes = iconsRes[i]
+                if (iconRes != NO_RES) {
+                    val icon = requireContext().getDrawableCompat(iconRes)
+                    itemBinding.fwIvIcon.setImageDrawable(icon)
+                }
+                itemBinding.fwCbStart.isGone = true
+            }
+            else {
+                // invisible to keep label correctly positioned
+                itemBinding.fwIvIcon.isInvisible = true
+                itemBinding.fwCbEnd.isGone = true
+            }
+
+            // selection
+            itemBinding.fwCbStart.isChecked = itemStates[i]
+            itemBinding.fwCbEnd.isChecked = itemStates[i]
+
+            ll.addView(itemBinding.root)
+
+            itemBinding.root.setOnClickListener {
+                // toggle
+                itemBinding.fwCbStart.toggle()
+                itemBinding.fwCbEnd.toggle()
+
+                listener(i, itemBinding.fwCbStart.isChecked)
+            }
+        }
+    }
+
+    // more tools
+
+    protected fun setTitleIfNonEmpty(title: String, binding: FwSheetListBinding) {
+        if (title == "") {
+            binding.fwTvTitle.isGone = true
+            binding.fwVDivider.isGone = true
+        }
+        else {
+            binding.fwTvTitle.text = title
+        }
+    }
+
     protected fun catchClassCast(action: () -> Unit) {
         try {
             action()
@@ -134,4 +253,18 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
     //
 
     interface SheetListener
+}
+
+//
+
+abstract class SingleChoiceSheet : BaseSheet<SingleChoiceSheet.SheetListener>() {
+    interface SheetListener : BaseSheet.SheetListener {
+        fun onSingleChoiceSheetItemSelected(selectedIndex: Int, tag: String)
+    }
+}
+
+abstract class MultiChoiceSheet : BaseSheet<MultiChoiceSheet.SheetListener>() {
+    interface SheetListener : BaseSheet.SheetListener {
+        fun onMultiChoiceSheetItemsSelected(itemStates: BooleanArray, tag: String)
+    }
 }
