@@ -13,19 +13,4 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextAppearance.Sample.Feature" parent="TextAppearance.AppCompat">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">?colorPrimary</item>
-        <item name="android:textSize">@dimen/fw_type_dialog_item</item>
-    </style>
-
-    <style name="TextAppearance.Sample.Feature.Grouped">
-        <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textColor">?android:textColorSecondary</item>
-        <item name="android:textSize">14sp</item>
-        <item name="textAllCaps">true</item>
-        <item name="android:textAllCaps">true</item>
-    </style>
-
-
 </resources>

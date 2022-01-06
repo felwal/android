@@ -9,11 +9,11 @@ import com.felwal.android.lang.Trilean
 import com.felwal.android.sample.databinding.ActivityMainBinding
 import com.felwal.android.sample.databinding.ItemMainBreakBinding
 import com.felwal.android.sample.databinding.ItemMainButtonBinding
-import com.felwal.android.sample.databinding.ItemMainButtonGroupedBinding
 import com.felwal.android.sample.databinding.ItemMainGroupBinding
 import com.felwal.android.sample.databinding.ItemMainHeaderBinding
 import com.felwal.android.util.contentView
 import com.felwal.android.util.getColorByAttr
+import com.felwal.android.util.getDrawableCompat
 import com.felwal.android.util.launchActivity
 import com.felwal.android.util.multiplyAlphaComponent
 import com.felwal.android.util.popup
@@ -94,8 +94,8 @@ class MainActivity :
             launchActivity<SettingsActivity>()
         }
         group("Theme",
-            Gbtn("Day") { updateDayNight(true) },
-            Gbtn("Night") { updateDayNight(false) }
+            Btn("Day") { updateDayNight(true) },
+            Btn("Night") { updateDayNight(false) }
         )
 
         // menu
@@ -120,15 +120,15 @@ class MainActivity :
         header("Dialog")
 
         group("Alert",
-            Gbtn("Unary") {
+            Btn("Unary") {
                 alertDialog("Alert dialog", "Message", negBtnTxtRes = NO_RES, tag = "tag")
                     .show(fm)
             },
-            Gbtn("Binary") {
+            Btn("Binary") {
                 alertDialog("Alert dialog", "Message", tag = "tag")
                     .show(fm)
             },
-            Gbtn("Ternary") {
+            Btn("Ternary") {
                 alertDialog(
                     "Alert dialog", "Long ${"long ".repeat(200)}message",
                     neuBtnTxtRes = R.string.app_name, tag = "tag"
@@ -139,35 +139,29 @@ class MainActivity :
         sectionBreak()
 
         group("List",
-            Gbtn("List") {
+            Btn("List") {
                 listDialog("List dialog", "", labels(12), icons(12), tag = "tag")
                     .show(fm)
             },
-            Gbtn("No icons") {
+            Btn("No icons") {
                 listDialog("List dialog", "", labels(12), tag = "tag")
                     .show(fm)
             },
-            Gbtn("No title") {
+            Btn("No title") {
                 listDialog("", "", labels(3), icons(3), tag = "tag")
                     .show(fm)
-            },
-            Gbtn("Crash") {
-                listDialog(
-                    "Felwal keeps stopping", "",
-                    arrayOf("Close app"), intArrayOf(R.drawable.fw_ic_cross_24), tag = "tag"
-                ).show(fm)
             }
         )
         group("Radio",
-            Gbtn("Confirmation") {
+            Btn("Confirmation") {
                 radioDialog("Radio dialog", labels(20).toList(), 0, tag = "tag")
                     .show(fm)
             },
-            Gbtn("Simple") {
+            Btn("Simple") {
                 radioDialog("Radio dialog", labels(20).toList(), 0, posBtnTxtRes = null, tag = "tag")
                     .show(fm)
             },
-            Gbtn("Icons") {
+            Btn("Icons") {
                 radioDialog("Radio dialog", labels(3).toList(), 0, icons(3), tag = "tag")
                     .show(fm)
             },
@@ -185,20 +179,14 @@ class MainActivity :
         sectionBreak()
 
         group("Check",
-            Gbtn("Check") {
+            Btn("Check") {
                 checkDialog("Check dialog", labels(20), intArrayOf(0), tag = "tag")
                     .show(fm)
             },
-            Gbtn("Icons") {
+            Btn("Icons") {
                 checkDialog("Check dialog", labels(3), intArrayOf(0), icons(3), tag = "tag")
                     .show(fm)
             },
-            Gbtn("Permission") {
-                checkDialog(
-                    "Allow Felwal to make and manage phone calls?",
-                    arrayOf("Don't ask again"), intArrayOf(), tag = "tag"
-                ).show(fm)
-            }
         )
 
         btn("Chip") {
@@ -230,15 +218,15 @@ class MainActivity :
         header("Bottom sheet")
 
         group("List",
-            Gbtn("List") {
+            Btn("List") {
                 listSheet("List sheet", labels(3), icons(3), "tag")
                     .show(fm)
             },
-            Gbtn("No title") {
+            Btn("No title") {
                 listSheet("", labels(3), icons(3), "tag")
                     .show(fm)
             },
-            Gbtn("No icons") {
+            Btn("No icons") {
                 listSheet("List sheet", labels(3), tag = "tag")
                     .show(fm)
             },
@@ -252,14 +240,8 @@ class MainActivity :
 
     // inflate tool
 
-    private inner class Gbtn(val label: String, val onClick: (View) -> Unit) {
-        fun inflate(root: ViewGroup = binding.ll) {
-            val btnBinding = ItemMainButtonGroupedBinding.inflate(layoutInflater, root, false)
-
-            btnBinding.tv.text = label
-            btnBinding.root.setOnClickListener(onClick)
-            root.addView(btnBinding.root)
-        }
+    private inner class Btn(val label: String, val onClick: (View) -> Unit) {
+        fun inflate(root: ViewGroup = binding.ll) = btn(label, root, onClick)
     }
 
     private fun btn(label: String, onClick: (View) -> Unit) = btn(label, binding.ll, onClick)
@@ -272,12 +254,12 @@ class MainActivity :
         root.addView(btnBinding.root)
     }
 
-    private fun group(label: String, vararg gbtns: Gbtn) {
+    private fun group(label: String, vararg btns: Btn) {
         val groupBinding = ItemMainGroupBinding.inflate(layoutInflater, binding.ll, false)
 
         groupBinding.tv.text = label
 
-        for (btn in gbtns) btn.inflate(groupBinding.ll)
+        for (btn in btns) btn.inflate(groupBinding.root)
 
         binding.ll.addView(groupBinding.root)
     }
