@@ -8,7 +8,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isInvisible
 import androidx.core.view.updateLayoutParams
-import com.felwal.android.util.enableRipple
+import com.felwal.android.util.setItemRipple
 import com.felwal.android.util.getDimension
 import com.felwal.android.util.getDrawableCompat
 import com.felwal.android.util.hideOrRemove
@@ -380,7 +380,7 @@ abstract class AbsSettingsActivity(
             tvValue.setTextRemoveIfEmpty(value)
 
             // view
-            root.enableRipple()
+            root.setItemRipple()
             vDivider.isInvisible = hideDivider
 
             // icon
@@ -404,7 +404,7 @@ abstract class AbsSettingsActivity(
             tvDesc.setTextRemoveIfEmpty(desc)
 
             // view
-            root.enableRipple()
+            root.setItemRipple()
             vDivider.isInvisible = hideDivider
 
             // icon

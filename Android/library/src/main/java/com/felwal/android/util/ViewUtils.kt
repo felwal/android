@@ -106,19 +106,49 @@ fun EditText.makeMultilinePreventEnter() = apply {
     maxLines = 100 // allow expanding
 }
 
-//
+// view
 
-fun Layout.getStartOfLine(index: Int): Int = getLineStart(getLineForOffset(index))
-
-fun View.enableRipple() =
+fun View.setItemRipple() =
     setBackgroundResource(context.getResIdByAttr(R.attr.selectableItemBackground))
 
-fun View.enableActionItemRipple() =
+fun View.setBorderlessItemRipple() =
+    setBackgroundResource(context.getResIdByAttr(R.attr.selectableItemBackgroundBorderless))
+
+fun View.setActionItemRipple() =
     setBackgroundResource(context.getResIdByAttr(android.R.attr.actionBarItemBackground))
 
 fun View.canScrollUp() = canScrollVertically(-1)
 
 fun View.canScrollDown() = canScrollVertically(1)
+
+fun View.getActivity(): Activity? {
+    var c = context
+    while (c is ContextWrapper) {
+        if (c is Activity)  return c
+        c = c.baseContext
+    }
+    return null
+}
+
+fun View.getChildAt(index: Int): View? = (this as? ViewGroup)?.getChildAt(index)
+
+// misc
+
+fun Layout.getStartOfLine(index: Int): Int = getLineStart(getLineForOffset(index))
+
+/**
+ * The root view of the layout set via [Activity.setContentView].
+ *
+ * Note: may or may not work on every device all the time.
+ */
+val Activity.contentView: View? get() = window.decorView.rootView.rootView
+    .getChildAt(0)
+    ?.getChildAt(1)
+    ?.getChildAt(0)
+    ?.getChildAt(1)
+    ?.getChildAt(0)
+
+val Context.layoutInflater: LayoutInflater get() = LayoutInflater.from(this)
 
 fun <T, VH : RecyclerView.ViewHolder> ListAdapter<T, VH>.submitListKeepScroll(
     list: List<T>,
@@ -138,26 +168,6 @@ fun <T, VH : RecyclerView.ViewHolder> ListAdapter<T, VH>.submitListKeepScroll(
         commitCallback?.invoke()
     }
 }
-
-fun View.getActivity(): Activity? {
-    var c = context
-    while (c is ContextWrapper) {
-        if (c is Activity)  return c
-        c = c.baseContext
-    }
-    return null
-}
-
-fun View.getChildAt(index: Int): View? = (this as? ViewGroup)?.getChildAt(index)
-
-val Activity.contentView: View? get() = window.decorView.rootView.rootView
-    .getChildAt(0)
-    ?.getChildAt(1)
-    ?.getChildAt(0)
-    ?.getChildAt(1)
-    ?.getChildAt(0)
-
-val Context.layoutInflater: LayoutInflater get() = LayoutInflater.from(this)
 
 // anim
 

@@ -22,7 +22,7 @@
         <!-- settings -->
         <item name="fw_settingHeaderTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
         <item name="fw_settingItemTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle1</item>
-        <item name="fw_settingDescTextAppearance">@style/TextAppearance.MaterialComponents.Body2</item>
+        <item name="fw_settingDescTextAppearance">@style/TextAppearance.MaterialComponents.Caption</item>
         <item name="fw_settingItemIconTint">?colorControlNormal</item>
 
         <!-- remove action bar -->

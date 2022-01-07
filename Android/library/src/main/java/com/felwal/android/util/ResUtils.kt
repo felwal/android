@@ -15,6 +15,7 @@ import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntegerRes
 import androidx.annotation.PluralsRes
+import androidx.annotation.Px
 import androidx.appcompat.content.res.AppCompatResources
 
 // get res
@@ -23,6 +24,7 @@ fun Context.getDrawableCompat(@DrawableRes id: Int): Drawable? = AppCompatResour
 
 fun Context.getBoolean(@BoolRes id: Int): Boolean = resources.getBoolean(id)
 
+@Px
 fun Context.getDimension(@DimenRes id: Int): Float = resources.getDimension(id)
 
 fun Context.getInteger(@IntegerRes id: Int): Int = resources.getInteger(id)
@@ -69,6 +71,7 @@ fun Context.getDrawableByAttr(@AttrRes attr: Int): Drawable? = getDrawableCompat
 
 fun Context.getBooleanByAttr(@AttrRes attr: Int): Boolean = getBoolean(getResIdByAttr(attr))
 
+@Px
 fun Context.getDimensionByAttr(@AttrRes attr: Int): Float = getDimension(getResIdByAttr(attr))
 
 fun Context.getIntegerByAttr(@AttrRes attr: Int): Int = getInteger(getResIdByAttr(attr))
