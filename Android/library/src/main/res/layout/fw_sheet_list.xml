@@ -8,32 +8,6 @@
     android:background="@drawable/fw_shape_sheet_bg"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
-    <TextView
-        android:id="@+id/fw_tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/fw_spacing_small"
-        android:layout_marginTop="@dimen/fw_spacing_small"
-        android:paddingBottom="@dimen/fw_spacing_small"
-        android:gravity="center_vertical"
-        android:textAppearance="@style/TextAppearance.Felwal.Dialog.Title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Title"
-        tools:visibility="visible"/>
-
-    <View
-        android:id="@+id/fw_v_divider"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fw_height_divider"
-        app:layout_constraintTop_toBottomOf="@id/fw_tv_title"
-        app:layout_constraintBottom_toTopOf="@+id/fw_sv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/Widget.Felwal.Divider"
-        tools:visibility="visible"/>
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/fw_sv"
         android:layout_width="match_parent"
@@ -41,7 +15,7 @@
         android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fw_tv_title">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/fw_ll"
@@ -52,6 +26,30 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/fw_tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/fw_spacing_small"
+                android:layout_marginTop="@dimen/fw_spacing_tiny"
+                android:paddingBottom="@dimen/fw_spacing_small"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.Felwal.Dialog.Title"
+                tools:text="Title"
+                tools:visibility="visible"/>
+
+            <View
+                android:id="@+id/fw_v_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fw_height_divider"
+                android:layout_marginBottom="@dimen/fw_spacing_tiny"
+                app:layout_constraintTop_toBottomOf="@id/fw_tv_title"
+                app:layout_constraintBottom_toTopOf="@+id/fw_sv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                style="@style/Widget.Felwal.Divider"
+                tools:visibility="visible"/>
 
             <!--<include layout="@layout/fw_item_sheet_list" />
             <include layout="@layout/fw_item_sheet_list" />
