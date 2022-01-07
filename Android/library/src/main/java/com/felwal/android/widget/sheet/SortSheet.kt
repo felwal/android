@@ -4,7 +4,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import com.felwal.android.R
-import com.felwal.android.databinding.FwItemDialogListBinding
+import com.felwal.android.databinding.FwItemSheetListBinding
 import com.felwal.android.databinding.FwSheetListBinding
 import com.felwal.android.util.getColorByAttr
 import com.felwal.android.util.getDrawableByAttr
@@ -39,7 +39,7 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
 
         // items
         for ((i, label) in labels.withIndex()) {
-            val itemBinding = FwItemDialogListBinding.inflate(inflater, ll, false)
+            val itemBinding = FwItemSheetListBinding.inflate(inflater, ll, false)
             val tv = itemBinding.fwTvLabel
 
             tv.text = label

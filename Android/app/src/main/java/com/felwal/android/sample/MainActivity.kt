@@ -291,6 +291,14 @@ class MainActivity :
             Btn("Icons") {
                 checkSheet("Check sheet", labels(3), intArrayOf(0), icons(3), tag = "tag")
                     .show(fm)
+            },
+            Btn("Long") {
+                checkSheet("List sheet", labels(18), intArrayOf(0), icons(18), tag = "tag")
+                    .show(fm)
+            },
+            Btn("Long no title") {
+                checkSheet("", labels(18), intArrayOf(0), icons(18), tag = "tag")
+                    .show(fm)
             }
         )
     }

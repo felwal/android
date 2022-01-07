@@ -76,7 +76,7 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
 
     // set items
 
-    fun setItems(
+    protected fun setItems(
         labels: Array<out String>,
         @DrawableRes iconsRes: IntArray? = null,
         ll: LinearLayout,
@@ -113,7 +113,7 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
         }
     }
 
-    fun setSingleChoiceItems(
+    protected fun setSingleChoiceItems(
         labels: Array<out String>,
         checkedIndex: Int,
         @DrawableRes iconsRes: IntArray? = null,
@@ -176,7 +176,7 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
         }
     }
 
-    fun setMultiChoiceItems(
+    protected fun setMultiChoiceItems(
         labels: Array<out String>,
         itemStates: BooleanArray,
         @DrawableRes iconsRes: IntArray? = null,
