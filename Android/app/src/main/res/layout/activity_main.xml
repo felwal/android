@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/fw_spacing_small"
             android:orientation="vertical"
-            tools:context="com.felwal.android.sample.MainActivity" />
+            tools:context="com.felwal.android.demo.MainActivity" />
 
     </ScrollView>
 

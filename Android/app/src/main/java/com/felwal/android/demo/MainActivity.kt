@@ -1,4 +1,4 @@
-package com.felwal.android.sample
+package com.felwal.android.demo
 
 import android.os.Bundle
 import android.view.View
@@ -6,14 +6,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.felwal.android.lang.Trilean
-import com.felwal.android.sample.databinding.ActivityMainBinding
-import com.felwal.android.sample.databinding.ItemMainBreakBinding
-import com.felwal.android.sample.databinding.ItemMainButtonBinding
-import com.felwal.android.sample.databinding.ItemMainGroupBinding
-import com.felwal.android.sample.databinding.ItemMainHeaderBinding
+import com.felwal.android.demo.databinding.ActivityMainBinding
+import com.felwal.android.demo.databinding.ItemMainBreakBinding
+import com.felwal.android.demo.databinding.ItemMainButtonBinding
+import com.felwal.android.demo.databinding.ItemMainGroupBinding
+import com.felwal.android.demo.databinding.ItemMainHeaderBinding
 import com.felwal.android.util.contentView
 import com.felwal.android.util.getColorByAttr
-import com.felwal.android.util.getDrawableCompat
 import com.felwal.android.util.launchActivity
 import com.felwal.android.util.multiplyAlphaComponent
 import com.felwal.android.util.popup

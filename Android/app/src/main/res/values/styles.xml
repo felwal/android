@@ -3,12 +3,12 @@
 
     <!-- textappearance -->
 
-    <style name="TextAppearance.Sample" parent="TextAppearance.AppCompat">
+    <style name="TextAppearance.Demo" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">?android:textColorPrimary</item>
     </style>
 
-    <style name="TextAppearance.Sample.Subtitle2">
+    <style name="TextAppearance.Demo.Subtitle2">
         <item name="android:textSize">@dimen/type_subtitle2</item>
         <item name="android:textStyle">bold</item>
     </style>

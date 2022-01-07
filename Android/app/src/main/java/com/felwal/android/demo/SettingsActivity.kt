@@ -1,8 +1,8 @@
-package com.felwal.android.sample
+package com.felwal.android.demo
 
 import android.os.Bundle
 import android.widget.LinearLayout
-import com.felwal.android.sample.databinding.ActivitySettingsBinding
+import com.felwal.android.demo.databinding.ActivitySettingsBinding
 import com.felwal.android.ui.AbsSettingsActivity
 import com.felwal.android.util.snackbar
 import com.felwal.android.widget.dialog.DecimalDialog

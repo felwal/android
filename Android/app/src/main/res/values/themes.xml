@@ -8,7 +8,7 @@
 
     <!-- light theme -->
 
-    <style name="Theme.Sample" parent="Theme.Default">
+    <style name="Theme.Demo" parent="Theme.Default">
         <item name="android:windowLightStatusBar">true</item>
 
         <!-- primary -->
