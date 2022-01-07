@@ -42,7 +42,9 @@ class ListDialog : SingleChoiceDialog() {
             }
         }
 
-        show()
+        show().apply {
+            setScrollingDialogTitlePadding()
+        }
     }
 
     //

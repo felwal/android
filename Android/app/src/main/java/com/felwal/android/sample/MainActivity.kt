@@ -19,6 +19,7 @@ import com.felwal.android.util.multiplyAlphaComponent
 import com.felwal.android.util.popup
 import com.felwal.android.util.repeated
 import com.felwal.android.util.snackbar
+import com.felwal.android.util.toIndicesOfTruths
 import com.felwal.android.util.toast
 import com.felwal.android.widget.dialog.AlertDialog
 import com.felwal.android.widget.dialog.MultiChoiceDialog
@@ -156,6 +157,12 @@ class MainActivity :
             Btn("No title") {
                 listDialog("", "", labels(3), icons(3), tag = "tag")
                     .show(fm)
+            },
+            Btn("Crash") {
+                listDialog(
+                    "Felwal keeps stopping", "",
+                    arrayOf("Close app"), intArrayOf(R.drawable.fw_ic_cross_24), tag = "tag"
+                ).show(fm)
             }
         )
         group("Radio",
@@ -172,15 +179,26 @@ class MainActivity :
                     .show(fm)
             }
         )
-        btn("Color") {
-            colorDialog(
-                "Color dialog",
-                mutableListOf(
-                    getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f)
-                ).repeated(9).toIntArray(),
-                0, tag = "tag"
-            ).show(fm)
-        }
+        group("Color",
+            Btn("Color") {
+                colorDialog(
+                    "Color dialog",
+                    mutableListOf(
+                        getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f)
+                    ).repeated(20).toIntArray(),
+                    0, tag = "tag"
+                ).show(fm)
+            },
+            Btn("No title") {
+                colorDialog(
+                    "",
+                    mutableListOf(
+                        getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f)
+                    ).repeated(4).toIntArray(),
+                    0, tag = "tag"
+                ).show(fm)
+            }
+        )
 
         sectionBreak()
 
@@ -193,12 +211,23 @@ class MainActivity :
                 checkDialog("Check dialog", labels(3), intArrayOf(0), icons(3), tag = "tag")
                     .show(fm)
             },
+            Btn("Permission") {
+                checkDialog(
+                    "Allow Felwal to make and manage phone calls?",
+                    arrayOf("Don't ask again"), intArrayOf(), tag = "tag"
+                ).show(fm)
+            }
         )
-
-        btn("Chip") {
-            chipDialog("Chip dialog", labels(9), intArrayOf(0), tag = "tag")
-                .show(fm)
-        }
+        group("Chip",
+            Btn("Chip") {
+                chipDialog("Chip dialog", labels(18), intArrayOf(), tag = "tag")
+                    .show(fm)
+            },
+            Btn("No title") {
+                chipDialog("", labels(3), intArrayOf(), tag = "tag")
+                    .show(fm)
+            }
+        )
 
         sectionBreak()
 
@@ -235,8 +264,8 @@ class MainActivity :
             Btn("No icons") {
                 listSheet("List sheet", labels(3), tag = "tag")
                     .show(fm)
-            },
-
+            }
+        )
         group("Radio",
             Btn("Radio") {
                 radioSheet("Radio sheet", labels(3).toList(), 0, tag = "tag")
@@ -247,6 +276,10 @@ class MainActivity :
                     .show(fm)
             }
         )
+        btn("Sort") {
+            SortSheet.newInstance("Sort by", sorter, "tag")
+                .show(fm)
+        }
 
         sectionBreak()
 
@@ -260,11 +293,6 @@ class MainActivity :
                     .show(fm)
             }
         )
-
-        btn("Sort") {
-            SortSheet.newInstance("Sort by", sorter, "tag")
-                .show(fm)
-        }
     }
 
     // inflate tool
@@ -333,7 +361,7 @@ class MainActivity :
     }
 
     override fun onMultiChoiceDialogItemsSelected(itemStates: BooleanArray, tag: String) {
-        contentView?.snackbar(itemStates.contentToString())
+        contentView?.snackbar(itemStates.toIndicesOfTruths().contentToString())
     }
 
     // sheet listener
@@ -341,8 +369,6 @@ class MainActivity :
     override fun onSortSheetItemClick(checkedIndex: Int) {
         sorter.select(checkedIndex)
         sorter = sorter.copy()
-
-        updateDayNight(true)
     }
 
     override fun onSingleChoiceSheetItemSelected(selectedIndex: Int, tag: String) {
@@ -350,6 +376,6 @@ class MainActivity :
     }
 
     override fun onMultiChoiceSheetItemsSelected(itemStates: BooleanArray, tag: String) {
-        contentView?.snackbar(itemStates.contentToString())
+        contentView?.snackbar(itemStates.toIndicesOfTruths().contentToString())
     }
 }

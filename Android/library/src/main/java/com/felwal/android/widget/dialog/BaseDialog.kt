@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.felwal.android.R
@@ -24,6 +25,7 @@ import com.felwal.android.databinding.FwItemDialogListBinding
 import com.felwal.android.databinding.FwItemDialogRadioBinding
 import com.felwal.android.util.canScrollDown
 import com.felwal.android.util.canScrollUp
+import com.felwal.android.util.getDimension
 import com.felwal.android.util.getDrawableCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -155,7 +157,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     // set items
 
-    fun setItems(
+    protected fun AlertDialog.Builder.setItems(
         labels: Array<out String>,
         @DrawableRes iconsRes: IntArray? = null,
         ll: LinearLayout,
@@ -192,7 +194,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         }
     }
 
-    fun setSingleChoiceItems(
+    protected fun setSingleChoiceItems(
         labels: Array<out String>,
         checkedIndex: Int,
         @DrawableRes iconsRes: IntArray? = null,
@@ -255,7 +257,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         }
     }
 
-    fun setMultiChoiceItems(
+    protected fun setMultiChoiceItems(
         labels: Array<out String>,
         itemStates: BooleanArray,
         @DrawableRes iconsRes: IntArray? = null,
@@ -308,37 +310,49 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     // more tools
 
-    protected fun setDividers(vList: View, vDividerTop: View?, vDividerBottom: View?) {
-        // default visibility
-        updateDividers(vList, vDividerTop, vDividerBottom)
-        if (!hasButtons) vDividerBottom?.isInvisible = true
-
-        // on scroll visibility
-        vList.setOnScrollChangeListener { _, _, _, _, _ ->
-            updateDividers(vList, vDividerTop, vDividerBottom)
+    /**
+     * Adds padding if the title will be shown.
+     * Use this to let the ScrolLView go all the way to the top when the dialog is titleless.
+     */
+    protected fun AlertDialog.setScrollingDialogTitlePadding() {
+        if (titleTextView?.text?.isNotEmpty() == true) {
+            // the padding is 0 by default
+            titleTextView?.updatePadding(bottom = context.getDimension(R.dimen.fw_spacing_tiny).toInt())
         }
 
-        // on layout size change visibility (includes orientation change)
-        vList.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            updateDividers(vList, vDividerTop, vDividerBottom)
-        }
     }
+
+    protected fun setDividers(vList: View, vDividerTop: View?, vDividerBottom: View?) {
+            // default visibility
+            updateDividers(vList, vDividerTop, vDividerBottom)
+            if (!hasButtons) vDividerBottom?.isInvisible = true
+
+            // on scroll visibility
+            vList.setOnScrollChangeListener { _, _, _, _, _ ->
+                updateDividers(vList, vDividerTop, vDividerBottom)
+            }
+
+            // on layout size change visibility (includes orientation change)
+            vList.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+                updateDividers(vList, vDividerTop, vDividerBottom)
+            }
+        }
 
     private fun updateDividers(vList: View, vDividerTop: View?, vDividerBottom: View?) {
-        vDividerTop?.isInvisible = !vList.canScrollUp()
-        if (hasButtons) vDividerBottom?.isInvisible = !vList.canScrollDown()
-    }
+            vDividerTop?.isInvisible = !vList.canScrollUp()
+            if (hasButtons) vDividerBottom?.isInvisible = !vList.canScrollDown()
+        }
 
     protected fun catchClassCast(action: () -> Unit) {
-        try {
-            action()
+            try {
+                action()
+            }
+            catch (e: ClassCastException) {
+                // listener was not successfully safe-casted to L.
+                // all we need to do here is prevent a crash if the listener was not implemented.
+                Log.w("Dialog", "Conext was not successfully safe-casted as DialogListener")
+            }
         }
-        catch (e: ClassCastException) {
-            // listener was not successfully safe-casted to L.
-            // all we need to do here is prevent a crash if the listener was not implemented.
-            Log.w("Dialog", "Conext was not successfully safe-casted as DialogListener")
-        }
-    }
 
     //
 

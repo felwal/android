@@ -59,7 +59,9 @@ class RadioDialog : SingleChoiceDialog() {
         }
         setCancelButton(negBtnTxtRes)
 
-        show()
+        show().apply {
+            setScrollingDialogTitlePadding()
+        }
     }
 
     //
