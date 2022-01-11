@@ -70,7 +70,7 @@ class RadioDialog : SingleChoiceDialog() {
         @JvmStatic
         fun newInstance(
             title: String,
-            labels: List<String>,
+            labels: Array<String>,
             checkedIndex: Int,
             @DrawableRes icons: IntArray? = null,
             @StringRes posBtnTxtRes: Int? = R.string.fw_dialog_btn_ok,
@@ -83,7 +83,7 @@ class RadioDialog : SingleChoiceDialog() {
                 posBtnTxtRes ?: NO_RES, negBtnTxtRes = negBtnTxtRes,
                 tag = tag, passValue = passValue
             ).apply {
-                putStringArray(ARG_LABELS, labels.toTypedArray())
+                putStringArray(ARG_LABELS, labels)
                 putInt(ARG_CHECKED_INDEX, checkedIndex)
                 putIntArray(ARG_ICONS, icons.orEmpty())
             }
@@ -93,7 +93,7 @@ class RadioDialog : SingleChoiceDialog() {
 
 fun radioDialog(
     title: String,
-    labels: List<String>,
+    labels: Array<String>,
     checkedIndex: Int,
     @DrawableRes icons: IntArray? = null,
     @StringRes posBtnTxtRes: Int? = R.string.fw_dialog_btn_ok,

@@ -253,7 +253,7 @@ abstract class AbsSettingsActivity(
     protected inner class SingleSelectionItem(
         title: String,
         private val desc: String? = null,
-        private val values: List<String>,
+        private val values: Array<String>,
         private val selectedIndex: Int,
         @DrawableRes iconRes: Int = NO_RES,
         private val tag: String

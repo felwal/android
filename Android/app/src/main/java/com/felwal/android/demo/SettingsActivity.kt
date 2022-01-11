@@ -81,7 +81,7 @@ class SettingsActivity :
                 ),
                 SingleSelectionItem(
                     title = "Single selection",
-                    values = listOf("Item", "Item"),
+                    values = arrayOf("Item", "Item"),
                     selectedIndex = 0,
                     tag = "tag"
                 ),

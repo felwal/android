@@ -16,7 +16,6 @@ import com.felwal.android.util.getColorByAttr
 import com.felwal.android.util.launchActivity
 import com.felwal.android.util.multiplyAlphaComponent
 import com.felwal.android.util.popup
-import com.felwal.android.util.repeated
 import com.felwal.android.util.snackbar
 import com.felwal.android.util.toIndicesOfTruths
 import com.felwal.android.util.toast
@@ -136,7 +135,7 @@ class MainActivity :
             },
             Btn("Ternary") {
                 alertDialog(
-                    "Alert dialog", "Long ${"long ".repeat(200)}message",
+                    "Alert dialog", "Message",
                     neuBtnTxtRes = R.string.app_name, tag = "tag"
                 ).show(fm)
             }
@@ -170,15 +169,15 @@ class MainActivity :
         )
         group("Radio",
             Btn("Confirmation") {
-                radioDialog("Radio dialog", labels(9).toList(), 0, tag = "tag")
+                radioDialog("Radio dialog", labels(9), 0, tag = "tag")
                     .show(fm)
             },
             Btn("Simple") {
-                radioDialog("Radio dialog", labels(9).toList(), 0, posBtnTxtRes = null, tag = "tag")
+                radioDialog("Radio dialog", labels(9), 0, posBtnTxtRes = null, tag = "tag")
                     .show(fm)
             },
             Btn("Icons") {
-                radioDialog("Radio dialog", labels(3).toList(), 0, icons(3), tag = "tag")
+                radioDialog("Radio dialog", labels(3), 0, icons(3), tag = "tag")
                     .show(fm)
             }
         )
@@ -186,19 +185,15 @@ class MainActivity :
             Btn("Color") {
                 colorDialog(
                     "Color dialog",
-                    mutableListOf(
-                        getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f)
-                    ).repeated(20).toIntArray(),
-                    0, tag = "tag"
+                    IntArray(20) { getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f) }, 0,
+                    tag = "tag"
                 ).show(fm)
             },
             Btn("No title") {
                 colorDialog(
                     "",
-                    mutableListOf(
-                        getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f)
-                    ).repeated(4).toIntArray(),
-                    0, tag = "tag"
+                    IntArray(4) { getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f) },0,
+                    tag = "tag"
                 ).show(fm)
             }
         )
@@ -271,11 +266,11 @@ class MainActivity :
         )
         group("Radio",
             Btn("Radio") {
-                radioSheet("Radio sheet", labels(3).toList(), 0, tag = "tag")
+                radioSheet("Radio sheet", labels(3), 0, tag = "tag")
                     .show(fm)
             },
             Btn("Icons") {
-                radioSheet("Radio sheet", labels(3).toList(), 0, icons(3), tag = "tag")
+                radioSheet("Radio sheet", labels(3), 0, icons(3), tag = "tag")
                     .show(fm)
             }
         )
@@ -352,14 +347,15 @@ class MainActivity :
         if (day) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
     )
 
-    private fun labels(count: Int) = listOf("Item").repeated(count).toTypedArray()
+    private fun labels(count: Int) = Array(count) { "Item" }
 
-    private fun icons(count: Int): IntArray =
-        if (count % 3 == 0) {
-            intArrayOf(R.drawable.fw_ic_check_24, R.drawable.fw_ic_arrow_up_24, R.drawable.fw_ic_arrow_down_24)
-                .repeated(count / 3)
+    private fun icons(count: Int): IntArray = IntArray(count) { i ->
+        when (i % 3) {
+            0 -> R.drawable.fw_ic_check_24
+            1 -> R.drawable.fw_ic_arrow_up_24
+            else -> R.drawable.fw_ic_arrow_down_24
         }
-        else intArrayOf(R.drawable.fw_ic_check_24).repeated(count)
+    }
 
     // dialog listener
 
