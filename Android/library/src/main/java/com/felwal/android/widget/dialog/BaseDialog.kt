@@ -258,9 +258,9 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
                     // select this
                     itemBinding.fwRbStart.isChecked = true
                     itemBinding.fwRbEnd.isChecked = true
-
-                    listener(i)
                 }
+
+                listener(i)
             }
         }
     }

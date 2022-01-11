@@ -28,7 +28,7 @@ class TextDialog : BaseDialog<TextDialog.DialogListener>() {
 
     override fun buildDialog(): AlertDialog {
         val binding = FwDialogTextBinding.inflate(inflater)
-        binding.fwTf.editText!!.inputType = EditorInfo.TYPE_CLASS_TEXT
+        binding.fwTf.editText!!.inputType = EditorInfo.TYPE_CLASS_TEXT or EditorInfo.TYPE_TEXT_FLAG_CAP_SENTENCES
 
         // widget
         binding.fwTf.editText!!.setText(text)
