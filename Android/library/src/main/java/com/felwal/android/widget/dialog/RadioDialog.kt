@@ -44,7 +44,7 @@ class RadioDialog : SingleChoiceDialog() {
             // there is no positive button; make the dialog simple, i.e. dismiss on item click
             if (posBtnTxtRes == NO_RES) {
                 catchClassCast {
-                    listener?.onSingleChoiceDialogItemSelected(index, dialogTag)
+                    listener?.onSingleChoiceDialogItemSelected(index, dialogTag, passValue)
                 }
                 dialog?.cancel()
             }
@@ -54,7 +54,7 @@ class RadioDialog : SingleChoiceDialog() {
         // buttons
         setPositiveButton(posBtnTxtRes) { _ ->
             catchClassCast {
-                listener?.onSingleChoiceDialogItemSelected(checkedIndex, dialogTag)
+                listener?.onSingleChoiceDialogItemSelected(checkedIndex, dialogTag, passValue)
             }
         }
         setCancelButton(negBtnTxtRes)
@@ -75,9 +75,14 @@ class RadioDialog : SingleChoiceDialog() {
             @DrawableRes icons: IntArray? = null,
             @StringRes posBtnTxtRes: Int? = R.string.fw_dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): RadioDialog = RadioDialog().apply {
-            arguments = putBaseBundle(title, "", posBtnTxtRes ?: NO_RES, negBtnTxtRes = negBtnTxtRes, tag = tag).apply {
+            arguments = putBaseBundle(
+                title, "",
+                posBtnTxtRes ?: NO_RES, negBtnTxtRes = negBtnTxtRes,
+                tag = tag, passValue = passValue
+            ).apply {
                 putStringArray(ARG_LABELS, labels.toTypedArray())
                 putInt(ARG_CHECKED_INDEX, checkedIndex)
                 putIntArray(ARG_ICONS, icons.orEmpty())
@@ -93,5 +98,6 @@ fun radioDialog(
     @DrawableRes icons: IntArray? = null,
     @StringRes posBtnTxtRes: Int? = R.string.fw_dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String
-): RadioDialog = RadioDialog.newInstance(title, labels, checkedIndex, icons, posBtnTxtRes, negBtnTxtRes, tag)
+    tag: String,
+    passValue: String? = null
+): RadioDialog = RadioDialog.newInstance(title, labels, checkedIndex, icons, posBtnTxtRes, negBtnTxtRes, tag, passValue)

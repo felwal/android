@@ -38,6 +38,7 @@ private const val ARG_MESSAGE = "message"
 private const val ARG_POSITIVE_BUTTON_RES = "positiveButtonText"
 private const val ARG_NEGATIVE_BUTTON_RES = "negativeButtonText"
 private const val ARG_TAG = "tag"
+private const val ARG_PASS_VALUE = "passValue"
 
 abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
@@ -49,6 +50,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     protected lateinit var title: String
     protected lateinit var message: String
     protected var dialogTag: String = "baseDialog"
+    protected var passValue: String? = null
 
     @StringRes protected var posBtnTxtRes: Int = R.string.fw_dialog_btn_ok
     @StringRes protected var negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel
@@ -82,13 +84,15 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         message: String,
         @StringRes posBtnTxtRes: Int = this.posBtnTxtRes,
         @StringRes negBtnTxtRes: Int = this.negBtnTxtRes,
-        tag: String
+        tag: String,
+        passValue: String?
     ): Bundle = Bundle().apply {
         putString(ARG_TITLE, title)
         putString(ARG_MESSAGE, message)
         putInt(ARG_POSITIVE_BUTTON_RES, posBtnTxtRes)
         putInt(ARG_NEGATIVE_BUTTON_RES, negBtnTxtRes)
         putString(ARG_TAG, tag)
+        putString(ARG_PASS_VALUE, passValue)
     }
 
     protected abstract fun unpackBundle(bundle: Bundle?)
@@ -99,6 +103,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         posBtnTxtRes = getInt(ARG_POSITIVE_BUTTON_RES, NO_RES)
         negBtnTxtRes = getInt(ARG_NEGATIVE_BUTTON_RES, NO_RES)
         dialogTag = getString(ARG_TAG, dialogTag)
+        passValue = getString(ARG_PASS_VALUE, null)
     }
 
     // build
@@ -380,13 +385,13 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
 abstract class SingleChoiceDialog : BaseDialog<SingleChoiceDialog.DialogListener>() {
     interface DialogListener : BaseDialog.DialogListener {
-        fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String)
+        fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String, passValue: String?)
     }
 }
 
 abstract class MultiChoiceDialog : BaseDialog<MultiChoiceDialog.DialogListener>() {
     interface DialogListener : BaseDialog.DialogListener {
-        fun onMultiChoiceDialogItemsSelected(itemStates: BooleanArray, tag: String)
+        fun onMultiChoiceDialogItemsSelected(itemStates: BooleanArray, tag: String, passValue: String?)
     }
 }
 

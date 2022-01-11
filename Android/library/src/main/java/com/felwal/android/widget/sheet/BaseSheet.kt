@@ -22,6 +22,7 @@ import java.lang.ClassCastException
 
 private const val ARG_TITLE = "title"
 private const val ARG_TAG = "tag"
+private const val ARG_PASS_VALUE = "passValue"
 
 abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragment() {
 
@@ -31,6 +32,7 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
     // arguments
     protected var title: String = ""
     protected var sheetTag: String = "baseSheet"
+    protected var passValue: String? = null
 
     // DialogFragment
 
@@ -54,9 +56,10 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
 
     // bundle
 
-    fun putBaseBundle(title: String, tag: String): Bundle = Bundle().apply {
+    fun putBaseBundle(title: String, tag: String, passValue: String?): Bundle = Bundle().apply {
         putString(ARG_TITLE, title)
         putString(ARG_TAG, tag)
+        putString(ARG_PASS_VALUE, passValue)
     }
 
     protected abstract fun unpackBundle(bundle: Bundle?)
@@ -64,6 +67,7 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
     private fun unpackBaseBundle(): Bundle? = arguments?.apply {
         title = getString(ARG_TITLE, "")
         sheetTag = getString(ARG_TAG, sheetTag)
+        passValue = getString(ARG_PASS_VALUE, null)
     }
 
     // build
@@ -259,12 +263,12 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
 
 abstract class SingleChoiceSheet : BaseSheet<SingleChoiceSheet.SheetListener>() {
     interface SheetListener : BaseSheet.SheetListener {
-        fun onSingleChoiceSheetItemSelected(selectedIndex: Int, tag: String)
+        fun onSingleChoiceSheetItemSelected(selectedIndex: Int, tag: String, passValue: String?)
     }
 }
 
 abstract class MultiChoiceSheet : BaseSheet<MultiChoiceSheet.SheetListener>() {
     interface SheetListener : BaseSheet.SheetListener {
-        fun onMultiChoiceSheetItemsSelected(itemStates: BooleanArray, tag: String)
+        fun onMultiChoiceSheetItemsSelected(itemStates: BooleanArray, tag: String, passValue: String?)
     }
 }

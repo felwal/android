@@ -45,7 +45,7 @@ class CheckSheet : MultiChoiceSheet() {
 
     override fun onDismiss(dialog: DialogInterface) {
         catchClassCast {
-            listener?.onMultiChoiceSheetItemsSelected(itemStates, sheetTag)
+            listener?.onMultiChoiceSheetItemsSelected(itemStates, sheetTag, passValue)
         }
         super.onDismiss(dialog)
     }
@@ -59,10 +59,11 @@ class CheckSheet : MultiChoiceSheet() {
             labels: Array<String>,
             checkedIndices: IntArray,
             @DrawableRes icons: IntArray? = null,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): CheckSheet = newInstance(
             title, labels, checkedIndices.asIndicesOfTruths(labels.size),
-            icons, tag
+            icons, tag, passValue
         )
 
         @JvmStatic
@@ -71,9 +72,10 @@ class CheckSheet : MultiChoiceSheet() {
             labels: Array<String>,
             itemStates: BooleanArray,
             @DrawableRes icons: IntArray? = null,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): CheckSheet = CheckSheet().apply {
-            arguments = putBaseBundle(title, tag).apply {
+            arguments = putBaseBundle(title, tag, passValue).apply {
                 putStringArray(ARG_LABELS, labels)
                 putBooleanArray(ARG_ITEM_STATES, itemStates)
                 putIntArray(ARG_ICONS, icons.orEmpty())
@@ -87,13 +89,15 @@ fun checkSheet(
     labels: Array<String>,
     checkedIndices: IntArray,
     @DrawableRes icons: IntArray? = null,
-    tag: String
-): CheckSheet = CheckSheet.newInstance(title, labels, checkedIndices, icons, tag)
+    tag: String,
+    passValue: String? = null
+): CheckSheet = CheckSheet.newInstance(title, labels, checkedIndices, icons, tag, passValue)
 
 fun checkSheet(
     title: String,
     labels: Array<String>,
     itemStates: BooleanArray,
     @DrawableRes icons: IntArray? = null,
-    tag: String
-): CheckSheet = CheckSheet.newInstance(title, labels, itemStates, icons, tag)
+    tag: String,
+    passValue: String? = null
+): CheckSheet = CheckSheet.newInstance(title, labels, itemStates, icons, tag, passValue)

@@ -30,7 +30,7 @@ class ListSheet : SingleChoiceSheet() {
         // items
         setItems(labels, iconsRes, binding.fwLl) { selectedIndex ->
             catchClassCast {
-                listener?.onSingleChoiceSheetItemSelected(selectedIndex, sheetTag)
+                listener?.onSingleChoiceSheetItemSelected(selectedIndex, sheetTag, passValue)
             }
         }
 
@@ -45,9 +45,10 @@ class ListSheet : SingleChoiceSheet() {
             title: String = "",
             labels: Array<String>,
             @DrawableRes icons: IntArray? = null,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ) = ListSheet().apply {
-            arguments = putBaseBundle(title, tag).apply {
+            arguments = putBaseBundle(title, tag, passValue).apply {
                 putStringArray(ARG_LABELS, labels)
                 putIntArray(ARG_ICONS, icons.orEmpty())
             }
@@ -59,5 +60,6 @@ fun listSheet(
     title: String = "",
     labels: Array<String>,
     @DrawableRes icons: IntArray? = null,
-    tag: String
-): ListSheet = ListSheet.newInstance(title, labels, icons, tag)
+    tag: String,
+    passValue: String? = null
+): ListSheet = ListSheet.newInstance(title, labels, icons, tag, passValue)

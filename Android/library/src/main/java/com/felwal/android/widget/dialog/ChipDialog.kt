@@ -60,7 +60,7 @@ class ChipDialog : MultiChoiceDialog() {
         // buttons
         setPositiveButton(posBtnTxtRes) { _ ->
             catchClassCast {
-                listener?.onMultiChoiceDialogItemsSelected(itemStates, dialogTag)
+                listener?.onMultiChoiceDialogItemsSelected(itemStates, dialogTag, passValue)
             }
         }
         setCancelButton(negBtnTxtRes)
@@ -77,11 +77,12 @@ class ChipDialog : MultiChoiceDialog() {
             vararg items: Pair<String, Boolean>,
             @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): ChipDialog = newInstance(
             title,
             items.firsts.toTypedArray(), items.seconds.toBooleanArray(),
-            posBtnTxtRes, negBtnTxtRes, tag
+            posBtnTxtRes, negBtnTxtRes, tag, passValue
         )
 
         @JvmStatic
@@ -91,11 +92,12 @@ class ChipDialog : MultiChoiceDialog() {
             checkedIndices: IntArray,
             @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): ChipDialog = newInstance(
             title,
             labels, checkedIndices.asIndicesOfTruths(labels.size),
-            posBtnTxtRes, negBtnTxtRes, tag
+            posBtnTxtRes, negBtnTxtRes, tag, passValue
         )
 
         @JvmStatic
@@ -105,9 +107,10 @@ class ChipDialog : MultiChoiceDialog() {
             itemStates: BooleanArray,
             @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): ChipDialog = ChipDialog().apply {
-            arguments = putBaseBundle(title, "", posBtnTxtRes, negBtnTxtRes, tag).apply {
+            arguments = putBaseBundle(title, "", posBtnTxtRes, negBtnTxtRes, tag, passValue).apply {
                 putStringArray(ARG_LABELS, labels)
                 putBooleanArray(ARG_ITEM_STATES, itemStates)
             }
@@ -120,9 +123,13 @@ fun chipDialog(
     vararg items: Pair<String, Boolean>,
     @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String
-): ChipDialog =
-    ChipDialog.newInstance(title, *items, posBtnTxtRes = posBtnTxtRes, negBtnTxtRes = negBtnTxtRes, tag = tag)
+    tag: String,
+    passValue: String? = null
+): ChipDialog = ChipDialog.newInstance(
+    title, *items,
+    posBtnTxtRes = posBtnTxtRes, negBtnTxtRes = negBtnTxtRes,
+    tag = tag, passValue = passValue
+)
 
 fun chipDialog(
     title: String,
@@ -130,8 +137,9 @@ fun chipDialog(
     checkedIndices: IntArray,
     @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String
-): ChipDialog = ChipDialog.newInstance(title, labels, checkedIndices, posBtnTxtRes, negBtnTxtRes, tag)
+    tag: String,
+    passValue: String? = null
+): ChipDialog = ChipDialog.newInstance(title, labels, checkedIndices, posBtnTxtRes, negBtnTxtRes, tag, passValue)
 
 fun chipDialog(
     title: String,
@@ -139,5 +147,6 @@ fun chipDialog(
     itemStates: BooleanArray,
     @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String
-): ChipDialog = ChipDialog.newInstance(title, labels, itemStates, posBtnTxtRes, negBtnTxtRes, tag)
+    tag: String,
+    passValue: String? = null
+): ChipDialog = ChipDialog.newInstance(title, labels, itemStates, posBtnTxtRes, negBtnTxtRes, tag, passValue)

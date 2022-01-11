@@ -38,7 +38,7 @@ class ListDialog : SingleChoiceDialog() {
         // items
         setItems(labels, iconsRes, binding.fwLl) { index ->
             catchClassCast {
-                listener?.onSingleChoiceDialogItemSelected(index, dialogTag)
+                listener?.onSingleChoiceDialogItemSelected(index, dialogTag, passValue)
             }
         }
 
@@ -56,9 +56,10 @@ class ListDialog : SingleChoiceDialog() {
             message: String = "",
             labels: Array<String>,
             @DrawableRes icons: IntArray? = null,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): ListDialog = ListDialog().apply {
-            arguments = putBaseBundle(title, message, NO_RES, NO_RES, tag).apply {
+            arguments = putBaseBundle(title, message, NO_RES, NO_RES, tag, passValue).apply {
                 putStringArray(ARG_LABELS, labels)
                 putIntArray(ARG_ICONS, icons.orEmpty())
             }
@@ -71,5 +72,6 @@ fun listDialog(
     message: String = "",
     labels: Array<String>,
     @DrawableRes icons: IntArray? = null,
-    tag: String
-): ListDialog = ListDialog.newInstance(title, message, labels, icons, tag)
+    tag: String,
+    passValue: String? = null
+): ListDialog = ListDialog.newInstance(title, message, labels, icons, tag, passValue)

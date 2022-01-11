@@ -95,7 +95,7 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
             ascending: Boolean,
             tag: String
         ) = SortSheet().apply {
-            arguments = putBaseBundle(title, tag).apply {
+            arguments = putBaseBundle(title, tag, null).apply {
                 putStringArray(ARG_LABELS, labels)
                 putInt(ARG_CHECKED_INDEX, checkedIndex)
                 putBoolean(ARG_ASCENDING, ascending)

@@ -363,15 +363,15 @@ class MainActivity :
 
     // dialog listener
 
-    override fun onAlertDialogPositiveClick(passValue: String?, tag: String) {
+    override fun onAlertDialogPositiveClick(tag: String, passValue: String?) {
     }
 
-    override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String) {
+    override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String, passValue: String?) {
         //updateDayNight(selectedIndex == 1)
         contentView?.snackbar(selectedIndex.toString())
     }
 
-    override fun onMultiChoiceDialogItemsSelected(itemStates: BooleanArray, tag: String) {
+    override fun onMultiChoiceDialogItemsSelected(itemStates: BooleanArray, tag: String, passValue: String?) {
         contentView?.snackbar(itemStates.toIndicesOfTruths().contentToString())
     }
 
@@ -382,11 +382,11 @@ class MainActivity :
         sorter = sorter.copy()
     }
 
-    override fun onSingleChoiceSheetItemSelected(selectedIndex: Int, tag: String) {
+    override fun onSingleChoiceSheetItemSelected(selectedIndex: Int, tag: String, passValue: String?) {
         contentView?.snackbar(selectedIndex.toString())
     }
 
-    override fun onMultiChoiceSheetItemsSelected(itemStates: BooleanArray, tag: String) {
+    override fun onMultiChoiceSheetItemsSelected(itemStates: BooleanArray, tag: String, passValue: String?) {
         contentView?.snackbar(itemStates.toIndicesOfTruths().contentToString())
     }
 }

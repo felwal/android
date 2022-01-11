@@ -45,7 +45,7 @@ class RadioSheet : SingleChoiceSheet() {
 
     override fun onDismiss(dialog: DialogInterface) {
         catchClassCast {
-            listener?.onSingleChoiceSheetItemSelected(checkedIndex, sheetTag)
+            listener?.onSingleChoiceSheetItemSelected(checkedIndex, sheetTag, passValue)
         }
         super.onDismiss(dialog)
     }
@@ -59,9 +59,10 @@ class RadioSheet : SingleChoiceSheet() {
             labels: List<String>,
             checkedIndex: Int,
             @DrawableRes icons: IntArray? = null,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): RadioSheet = RadioSheet().apply {
-            arguments = putBaseBundle(title, tag).apply {
+            arguments = putBaseBundle(title, tag, passValue).apply {
                 putStringArray(ARG_LABELS, labels.toTypedArray())
                 putInt(ARG_CHECKED_INDEX, checkedIndex)
                 putIntArray(ARG_ICONS, icons.orEmpty())
@@ -75,5 +76,6 @@ fun radioSheet(
     labels: List<String>,
     checkedIndex: Int,
     @DrawableRes icons: IntArray? = null,
-    tag: String
-): RadioSheet = RadioSheet.newInstance(title, labels, checkedIndex, icons, tag)
+    tag: String,
+    passValue: String? = null
+): RadioSheet = RadioSheet.newInstance(title, labels, checkedIndex, icons, tag, passValue)

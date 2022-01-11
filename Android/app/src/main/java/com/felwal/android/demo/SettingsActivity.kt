@@ -98,15 +98,12 @@ class SettingsActivity :
 
     // dialog
 
-    override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String) {
-
+    override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String, passValue: String?) {
     }
 
-    override fun onTextDialogPositiveClick(input: String, tag: String) {
-
+    override fun onTextDialogPositiveClick(input: String, tag: String, passValue: String?) {
     }
 
-    override fun onDecimalDialogPositiveClick(input: Float, tag: String) {
-
+    override fun onDecimalDialogPositiveClick(input: Float, tag: String, passValue: String?) {
     }
 }

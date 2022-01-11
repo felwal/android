@@ -54,7 +54,7 @@ class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
                 try {
                     val input = binding.fwTf.editText!!.string.toInt()
                     catchClassCast {
-                        listener?.onNumberDialogPositiveClick(input, dialogTag)
+                        listener?.onNumberDialogPositiveClick(input, dialogTag, passValue)
                     }
                 }
                 catch (e: NumberFormatException) {
@@ -70,7 +70,7 @@ class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
     //
 
     interface DialogListener : BaseDialog.DialogListener {
-        fun onNumberDialogPositiveClick(input: Int, tag: String)
+        fun onNumberDialogPositiveClick(input: Int, tag: String, passValue: String?)
     }
 
     //
@@ -84,9 +84,10 @@ class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
             hint: String = "",
             @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): NumberDialog = NumberDialog().apply {
-            arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag).apply {
+            arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag, passValue).apply {
                 putInt(ARG_TEXT, text)
                 putString(ARG_HINT, hint)
             }
@@ -101,5 +102,6 @@ fun numberDialog(
     hint: String = "",
     @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String
-): NumberDialog = NumberDialog.newInstance(title, message, text, hint, posBtnTxtRes, negBtnTxtRes, tag)
+    tag: String,
+    passValue: String? = null
+): NumberDialog = NumberDialog.newInstance(title, message, text, hint, posBtnTxtRes, negBtnTxtRes, tag, passValue)

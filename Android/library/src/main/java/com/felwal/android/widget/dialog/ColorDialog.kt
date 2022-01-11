@@ -65,7 +65,7 @@ class ColorDialog : SingleChoiceDialog() {
                 // set listener
                 ivColor.setOnClickListener {
                     catchClassCast {
-                        listener?.onSingleChoiceDialogItemSelected(position, dialogTag)
+                        listener?.onSingleChoiceDialogItemSelected(position, dialogTag, passValue)
                     }
                     dialog?.cancel()
                 }
@@ -89,9 +89,14 @@ class ColorDialog : SingleChoiceDialog() {
             @ColorInt colors: IntArray,
             checkedIndex: Int? = null,
             @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): ColorDialog = ColorDialog().apply {
-            arguments = putBaseBundle(title, "", NO_RES, negBtnTxtRes = negBtnTxtRes, tag = tag).apply {
+            arguments = putBaseBundle(
+                title, "",
+                NO_RES, negBtnTxtRes = negBtnTxtRes,
+                tag = tag, passValue = passValue
+            ).apply {
                 putIntArray(ARG_COLORS, colors)
                 putInt(ARG_CHECKED_INDEX, checkedIndex ?: NULL_INT)
             }
@@ -104,5 +109,6 @@ fun colorDialog(
     @ColorInt colors: IntArray,
     checkedIndex: Int? = null,
     @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String
-): ColorDialog = ColorDialog.newInstance(title, colors, checkedIndex, negBtnTxtRes, tag)
+    tag: String,
+    passValue: String? = null
+): ColorDialog = ColorDialog.newInstance(title, colors, checkedIndex, negBtnTxtRes, tag, passValue)

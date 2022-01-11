@@ -49,7 +49,7 @@ class DecimalDialog : BaseDialog<DecimalDialog.DialogListener>() {
                 try {
                     val input = binding.fwTf.editText!!.string.toFloat()
                     catchClassCast {
-                        listener?.onDecimalDialogPositiveClick(input, dialogTag)
+                        listener?.onDecimalDialogPositiveClick(input, dialogTag, passValue)
                     }
                 }
                 catch (e: NumberFormatException) {
@@ -65,7 +65,7 @@ class DecimalDialog : BaseDialog<DecimalDialog.DialogListener>() {
     //
 
     interface DialogListener : BaseDialog.DialogListener {
-        fun onDecimalDialogPositiveClick(input: Float, tag: String)
+        fun onDecimalDialogPositiveClick(input: Float, tag: String, passValue: String?)
     }
 
     //
@@ -79,9 +79,10 @@ class DecimalDialog : BaseDialog<DecimalDialog.DialogListener>() {
             hint: String = "",
             @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): DecimalDialog = DecimalDialog().apply {
-            arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag).apply {
+            arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag, passValue).apply {
                 putFloat(ARG_TEXT, text)
                 putString(ARG_HINT, hint)
             }
@@ -96,5 +97,6 @@ fun decimalDialog(
     hint: String = "",
     @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String
-): DecimalDialog = DecimalDialog.newInstance(title, message, text, hint, posBtnTxtRes, negBtnTxtRes, tag)
+    tag: String,
+    passValue: String? = null
+): DecimalDialog = DecimalDialog.newInstance(title, message, text, hint, posBtnTxtRes, negBtnTxtRes, tag, passValue)

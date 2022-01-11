@@ -54,7 +54,7 @@ class SliderDialog : BaseDialog<DecimalDialog.DialogListener>() {
                 try {
                     val input = binding.fwSl.value
                     catchClassCast {
-                        listener?.onDecimalDialogPositiveClick(input, dialogTag)
+                        listener?.onDecimalDialogPositiveClick(input, dialogTag, passValue)
                     }
                 }
                 catch (e: NumberFormatException) {
@@ -80,9 +80,10 @@ class SliderDialog : BaseDialog<DecimalDialog.DialogListener>() {
             value: Float = min,
             @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): SliderDialog = SliderDialog().apply {
-            arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag).apply {
+            arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag, passValue).apply {
                 putFloat(ARG_MIN, min)
                 putFloat(ARG_MAX, max)
                 putFloat(ARG_STEP, step)
@@ -101,5 +102,7 @@ fun sliderDialog(
     value: Float = min,
     @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String
-): SliderDialog = SliderDialog.newInstance(title, message, min, max, step, value, posBtnTxtRes, negBtnTxtRes, tag)
+    tag: String,
+    passValue: String? = null
+): SliderDialog =
+    SliderDialog.newInstance(title, message, min, max, step, value, posBtnTxtRes, negBtnTxtRes, tag, passValue)

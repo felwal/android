@@ -45,7 +45,7 @@ class TextDialog : BaseDialog<TextDialog.DialogListener>() {
             setPositiveButton(posBtnTxtRes) { _ ->
                 val input = binding.fwTf.editText!!.string.trim { it == ' ' }
                 catchClassCast {
-                    listener?.onTextDialogPositiveClick(input, dialogTag)
+                    listener?.onTextDialogPositiveClick(input, dialogTag, passValue)
                 }
             }
             setCancelButton(negBtnTxtRes)
@@ -57,7 +57,7 @@ class TextDialog : BaseDialog<TextDialog.DialogListener>() {
     //
 
     interface DialogListener : BaseDialog.DialogListener {
-        fun onTextDialogPositiveClick(input: String, tag: String)
+        fun onTextDialogPositiveClick(input: String, tag: String, passValue: String?)
     }
 
     //
@@ -71,9 +71,10 @@ class TextDialog : BaseDialog<TextDialog.DialogListener>() {
             hint: String = "",
             @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): TextDialog = TextDialog().apply {
-            arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag).apply {
+            arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag, passValue).apply {
                 putString(ARG_TEXT, text)
                 putString(ARG_HINT, hint)
             }
@@ -88,5 +89,6 @@ fun textDialog(
     hint: String = "",
     @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String
-): TextDialog = TextDialog.newInstance(title, message, text, hint, posBtnTxtRes, negBtnTxtRes, tag)
+    tag: String,
+    passValue: String? = null
+): TextDialog = TextDialog.newInstance(title, message, text, hint, posBtnTxtRes, negBtnTxtRes, tag, passValue)

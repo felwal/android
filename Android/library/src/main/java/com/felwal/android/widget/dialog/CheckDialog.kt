@@ -50,7 +50,7 @@ class CheckDialog : MultiChoiceDialog() {
         // buttons
         setPositiveButton(posBtnTxtRes) { _ ->
             catchClassCast {
-                listener?.onMultiChoiceDialogItemsSelected(itemStates, dialogTag)
+                listener?.onMultiChoiceDialogItemsSelected(itemStates, dialogTag, passValue)
             }
         }
         setCancelButton(negBtnTxtRes)
@@ -69,11 +69,12 @@ class CheckDialog : MultiChoiceDialog() {
             vararg items: Pair<String, Boolean>,
             @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): CheckDialog = newInstance(
             title,
             items.firsts.toTypedArray(), items.seconds.toBooleanArray(), null,
-            posBtnTxtRes, negBtnTxtRes, tag
+            posBtnTxtRes, negBtnTxtRes, tag, passValue
         )
 
         @JvmStatic
@@ -84,11 +85,12 @@ class CheckDialog : MultiChoiceDialog() {
             @DrawableRes icons: IntArray? = null,
             @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): CheckDialog = newInstance(
             title,
             labels, checkedIndices.asIndicesOfTruths(labels.size), icons,
-            posBtnTxtRes, negBtnTxtRes, tag
+            posBtnTxtRes, negBtnTxtRes, tag, passValue
         )
 
         @JvmStatic
@@ -99,9 +101,10 @@ class CheckDialog : MultiChoiceDialog() {
             @DrawableRes icons: IntArray? = null,
             @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String
+            tag: String,
+            passValue: String? = null
         ): CheckDialog = CheckDialog().apply {
-            arguments = putBaseBundle(title, "", posBtnTxtRes, negBtnTxtRes, tag).apply {
+            arguments = putBaseBundle(title, "", posBtnTxtRes, negBtnTxtRes, tag, passValue).apply {
                 putStringArray(ARG_LABELS, labels)
                 putBooleanArray(ARG_ITEM_STATES, itemStates)
                 putIntArray(ARG_ICONS, icons.orEmpty())
@@ -115,9 +118,13 @@ fun checkDialog(
     vararg items: Pair<String, Boolean>,
     @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String
-): CheckDialog =
-    CheckDialog.newInstance(title, *items, posBtnTxtRes = posBtnTxtRes, negBtnTxtRes = negBtnTxtRes, tag = tag)
+    tag: String,
+    passValue: String? = null
+): CheckDialog = CheckDialog.newInstance(
+    title, *items,
+    posBtnTxtRes = posBtnTxtRes, negBtnTxtRes = negBtnTxtRes,
+    tag = tag, passValue = passValue
+)
 
 fun checkDialog(
     title: String,
@@ -126,8 +133,12 @@ fun checkDialog(
     @DrawableRes icons: IntArray? = null,
     @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String
-): CheckDialog = CheckDialog.newInstance(title, labels, checkedIndices, icons, posBtnTxtRes, negBtnTxtRes, tag)
+    tag: String,
+    passValue: String? = null
+): CheckDialog = CheckDialog.newInstance(
+    title, labels, checkedIndices, icons,
+    posBtnTxtRes, negBtnTxtRes, tag, passValue
+)
 
 fun checkDialog(
     title: String,
@@ -136,5 +147,9 @@ fun checkDialog(
     @DrawableRes icons: IntArray? = null,
     @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String
-): CheckDialog = CheckDialog.newInstance(title, labels, itemStates, icons, posBtnTxtRes, negBtnTxtRes, tag)
+    tag: String,
+    passValue: String? = null
+): CheckDialog = CheckDialog.newInstance(
+    title, labels, itemStates, icons,
+    posBtnTxtRes, negBtnTxtRes, tag, passValue
+)
