@@ -43,7 +43,7 @@ class ListDialog : SingleChoiceDialog() {
         }
 
         show().apply {
-            setScrollingDialogTitlePadding()
+            fixScrollingDialogCustomPanelPadding()
         }
     }
 

@@ -157,6 +157,10 @@ class MainActivity :
                 listDialog("", "", labels(3), icons(3), tag = "tag")
                     .show(fm)
             },
+            Btn("Long no title") {
+                listDialog("", "", labels(12), icons(12), tag = "tag")
+                    .show(fm)
+            },
             Btn("Crash") {
                 listDialog(
                     "Felwal keeps stopping", "",

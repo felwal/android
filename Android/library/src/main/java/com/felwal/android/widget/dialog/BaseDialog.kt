@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -53,6 +54,8 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     @StringRes protected var negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel
 
     protected open val hasButtons get() = posBtnTxtRes != NO_RES || negBtnTxtRes != NO_RES
+
+    private val hasTitle get() = title.isNotEmpty()
 
     // DialogFragment
 
@@ -157,7 +160,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     // set items
 
-    protected fun AlertDialog.Builder.setItems(
+    protected fun setItems(
         labels: Array<out String>,
         @DrawableRes iconsRes: IntArray? = null,
         ll: LinearLayout,
@@ -311,48 +314,62 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     // more tools
 
     /**
-     * Adds padding if the title will be shown.
-     * Use this to let the ScrolLView go all the way to the top when the dialog is titleless.
+     * Adds bottom padding to the custom panel if the there are no buttons,
+     * and moves top padding if there is no title.
+     *
+     * Use this to give the ScrollView symmetric and non-clipping vertical padding.
      */
-    protected fun AlertDialog.setScrollingDialogTitlePadding() {
-        if (titleTextView?.text?.isNotEmpty() == true) {
-            // the padding is 0 by default
-            titleTextView?.updatePadding(bottom = context.getDimension(R.dimen.fw_spacing_tiny).toInt())
+    protected fun AlertDialog.fixScrollingDialogCustomPanelPadding() {
+        // remove padding from root and add to ll (to allow clipToPadding to take effect)
+        if (!hasTitle) {
+            // remove padding from root top
+            customPanel?.findViewById<ConstraintLayout>(R.id.cl_root)
+                ?.updatePadding(top = 0)
+
+            // add padding to ll top
+            customPanel?.findViewById<LinearLayout>(R.id.fw_ll)
+                ?.updatePadding(top = context.getDimension(R.dimen.fw_spacing_tiny).toInt())
         }
 
+        if (!hasButtons) {
+            // add padding to ll bottom
+            customPanel?.findViewById<LinearLayout>(R.id.fw_ll)
+                ?.updatePadding(bottom = context.getDimension(R.dimen.fw_spacing_tiny).toInt())
+        }
     }
 
     protected fun setDividers(vList: View, vDividerTop: View?, vDividerBottom: View?) {
-            // default visibility
+        // default visibility
+        updateDividers(vList, vDividerTop, vDividerBottom)
+        if (!hasTitle) vDividerTop?.isInvisible = true
+        if (!hasButtons) vDividerBottom?.isInvisible = true
+
+        // on scroll visibility
+        vList.setOnScrollChangeListener { _, _, _, _, _ ->
             updateDividers(vList, vDividerTop, vDividerBottom)
-            if (!hasButtons) vDividerBottom?.isInvisible = true
-
-            // on scroll visibility
-            vList.setOnScrollChangeListener { _, _, _, _, _ ->
-                updateDividers(vList, vDividerTop, vDividerBottom)
-            }
-
-            // on layout size change visibility (includes orientation change)
-            vList.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-                updateDividers(vList, vDividerTop, vDividerBottom)
-            }
         }
+
+        // on layout size change visibility (includes orientation change)
+        vList.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            updateDividers(vList, vDividerTop, vDividerBottom)
+        }
+    }
 
     private fun updateDividers(vList: View, vDividerTop: View?, vDividerBottom: View?) {
-            vDividerTop?.isInvisible = !vList.canScrollUp()
-            if (hasButtons) vDividerBottom?.isInvisible = !vList.canScrollDown()
-        }
+        if (hasTitle) vDividerTop?.isInvisible = !vList.canScrollUp()
+        if (hasButtons) vDividerBottom?.isInvisible = !vList.canScrollDown()
+    }
 
     protected fun catchClassCast(action: () -> Unit) {
-            try {
-                action()
-            }
-            catch (e: ClassCastException) {
-                // listener was not successfully safe-casted to L.
-                // all we need to do here is prevent a crash if the listener was not implemented.
-                Log.w("Dialog", "Conext was not successfully safe-casted as DialogListener")
-            }
+        try {
+            action()
         }
+        catch (e: ClassCastException) {
+            // listener was not successfully safe-casted to L.
+            // all we need to do here is prevent a crash if the listener was not implemented.
+            Log.w("Dialog", "Conext was not successfully safe-casted as DialogListener")
+        }
+    }
 
     //
 
@@ -375,15 +392,17 @@ abstract class MultiChoiceDialog : BaseDialog<MultiChoiceDialog.DialogListener>(
 
 //
 
-val AlertDialog.titleTextView: TextView? get() =
-    context.resources.getIdentifier("alertTitle", "id", context.packageName)
-        .takeIf { it > 0 }
-        ?.let { titleId -> findViewById(titleId) }
+val AlertDialog.titleTextView: TextView?
+    get() =
+        context.resources.getIdentifier("alertTitle", "id", context.packageName)
+            .takeIf { it > 0 }
+            ?.let { titleId -> findViewById(titleId) }
 
-val AlertDialog.titleTextViewAndroid: TextView? get() =
-    context.resources.getIdentifier("alertTitle", "id", "android")
-        .takeIf { it > 0 }
-        ?.let { titleId -> findViewById(titleId) }
+val AlertDialog.titleTextViewAndroid: TextView?
+    get() =
+        context.resources.getIdentifier("alertTitle", "id", "android")
+            .takeIf { it > 0 }
+            ?.let { titleId -> findViewById(titleId) }
 
 val AlertDialog.messageTextView: TextView? get() = findViewById(android.R.id.message)
 

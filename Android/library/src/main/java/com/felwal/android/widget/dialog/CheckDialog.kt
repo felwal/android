@@ -56,7 +56,7 @@ class CheckDialog : MultiChoiceDialog() {
         setCancelButton(negBtnTxtRes)
 
         show().apply {
-            setScrollingDialogTitlePadding()
+            fixScrollingDialogCustomPanelPadding()
         }
     }
 
