@@ -24,7 +24,7 @@ class CheckSheet : MultiChoiceSheet() {
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
             labels = getStringArray(ARG_LABELS).orEmpty()
-            itemStates = getBooleanArray(ARG_ITEM_STATES).orEmpty()
+            itemStates = getBooleanArray(ARG_ITEM_STATES).orEmpty().copyOf()
             iconsRes = getIntArray(ARG_ICONS).orEmpty()
         }
     }
