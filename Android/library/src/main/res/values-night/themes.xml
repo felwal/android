@@ -7,8 +7,6 @@
         <!-- background -->
         <item name="android:colorBackground">@color/fw_felwal_background_dk</item>
         <item name="colorOnBackground">@color/fw_white</item>
-
-        <!-- surface -->
         <item name="colorSurface">@color/fw_felwal_surface_dk</item>
         <item name="colorOnSurface">@color/fw_white</item>
 

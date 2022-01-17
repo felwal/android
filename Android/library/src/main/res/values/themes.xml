@@ -6,6 +6,9 @@
     <style name="Theme.Felwal.Base" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:navigationBarColor">?android:colorBackground</item>
 
+        <!-- text -->
+        <item name="android:textColorTertiary">@drawable/fw_selector_color_text_tertiary</item>
+
         <!-- sheet -->
         <item name="fw_sortSheetAscendingIcon">@drawable/fw_ic_arrow_up_24</item>
         <item name="fw_sortSheetDescendingIcon">@drawable/fw_ic_arrow_down_24</item>
@@ -32,10 +35,23 @@
         <!-- remove MaterialComponents automatic brightening of surface color in dark mode -->
         <item name="elevationOverlayEnabled">false</item>
 
-        <!-- AppCompat's colorAccent fills the same role as MaterialComponents' colorSecondary -->
-        <!-- prefer colorSecondary -->
+        <!-- mirror appcompat/android double attrs -->
+        <item name="android:colorPrimary">?colorPrimary</item>
+        <item name="android:colorPrimaryDark">?colorPrimaryDark</item>
+        <item name="android:colorSecondary">?colorSecondary</item>
+        <item name="android:colorAccent">?colorAccent</item>
+        <item name="android:colorControlNormal">?colorControlNormal</item>
+        <item name="android:colorControlActivated">?colorControlActivated</item>
+        <item name="android:colorControlHighlight">?colorControlHighlight</item>
+
+        <!-- mirror same-purpose attrs -->
         <item name="colorAccent">?colorSecondary</item>
-        <item name="android:colorAccent">?colorSecondary</item>
+        <item name="android:colorBackgroundFloating">?colorSurface</item>
+
+        <!-- mirror similar-purpose attrs as defaults -->
+        <item name="colorPrimaryDark">?colorPrimary</item>
+        <item name="colorPrimaryVariant">?colorPrimary</item>
+        <item name="colorSecondaryVariant">?colorSecondary</item>
 
         <!-- type -->
         <item name="textAllCaps">false</item>
@@ -75,8 +91,6 @@
         <!-- background -->
         <item name="android:colorBackground">@color/fw_felwal_background_lt</item>
         <item name="colorOnBackground">@color/fw_black</item>
-
-        <!-- surface -->
         <item name="colorSurface">@color/fw_felwal_surface_lt</item>
         <item name="colorOnSurface">@color/fw_black</item>
 

@@ -4,26 +4,26 @@
     <!-- palette -->
 
     <color name="fw_black">#000000</color>
-    <color name="fw_grey7">#121212</color>
-    <color name="fw_grey13">#202124</color>
-    <color name="fw_grey19">#2F3033</color>
-    <color name="fw_grey25">#3C4043</color>
-    <color name="fw_grey87">#DDDDDD</color>
+    <color name="fw_grey_7">#121212</color>
+    <color name="fw_grey_13">#202124</color>
+    <color name="fw_grey_19">#2F3033</color>
+    <color name="fw_grey_25">#3C4043</color>
+    <color name="fw_grey_87">#DDDDDD</color>
     <color name="fw_white">#FFFFFF</color>
 
     <!-- application -->
 
     <!-- default -->
-    <color name="fw_default_background_dk">@color/fw_grey7</color>
-    <color name="fw_default_surface_dk">@color/fw_grey7</color>
+    <color name="fw_material_background_dk">@color/fw_grey_7</color>
+    <color name="fw_material_surface_dk">@color/fw_grey_7</color>
 
     <!-- google -->
-    <color name="fw_google_background_dk">@color/fw_grey13</color>
-    <color name="fw_google_surface_dk">@color/fw_grey19</color>
-    <color name="fw_google_divider_dk">@color/fw_grey25</color>
+    <color name="fw_google_background_dk">@color/fw_grey_13</color>
+    <color name="fw_google_surface_dk">@color/fw_grey_19</color>
+    <color name="fw_google_divider_dk">@color/fw_grey_25</color>
     <color name="fw_google_background_lt">@color/fw_white</color>
     <color name="fw_google_surface_lt">@color/fw_white</color>
-    <color name="fw_google_divider_lt">@color/fw_grey87</color>
+    <color name="fw_google_divider_lt">@color/fw_grey_87</color>
 
     <!-- felwal -->
     <color name="fw_felwal_background_dk">@color/fw_google_background_dk</color>
@@ -40,5 +40,8 @@
     <!-- lawnchair -->
     <color name="fw_lawnchair_background_dk">#151618</color>
     <color name="fw_lawnchair_surface_dk">#252628</color>
+
+    <!-- viral iconpack -->
+    <color name="fw_launcher_fg_viral">#33234A</color>
 
 </resources>

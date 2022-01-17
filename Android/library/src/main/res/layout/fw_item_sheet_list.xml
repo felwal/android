@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="?colorControlNormal"
         tools:src="@drawable/fw_ic_check_24"
-        tools:tint="@color/fw_grey25"
+        tools:tint="@color/fw_grey_25"
         tools:visibility="visible" />
 
     <TextView
