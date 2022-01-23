@@ -98,6 +98,7 @@
         <item name="colorOnSurface">@color/fw_black</item>
 
         <item name="android:listDivider">@color/fw_felwal_divider_lt</item>
+        <!-- TODO: remove? -->
         <item name="strokeColor">@color/fw_felwal_divider_lt</item>
     </style>
 

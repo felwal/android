@@ -7,6 +7,8 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
 
+    <color name="button_bg_lt">#EEEEEE</color>
+
     <color name="launcher_bg">#9CA1B5</color>
 
 </resources>

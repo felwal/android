@@ -7,8 +7,8 @@
 
     <!-- layout -->
 
-    <dimen name="height_btn_feature">35dp</dimen>
-    <dimen name="corner_radius_btn_feature">5dp</dimen>
+    <dimen name="height_btn">35dp</dimen>
+    <dimen name="corner_radius_btn">5dp</dimen>
 
     <!-- typography -->
 
