@@ -32,7 +32,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
-        <!-- remove MaterialComponents automatic brightening of surface color in dark mode -->
+        <!-- remove MaterialComponents automatic brightening of surface color in dark mode;
+        we want to control surface colors ourselves. -->
         <item name="elevationOverlayEnabled">false</item>
 
         <!-- mirror appcompat/android double attrs -->
@@ -43,6 +44,9 @@
         <item name="android:colorControlNormal">?colorControlNormal</item>
         <item name="android:colorControlActivated">?colorControlActivated</item>
         <item name="android:colorControlHighlight">?colorControlHighlight</item>
+        <item name="android:popupMenuStyle">?popupMenuStyle</item>
+        <item name="android:listPopupWindowStyle">?listPopupWindowStyle</item>
+        <item name="android:actionOverflowMenuStyle">?actionOverflowMenuStyle</item>
 
         <!-- mirror same-purpose attrs -->
         <item name="colorAccent">?colorSecondary</item>
@@ -67,21 +71,20 @@
 
         <!-- popup style -->
         <item name="popupMenuStyle">@style/Widget.Felwal.PopupMenu</item>
-        <item name="android:popupMenuStyle">@style/Widget.Felwal.PopupMenu</item>
         <item name="listPopupWindowStyle">@style/Widget.Felwal.PopupMenu.ListPopupWindow</item>
-        <item name="android:listPopupWindowStyle">@style/Widget.Felwal.PopupMenu.ListPopupWindow</item>
         <item name="android:contextPopupMenuStyle">@style/Widget.Felwal.PopupMenu.ContextMenu</item>
         <item name="actionOverflowMenuStyle">@style/Widget.Felwal.PopupMenu.Overflow</item>
-        <item name="android:actionOverflowMenuStyle">@style/Widget.Felwal.PopupMenu.Overflow</item>
 
-        <!-- slider style -->
+        <!-- widget style -->
         <item name="sliderStyle">@style/Widget.Felwal.Slider</item>
+        <item name="checkboxStyle">@style/Widget.Felwal.CheckBox</item>
+        <item name="radioButtonStyle">@style/Widget.Felwal.RadioButton</item>
 
         <!-- dialog theme -->
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Felwal.Dialog</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Felwal.Sheet</item>
 
-        <!-- fam theme -->
+        <!-- control theme -->
         <item name="fw_floatingActionMenuTheme">@style/ThemeOverlay.Felwal.Fam</item>
     </style>
 
