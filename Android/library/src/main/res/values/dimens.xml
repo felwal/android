@@ -63,7 +63,11 @@
     <dimen name="fw_type_dialog_item">16sp</dimen>
     <dimen name="fw_type_sorter">14sp</dimen>
 
-    <dimen name="fw_spacing_fab">@dimen/fw_spacing_small</dimen>
+    <dimen name="fw_spacing_fam_top_start">@dimen/fw_spacing_tiny</dimen>
+    <dimen name="fw_spacing_fam_horizontal_fab">@dimen/fw_spacing_small</dimen>
+    <dimen name="fw_spacing_fam_end_fab_mini">20dp</dimen>
+    <dimen name="fw_spacing_fam_top_fab">4dp</dimen>
+    <dimen name="fw_spacing_fam_bottom_fab">16dp</dimen>
     <dimen name="fw_elev_fab">6dp</dimen>
     <dimen name="fw_elev_fam_overlay">9dp</dimen>
     <dimen name="fw_elev_fam">10dp</dimen>
