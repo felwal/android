@@ -5,15 +5,15 @@ import android.widget.LinearLayout
 import com.felwal.android.demo.databinding.ActivitySettingsBinding
 import com.felwal.android.ui.AbsSettingsActivity
 import com.felwal.android.util.snackbar
-import com.felwal.android.widget.dialog.DecimalDialog
 import com.felwal.android.widget.dialog.SingleChoiceDialog
-import com.felwal.android.widget.dialog.TextDialog
+import com.felwal.android.widget.dialog.InputDialog
+import com.felwal.android.widget.dialog.SliderDialog
 
 class SettingsActivity :
     AbsSettingsActivity(dividerMode = DividerMode.AFTER_SECTION, indentEverything = true),
     SingleChoiceDialog.DialogListener,
-    TextDialog.DialogListener,
-    DecimalDialog.DialogListener {
+    InputDialog.DialogListener,
+    SliderDialog.DialogListener {
 
     // view
     private lateinit var binding: ActivitySettingsBinding
@@ -104,6 +104,6 @@ class SettingsActivity :
     override fun onTextDialogPositiveClick(input: String, tag: String, passValue: String?) {
     }
 
-    override fun onDecimalDialogPositiveClick(input: Float, tag: String, passValue: String?) {
+    override fun onSliderDialogPositiveClick(input: Float, tag: String, passValue: String?) {
     }
 }

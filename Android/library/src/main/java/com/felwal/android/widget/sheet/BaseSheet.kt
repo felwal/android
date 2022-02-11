@@ -16,13 +16,16 @@ import com.felwal.android.databinding.FwItemSheetListBinding
 import com.felwal.android.databinding.FwItemSheetRadioBinding
 import com.felwal.android.databinding.FwSheetListBinding
 import com.felwal.android.util.getDrawableCompat
+import com.felwal.android.widget.control.DialogOption
+import com.felwal.android.widget.control.SheetOption
+import com.felwal.android.widget.control.getSheetOption
+import com.felwal.android.widget.control.putSheetOption
 import com.felwal.android.widget.dialog.NO_RES
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.lang.ClassCastException
 
-private const val ARG_TITLE = "title"
-private const val ARG_TAG = "tag"
-private const val ARG_PASS_VALUE = "passValue"
+private const val ARG_SHEET = "title"
 
 abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragment() {
 
@@ -30,17 +33,13 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
     protected var listener: L? = null
 
     // arguments
-    protected var title: String = ""
-    protected var sheetTag: String = "baseSheet"
-    protected var passValue: String? = null
+    protected lateinit var option: SheetOption
 
     // DialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         inflater = requireActivity().layoutInflater
-
-        unpackBundle(unpackBaseBundle())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,18 +55,14 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
 
     // bundle
 
-    fun putBaseBundle(title: String, tag: String, passValue: String?): Bundle = Bundle().apply {
-        putString(ARG_TITLE, title)
-        putString(ARG_TAG, tag)
-        putString(ARG_PASS_VALUE, passValue)
+    fun putBaseBundle(option: SheetOption): Bundle = Bundle().apply {
+        putSheetOption(ARG_SHEET, option)
     }
 
     protected abstract fun unpackBundle(bundle: Bundle?)
 
     private fun unpackBaseBundle(): Bundle? = arguments?.apply {
-        title = getString(ARG_TITLE, "")
-        sheetTag = getString(ARG_TAG, sheetTag)
-        passValue = getString(ARG_PASS_VALUE, null)
+        option = getSheetOption(ARG_SHEET)
     }
 
     // build
@@ -75,12 +70,20 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
     protected abstract fun buildSheet(): View
 
     fun show(fm: FragmentManager) {
-        if (!isAdded) super.show(fm, sheetTag)
+        unpackBundle(unpackBaseBundle())
+        if (!isAdded) super.show(fm, option.tag)
+    }
+
+    // text
+
+    fun setSheetOptions(option: SheetOption, binding: FwSheetListBinding) {
+        setTitleIfNonEmpty(option.title, binding)
+        // TODO: message
     }
 
     // set items
 
-    protected fun setItems(
+    fun setItems(
         labels: Array<out String>,
         @DrawableRes iconsRes: IntArray? = null,
         ll: LinearLayout,
@@ -117,7 +120,7 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
         }
     }
 
-    protected fun setSingleChoiceItems(
+    fun setSingleChoiceItems(
         labels: Array<out String>,
         checkedIndex: Int,
         @DrawableRes iconsRes: IntArray? = null,
@@ -180,7 +183,7 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
         }
     }
 
-    protected fun setMultiChoiceItems(
+    fun setMultiChoiceItems(
         labels: Array<out String>,
         itemStates: BooleanArray,
         @DrawableRes iconsRes: IntArray? = null,

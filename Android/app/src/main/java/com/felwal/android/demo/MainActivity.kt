@@ -11,6 +11,7 @@ import com.felwal.android.demo.databinding.ItemMainBreakBinding
 import com.felwal.android.demo.databinding.ItemMainButtonBinding
 import com.felwal.android.demo.databinding.ItemMainGroupBinding
 import com.felwal.android.demo.databinding.ItemMainHeaderBinding
+import com.felwal.android.util.asIndicesOfTruths
 import com.felwal.android.util.contentView
 import com.felwal.android.util.getColorByAttr
 import com.felwal.android.util.launchActivity
@@ -19,6 +20,12 @@ import com.felwal.android.util.popup
 import com.felwal.android.util.snackbar
 import com.felwal.android.util.toIndicesOfTruths
 import com.felwal.android.util.toast
+import com.felwal.android.widget.control.CheckListOption
+import com.felwal.android.widget.control.DialogOption
+import com.felwal.android.widget.control.InputOption
+import com.felwal.android.widget.control.ListOption
+import com.felwal.android.widget.control.RadioGroupOption
+import com.felwal.android.widget.control.SheetOption
 import com.felwal.android.widget.dialog.AlertDialog
 import com.felwal.android.widget.dialog.MultiChoiceDialog
 import com.felwal.android.widget.dialog.NO_RES
@@ -27,12 +34,10 @@ import com.felwal.android.widget.dialog.alertDialog
 import com.felwal.android.widget.dialog.checkDialog
 import com.felwal.android.widget.dialog.chipDialog
 import com.felwal.android.widget.dialog.colorDialog
-import com.felwal.android.widget.dialog.decimalDialog
 import com.felwal.android.widget.dialog.listDialog
-import com.felwal.android.widget.dialog.numberDialog
 import com.felwal.android.widget.dialog.radioDialog
 import com.felwal.android.widget.dialog.sliderDialog
-import com.felwal.android.widget.dialog.textDialog
+import com.felwal.android.widget.dialog.inputDialog
 import com.felwal.android.widget.sheet.MultiChoiceSheet
 import com.felwal.android.widget.sheet.SingleChoiceSheet
 import com.felwal.android.widget.sheet.SortMode
@@ -126,18 +131,16 @@ class MainActivity :
 
         group("Alert",
             Btn("Unary") {
-                alertDialog("Alert dialog", "Message", negBtnTxtRes = NO_RES, tag = "tag")
+                alertDialog(DialogOption("Alert dialog", "Message", negBtnTxtRes = NO_RES, tag = ""))
                     .show(fm)
             },
             Btn("Binary") {
-                alertDialog("Alert dialog", "Message", tag = "tag")
+                alertDialog(diop("Alert dialog", "Message"))
                     .show(fm)
             },
             Btn("Ternary") {
-                alertDialog(
-                    "Alert dialog", "Message",
-                    neuBtnTxtRes = R.string.app_name, tag = "tag"
-                ).show(fm)
+                alertDialog(DialogOption("Alert dialog", "Message", neuBtnTxtRes = R.string.app_name, tag = ""))
+                    .show(fm)
             }
         )
 
@@ -145,55 +148,53 @@ class MainActivity :
 
         group("List",
             Btn("List") {
-                listDialog("List dialog", "", labels(12), icons(12), tag = "tag")
+                listDialog(diop("List dialog"), ListOption(labels(12), icons(12)))
                     .show(fm)
             },
             Btn("No icons") {
-                listDialog("List dialog", "", labels(12), tag = "tag")
+                listDialog(diop("List dialog"), ListOption(labels(12)))
                     .show(fm)
             },
             Btn("No title") {
-                listDialog("", "", labels(3), icons(3), tag = "tag")
+                listDialog(diop(), ListOption(labels(3), icons(3)))
                     .show(fm)
             },
             Btn("Long no title") {
-                listDialog("", "", labels(12), icons(12), tag = "tag")
+                listDialog(diop(), ListOption(labels(12), icons(12)))
                     .show(fm)
             },
             Btn("Crash") {
-                listDialog(
-                    "Felwal keeps stopping", "",
-                    arrayOf("Close app"), intArrayOf(R.drawable.fw_ic_cross_24), tag = "tag"
+                listDialog(diop("Felwal keeps stopping"),
+                    ListOption(arrayOf("Close app"), intArrayOf(R.drawable.fw_ic_cross_24))
                 ).show(fm)
             }
         )
         group("Radio",
             Btn("Confirmation") {
-                radioDialog("Radio dialog", labels(9), 0, tag = "tag")
+                radioDialog(diop("Radio dialog"), RadioGroupOption(labels(9), 0))
                     .show(fm)
             },
             Btn("Simple") {
-                radioDialog("Radio dialog", labels(9), 0, posBtnTxtRes = null, tag = "tag")
+                radioDialog(DialogOption("Radio dialog", posBtnTxtRes = NO_RES, tag = ""),
+                    RadioGroupOption(labels(9), 0))
                     .show(fm)
             },
             Btn("Icons") {
-                radioDialog("Radio dialog", labels(3), 0, icons(3), tag = "tag")
+                radioDialog(diop("Radio dialog"), RadioGroupOption(labels(3), 0, icons(3)))
                     .show(fm)
             }
         )
         group("Color",
             Btn("Color") {
                 colorDialog(
-                    "Color dialog",
-                    IntArray(20) { getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f) }, 0,
-                    tag = "tag"
+                    diop("Color dialog"),
+                    IntArray(20) { getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f) }, 0
                 ).show(fm)
             },
             Btn("No title") {
                 colorDialog(
-                    "",
+                    diop(),
                     IntArray(4) { getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f) },0,
-                    tag = "tag"
                 ).show(fm)
             }
         )
@@ -202,27 +203,28 @@ class MainActivity :
 
         group("Check",
             Btn("Check") {
-                checkDialog("Check dialog", labels(9), intArrayOf(0), tag = "tag")
+                checkDialog(diop("Check dialog"), CheckListOption(labels(9), intArrayOf(0)))
                     .show(fm)
             },
             Btn("Icons") {
-                checkDialog("Check dialog", labels(3), intArrayOf(0), icons(3), tag = "tag")
+                checkDialog(diop("Check dialog"),
+                    CheckListOption(labels(3), intArrayOf(0), icons(3)))
                     .show(fm)
             },
             Btn("Permission") {
                 checkDialog(
-                    "Allow Felwal to make and manage phone calls?",
-                    arrayOf("Don't ask again"), intArrayOf(), tag = "tag"
+                    diop("Allow Felwal to make and manage phone calls?"),
+                    CheckListOption(arrayOf("Don't ask again"), intArrayOf())
                 ).show(fm)
             }
         )
         group("Chip",
             Btn("Chip") {
-                chipDialog("Chip dialog", labels(18), intArrayOf(), tag = "tag")
+                chipDialog(diop("Chip dialog"), labels(18), intArrayOf().asIndicesOfTruths(18))
                     .show(fm)
             },
             Btn("No title") {
-                chipDialog("", labels(3), intArrayOf(), tag = "tag")
+                chipDialog(diop(), labels(3), intArrayOf().asIndicesOfTruths(3))
                     .show(fm)
             }
         )
@@ -230,19 +232,19 @@ class MainActivity :
         sectionBreak()
 
         btn("Slider") {
-            sliderDialog("Slider dialog", min = 0f, max = 10f, step = 1f, value = 5f, tag = "tag")
+            sliderDialog(diop("Slider dialog"), min = 0f, max = 10f, step = 1f, value = 5f)
                 .show(fm)
         }
         btn("Number") {
-            numberDialog("Number dialog", text = 10, hint = "Hint", tag = "tag")
+            inputDialog(diop("Number dialog"), InputOption(10, "Hint"))
                 .show(fm)
         }
         btn("Decimal") {
-            decimalDialog("Decimal dialog", text = 10f, hint = "Hint", tag = "tag")
+            inputDialog(diop("Decimal dialog"), InputOption(10f, "Hint"))
                 .show(fm)
         }
         btn("Text") {
-            textDialog("Text dialog", "Message", "Text", "Hint", tag = "tag")
+            inputDialog(diop("Text dialog"), InputOption("Text", "Hint"))
                 .show(fm)
         }
 
@@ -252,30 +254,30 @@ class MainActivity :
 
         group("List",
             Btn("List") {
-                listSheet("List sheet", labels(3), icons(3), "tag")
+                listSheet(shop("List sheet"), ListOption(labels(3), icons(3)))
                     .show(fm)
             },
             Btn("No title") {
-                listSheet("", labels(3), icons(3), "tag")
+                listSheet(shop(), ListOption(labels(3), icons(3)))
                     .show(fm)
             },
             Btn("No icons") {
-                listSheet("List sheet", labels(3), tag = "tag")
+                listSheet(shop("List sheet"), ListOption(labels(3)))
                     .show(fm)
             }
         )
         group("Radio",
             Btn("Radio") {
-                radioSheet("Radio sheet", labels(3), 0, tag = "tag")
+                radioSheet(shop("Radio sheet"), RadioGroupOption(labels(3), 0))
                     .show(fm)
             },
             Btn("Icons") {
-                radioSheet("Radio sheet", labels(3), 0, icons(3), tag = "tag")
+                radioSheet(shop("Radio sheet"), RadioGroupOption(labels(3), 0, icons(3)))
                     .show(fm)
             }
         )
         btn("Sort") {
-            SortSheet.newInstance("Sort by", sorter, "tag")
+            SortSheet.newInstance(shop("Sort by"), sorter)
                 .show(fm)
         }
 
@@ -283,19 +285,19 @@ class MainActivity :
 
         group("Check",
             Btn("Check") {
-                checkSheet("Check sheet", labels(3), intArrayOf(0), tag = "tag")
+                checkSheet(shop("Check sheet"), CheckListOption(labels(3), intArrayOf(0)))
                     .show(fm)
             },
             Btn("Icons") {
-                checkSheet("Check sheet", labels(3), intArrayOf(0), icons(3), tag = "tag")
+                checkSheet(shop("Check sheet"), CheckListOption(labels(3), intArrayOf(0), icons(3)))
                     .show(fm)
             },
             Btn("Long") {
-                checkSheet("List sheet", labels(18), intArrayOf(0), icons(18), tag = "tag")
+                checkSheet(shop("Check sheet"), CheckListOption(labels(18), intArrayOf(0), icons(18)))
                     .show(fm)
             },
             Btn("Long no title") {
-                checkSheet("", labels(18), intArrayOf(0), icons(18), tag = "tag")
+                checkSheet(shop(), CheckListOption(labels(18), intArrayOf(0), icons(18)))
                     .show(fm)
             }
         )
@@ -346,6 +348,12 @@ class MainActivity :
     private fun updateDayNight(day: Boolean) = AppCompatDelegate.setDefaultNightMode(
         if (day) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
     )
+
+    private fun diop(title: String = "", message: String = ""): DialogOption =
+        DialogOption(title, message, tag = "")
+
+    private fun shop(title: String = "", message: String = ""): SheetOption =
+        SheetOption(title, message, tag = "")
 
     private fun labels(count: Int) = Array(count) { "Item" }
 

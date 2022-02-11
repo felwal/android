@@ -1,18 +1,18 @@
 package com.felwal.android.widget.dialog
 
 import android.os.Bundle
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.R
 import com.felwal.android.databinding.FwDialogSliderBinding
 import com.felwal.android.util.toast
+import com.felwal.android.widget.control.DialogOption
 
 private const val ARG_MIN = "min"
 private const val ARG_MAX = "max"
 private const val ARG_STEP = "step"
 private const val ARG_VALUE = "value"
 
-class SliderDialog : BaseDialog<DecimalDialog.DialogListener>() {
+class SliderDialog : BaseDialog<SliderDialog.DialogListener>() {
 
     // args
     private var min = 0f
@@ -45,23 +45,15 @@ class SliderDialog : BaseDialog<DecimalDialog.DialogListener>() {
         return builder.run {
             setView(binding.root)
 
-            // title & message
-            setTitleIfNonEmpty(title)
-            setMessageIfNonEmpty(message)
-
-            // buttons
-            setPositiveButton(posBtnTxtRes) { _ ->
+            setDialogOptions(option) {
                 try {
                     val input = binding.fwSl.value
-                    catchClassCast {
-                        listener?.onDecimalDialogPositiveClick(input, dialogTag, passValue)
-                    }
+                    listener?.onSliderDialogPositiveClick(input, option.tag, option.passValue)
                 }
                 catch (e: NumberFormatException) {
                     activity?.toast(R.string.fw_toast_e_input)
                 }
             }
-            setCancelButton(negBtnTxtRes)
 
             show()
         }
@@ -69,21 +61,22 @@ class SliderDialog : BaseDialog<DecimalDialog.DialogListener>() {
 
     //
 
+    interface DialogListener : BaseDialog.DialogListener {
+        fun onSliderDialogPositiveClick(input: Float, tag: String, passValue: String?)
+    }
+
+    //
+
     companion object {
         @JvmStatic
         fun newInstance(
-            title: String,
-            message: String = "",
+            option: DialogOption,
             min: Float = 0f,
             max: Float,
             step: Float = 0f,
             value: Float = min,
-            @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
-            @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String,
-            passValue: String? = null
         ): SliderDialog = SliderDialog().apply {
-            arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag, passValue).apply {
+            arguments = putBaseBundle(option).apply {
                 putFloat(ARG_MIN, min)
                 putFloat(ARG_MAX, max)
                 putFloat(ARG_STEP, step)
@@ -94,15 +87,9 @@ class SliderDialog : BaseDialog<DecimalDialog.DialogListener>() {
 }
 
 fun sliderDialog(
-    title: String,
-    message: String = "",
+    option: DialogOption,
     min: Float = 0f,
     max: Float,
     step: Float = 0f,
     value: Float = min,
-    @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
-    @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String,
-    passValue: String? = null
-): SliderDialog =
-    SliderDialog.newInstance(title, message, min, max, step, value, posBtnTxtRes, negBtnTxtRes, tag, passValue)
+): SliderDialog = SliderDialog.newInstance(option, min, max, step, value)

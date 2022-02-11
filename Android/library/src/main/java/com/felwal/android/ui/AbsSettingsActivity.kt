@@ -16,15 +16,17 @@ import com.felwal.android.util.setTextRemoveIfEmpty
 import com.felwal.android.widget.dialog.BaseDialog
 import com.felwal.android.widget.dialog.NO_RES
 import com.felwal.android.widget.dialog.alertDialog
-import com.felwal.android.widget.dialog.decimalDialog
-import com.felwal.android.widget.dialog.numberDialog
 import com.felwal.android.widget.dialog.radioDialog
 import com.felwal.android.widget.dialog.sliderDialog
-import com.felwal.android.widget.dialog.textDialog
+import com.felwal.android.widget.dialog.inputDialog
 import com.felwal.android.R
 import com.felwal.android.databinding.FwItemSettingsHeaderBinding
 import com.felwal.android.databinding.FwItemSettingsSwitchBinding
 import com.felwal.android.databinding.FwItemSettingsTextBinding
+import com.felwal.android.widget.control.CheckListOption
+import com.felwal.android.widget.control.DialogOption
+import com.felwal.android.widget.control.InputOption
+import com.felwal.android.widget.control.RadioGroupOption
 import com.felwal.android.widget.dialog.checkDialog
 
 abstract class AbsSettingsActivity(
@@ -130,7 +132,7 @@ abstract class AbsSettingsActivity(
         override fun inflate(hideDivider: Boolean) {
             inflateDialogItem(
                 title, desc, hideDivider, iconRes,
-                alertDialog(title, msg, dialogBtnRes, NO_RES, tag = tag)
+                alertDialog(DialogOption(title, msg, dialogBtnRes, NO_RES, tag = tag))
             )
         }
     }
@@ -147,11 +149,7 @@ abstract class AbsSettingsActivity(
         override fun inflate(hideDivider: Boolean) {
             inflateDialogItem(
                 title, desc, hideDivider, iconRes,
-                alertDialog(
-                    title = title, message = msg,
-                    posBtnTxtRes = dialogPosBtnRes,
-                    tag = tag
-                )
+                alertDialog(DialogOption(title, msg, dialogPosBtnRes, tag = tag))
             )
         }
     }
@@ -169,12 +167,9 @@ abstract class AbsSettingsActivity(
         override fun inflate(hideDivider: Boolean) {
             inflateDialogItem(
                 title, desc ?: value, hideDivider, iconRes,
-                textDialog(
-                    title = title, message = msg,
-                    text = value, hint = hint,
-                    posBtnTxtRes = R.string.fw_dialog_btn_set,
-                    tag = tag
-                )
+                inputDialog(
+                    DialogOption(title, msg, R.string.fw_dialog_btn_set, tag = tag),
+                    InputOption(value, hint))
             )
         }
     }
@@ -192,11 +187,9 @@ abstract class AbsSettingsActivity(
         override fun inflate(hideDivider: Boolean) {
             inflateDialogItem(
                 title, desc ?: value.toString(), hideDivider, iconRes,
-                numberDialog(
-                    title = title, message = msg,
-                    text = value, hint = hint,
-                    posBtnTxtRes = R.string.fw_dialog_btn_set,
-                    tag = tag
+                inputDialog(
+                    DialogOption(title, msg, R.string.fw_dialog_btn_set, tag = tag),
+                    InputOption(value, hint)
                 )
             )
         }
@@ -215,11 +208,9 @@ abstract class AbsSettingsActivity(
         override fun inflate(hideDivider: Boolean) {
             inflateDialogItem(
                 title, desc ?: value.toString(), hideDivider, iconRes,
-                decimalDialog(
-                    title = title, message = msg,
-                    text = value, hint = hint,
-                    posBtnTxtRes = R.string.fw_dialog_btn_set,
-                    tag = tag
+                inputDialog(
+                    DialogOption(title, msg, R.string.fw_dialog_btn_set, tag = tag),
+                    InputOption(value, hint)
                 )
             )
         }
@@ -241,10 +232,8 @@ abstract class AbsSettingsActivity(
             inflateDialogItem(
                 title, desc ?: value.toString(), hideDivider, iconRes,
                 sliderDialog(
-                    title = title, message = msg,
-                    min = min, max = max, step = step, value = value,
-                    posBtnTxtRes = R.string.fw_dialog_btn_set,
-                    tag = tag
+                    DialogOption(title, msg, R.string.fw_dialog_btn_set, tag = tag),
+                    min = min, max = max, step = step, value = value
                 )
             )
         }
@@ -265,9 +254,8 @@ abstract class AbsSettingsActivity(
             inflateDialogItem(
                 title, desc ?: value, hideDivider, iconRes,
                 radioDialog(
-                    title = title, posBtnTxtRes = NO_RES,
-                    labels = values, checkedIndex = selectedIndex,
-                    tag = tag
+                    DialogOption(title, posBtnTxtRes = NO_RES, tag = tag),
+                    RadioGroupOption(values, selectedIndex)
                 )
             )
         }
@@ -286,9 +274,8 @@ abstract class AbsSettingsActivity(
             inflateDialogItem(
                 title, desc ?: "", hideDivider, iconRes,
                 checkDialog(
-                    title = title, posBtnTxtRes = R.string.fw_dialog_btn_set,
-                    labels = values, checkedIndices = selectedIndices,
-                    tag = tag
+                    DialogOption(title, posBtnTxtRes = R.string.fw_dialog_btn_set, tag = tag),
+                    CheckListOption(values, selectedIndices)
                 )
             )
         }

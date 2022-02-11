@@ -34,7 +34,7 @@ fun List<Int>.asIndicesOfTruths(size: Int): List<Boolean> {
     return itemStates
 }
 
-fun IntArray.asIndicesOfTruths(size: Int): BooleanArray {
+fun IntArray.asIndicesOfTruths(size: Int = this.size): BooleanArray {
     val itemStates = BooleanArray(size) { false }
     forEach { itemStates[it] = true }
     return itemStates

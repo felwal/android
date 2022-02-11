@@ -6,15 +6,14 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import androidx.annotation.ColorInt
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.R
 import com.felwal.android.databinding.FwDialogColorBinding
 import com.felwal.android.databinding.FwItemDialogColorBinding
 import com.felwal.android.util.backgroundTint
 import com.felwal.android.util.getDrawableByAttrWithTint
-import com.felwal.android.util.getDrawableCompatWithTint
 import com.felwal.android.util.orEmpty
+import com.felwal.android.widget.control.DialogOption
 
 private const val ARG_COLORS = "colors"
 private const val ARG_CHECKED_INDEX = "checkedIndex"
@@ -37,12 +36,11 @@ class ColorDialog : SingleChoiceDialog() {
     override fun buildDialog(): AlertDialog = builder.run {
         val binding = FwDialogColorBinding.inflate(inflater)
         setView(binding.root)
-
-        // title
-        setTitleIfNonEmpty(title)
-
-        // widget
         setDividers(binding.fwGv, binding.fwVDividerTop, binding.fwVDividerBottom)
+
+        setDialogOptions(option) {
+            listener?.onSingleChoiceDialogItemSelected(checkedIndex, option.tag, option.passValue)
+        }
 
         // items
         binding.fwGv.adapter = object : ArrayAdapter<Int>(requireContext(), 0, colors.toList()) {
@@ -65,7 +63,7 @@ class ColorDialog : SingleChoiceDialog() {
                 // set listener
                 ivColor.setOnClickListener {
                     catchClassCast {
-                        listener?.onSingleChoiceDialogItemSelected(position, dialogTag, passValue)
+                        listener?.onSingleChoiceDialogItemSelected(position, option.tag, option.passValue)
                     }
                     dialog?.cancel()
                 }
@@ -73,9 +71,6 @@ class ColorDialog : SingleChoiceDialog() {
                 return clItem
             }
         }
-
-        // button
-        setCancelButton(negBtnTxtRes)
 
         show()
     }
@@ -85,18 +80,11 @@ class ColorDialog : SingleChoiceDialog() {
     companion object {
         @JvmStatic
         fun newInstance(
-            title: String,
+            option: DialogOption,
             @ColorInt colors: IntArray,
             checkedIndex: Int? = null,
-            @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String,
-            passValue: String? = null
         ): ColorDialog = ColorDialog().apply {
-            arguments = putBaseBundle(
-                title, "",
-                NO_RES, negBtnTxtRes = negBtnTxtRes,
-                tag = tag, passValue = passValue
-            ).apply {
+            arguments = putBaseBundle(option).apply {
                 putIntArray(ARG_COLORS, colors)
                 putInt(ARG_CHECKED_INDEX, checkedIndex ?: NULL_INT)
             }
@@ -105,10 +93,7 @@ class ColorDialog : SingleChoiceDialog() {
 }
 
 fun colorDialog(
-    title: String,
+    option: DialogOption,
     @ColorInt colors: IntArray,
     checkedIndex: Int? = null,
-    @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String,
-    passValue: String? = null
-): ColorDialog = ColorDialog.newInstance(title, colors, checkedIndex, negBtnTxtRes, tag, passValue)
+): ColorDialog = ColorDialog.newInstance(option, colors, checkedIndex)

@@ -14,3 +14,5 @@ class MathUtils private constructor() { companion object {
 fun Boolean?.toInt() = MathUtils.heaviside(this)
 
 val Boolean?.sign get() = MathUtils.signum(this)
+
+fun Int.toBoolean() = equals(1)

@@ -2,36 +2,33 @@ package com.felwal.android.widget.sheet
 
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.DrawableRes
 import com.felwal.android.databinding.FwSheetListBinding
 import com.felwal.android.util.orEmpty
+import com.felwal.android.widget.control.ListOption
+import com.felwal.android.widget.control.SheetOption
+import com.felwal.android.widget.control.getListOption
+import com.felwal.android.widget.control.inflateList
+import com.felwal.android.widget.control.putListOption
 
-private const val ARG_LABELS = "labels"
-private const val ARG_ICONS = "icons"
+private const val ARG_LIST = "list"
 
 class ListSheet : SingleChoiceSheet() {
 
-    private lateinit var labels: Array<out String>
-    @DrawableRes private var iconsRes: IntArray = intArrayOf()
+    private lateinit var listOption: ListOption
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
-            labels = getStringArray(ARG_LABELS).orEmpty()
-            iconsRes = getIntArray(ARG_ICONS).orEmpty()
+            listOption = getListOption(ARG_LIST)
         }
     }
 
     override fun buildSheet(): View {
         val binding = FwSheetListBinding.inflate(inflater)
 
-        // title
-        setTitleIfNonEmpty(title, binding)
+        setSheetOptions(option, binding)
 
-        // items
-        setItems(labels, iconsRes, binding.fwLl) { selectedIndex ->
-            catchClassCast {
-                listener?.onSingleChoiceSheetItemSelected(selectedIndex, sheetTag, passValue)
-            }
+        inflateList(listOption, binding.fwLl) { selectedIndex ->
+            listener?.onSingleChoiceSheetItemSelected(selectedIndex, option.tag, option.passValue)
         }
 
         return binding.root
@@ -42,24 +39,17 @@ class ListSheet : SingleChoiceSheet() {
     companion object {
         @JvmStatic
         fun newInstance(
-            title: String = "",
-            labels: Array<String>,
-            @DrawableRes icons: IntArray? = null,
-            tag: String,
-            passValue: String? = null
+            option: SheetOption,
+            listOption: ListOption
         ) = ListSheet().apply {
-            arguments = putBaseBundle(title, tag, passValue).apply {
-                putStringArray(ARG_LABELS, labels)
-                putIntArray(ARG_ICONS, icons.orEmpty())
+            arguments = putBaseBundle(option).apply {
+                putListOption(ARG_LIST, listOption)
             }
         }
     }
 }
 
 fun listSheet(
-    title: String = "",
-    labels: Array<String>,
-    @DrawableRes icons: IntArray? = null,
-    tag: String,
-    passValue: String? = null
-): ListSheet = ListSheet.newInstance(title, labels, icons, tag, passValue)
+    option: SheetOption,
+    listOption: ListOption
+): ListSheet = ListSheet.newInstance(option, listOption)

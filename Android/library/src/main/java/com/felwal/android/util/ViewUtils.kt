@@ -23,12 +23,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.children
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.felwal.android.R
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
 
 const val ANIM_DURATION = 100L
 
@@ -135,6 +137,11 @@ fun View.getChildAt(index: Int): View? = (this as? ViewGroup)?.getChildAt(index)
 // misc
 
 fun Layout.getStartOfLine(index: Int): Int = getLineStart(getLineForOffset(index))
+
+val TabLayout.tabs get() = (getChildAt(0) as ViewGroup).children
+
+fun TabLayout.setTabsBorderlessRipple() = tabs.forEach { it.setBorderlessItemRipple() }
+
 
 /**
  * The root view of the layout set via [Activity.setContentView].

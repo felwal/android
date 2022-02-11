@@ -4,40 +4,33 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
-import com.felwal.android.R
 import com.felwal.android.databinding.FwSheetListBinding
 import com.felwal.android.util.orEmpty
-import com.felwal.android.widget.dialog.NO_RES
-import com.felwal.android.widget.dialog.RadioDialog
+import com.felwal.android.widget.control.RadioGroupOption
+import com.felwal.android.widget.control.SheetOption
+import com.felwal.android.widget.control.getRadioGroupOption
+import com.felwal.android.widget.control.inflateRadioGroup
+import com.felwal.android.widget.control.putRadioGroupOption
 
-private const val ARG_LABELS = "labels"
-private const val ARG_CHECKED_INDEX = "checkedIndex"
-private const val ARG_ICONS = "icons"
+private const val ARG_RADIO_GROUP = "radioGroup"
 
 class RadioSheet : SingleChoiceSheet() {
 
-    private lateinit var labels: Array<out String>
-    private var checkedIndex = 0
-    @DrawableRes private var iconsRes: IntArray = intArrayOf()
+    private lateinit var radioOption: RadioGroupOption
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
-            labels = getStringArray(ARG_LABELS).orEmpty()
-            checkedIndex = getInt(ARG_CHECKED_INDEX, 0).coerceIn(0, labels.size)
-            iconsRes = getIntArray(ARG_ICONS).orEmpty()
+            radioOption = getRadioGroupOption(ARG_RADIO_GROUP)
         }
     }
 
     override fun buildSheet(): View {
         val binding = FwSheetListBinding.inflate(inflater)
 
-        // title
-        setTitleIfNonEmpty(title, binding)
+        setSheetOptions(option, binding)
 
-        // items
-        setSingleChoiceItems(labels, checkedIndex, iconsRes, binding.fwLl) { selectedIndex ->
-            checkedIndex = selectedIndex
+        inflateRadioGroup(radioOption, binding.fwLl) { selectedIndex ->
+            radioOption.checkedIndex = selectedIndex
         }
 
         return binding.root
@@ -45,7 +38,7 @@ class RadioSheet : SingleChoiceSheet() {
 
     override fun onDismiss(dialog: DialogInterface) {
         catchClassCast {
-            listener?.onSingleChoiceSheetItemSelected(checkedIndex, sheetTag, passValue)
+            listener?.onSingleChoiceSheetItemSelected(radioOption.checkedIndex, option.tag, option.passValue)
         }
         super.onDismiss(dialog)
     }
@@ -55,27 +48,17 @@ class RadioSheet : SingleChoiceSheet() {
     companion object {
         @JvmStatic
         fun newInstance(
-            title: String,
-            labels: Array<String>,
-            checkedIndex: Int,
-            @DrawableRes icons: IntArray? = null,
-            tag: String,
-            passValue: String? = null
+            option: SheetOption,
+            radioOption: RadioGroupOption
         ): RadioSheet = RadioSheet().apply {
-            arguments = putBaseBundle(title, tag, passValue).apply {
-                putStringArray(ARG_LABELS, labels)
-                putInt(ARG_CHECKED_INDEX, checkedIndex)
-                putIntArray(ARG_ICONS, icons.orEmpty())
+            arguments = putBaseBundle(option).apply {
+                putRadioGroupOption(ARG_RADIO_GROUP, radioOption)
             }
         }
     }
 }
 
 fun radioSheet(
-    title: String,
-    labels: Array<String>,
-    checkedIndex: Int,
-    @DrawableRes icons: IntArray? = null,
-    tag: String,
-    passValue: String? = null
-): RadioSheet = RadioSheet.newInstance(title, labels, checkedIndex, icons, tag, passValue)
+    option: SheetOption,
+    radioOption: RadioGroupOption
+): RadioSheet = RadioSheet.newInstance(option, radioOption)

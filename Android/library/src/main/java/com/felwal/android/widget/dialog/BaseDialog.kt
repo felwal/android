@@ -28,17 +28,15 @@ import com.felwal.android.util.canScrollDown
 import com.felwal.android.util.canScrollUp
 import com.felwal.android.util.getDimension
 import com.felwal.android.util.getDrawableCompat
+import com.felwal.android.widget.control.DialogOption
+import com.felwal.android.widget.control.getDialogOption
+import com.felwal.android.widget.control.putDialogOption
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 const val NO_RES = -1
 const val NULL_INT = -1
 
-private const val ARG_TITLE = "title"
-private const val ARG_MESSAGE = "message"
-private const val ARG_POSITIVE_BUTTON_RES = "positiveButtonText"
-private const val ARG_NEGATIVE_BUTTON_RES = "negativeButtonText"
-private const val ARG_TAG = "tag"
-private const val ARG_PASS_VALUE = "passValue"
+private const val ARG_DIALOG = "dialog"
 
 abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
@@ -47,25 +45,18 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     protected var listener: L? = null
 
     // args
-    protected lateinit var title: String
-    protected lateinit var message: String
-    protected var dialogTag: String = "baseDialog"
-    protected var passValue: String? = null
+    protected lateinit var option: DialogOption
 
-    @StringRes protected var posBtnTxtRes: Int = R.string.fw_dialog_btn_ok
-    @StringRes protected var negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel
+    protected open val hasButtons get() =
+        option.posBtnTxtRes != NO_RES || option.negBtnTxtRes != NO_RES || option.neuBtnTxtRes != NO_RES
 
-    protected open val hasButtons get() = posBtnTxtRes != NO_RES || negBtnTxtRes != NO_RES
-
-    private val hasTitle get() = title.isNotEmpty()
+    private val hasTitle get() = option.title.isNotEmpty()
 
     // DialogFragment
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         builder = MaterialAlertDialogBuilder(requireActivity())
         inflater = requireActivity().layoutInflater
-
-        unpackBundle(unpackBaseBundle())
 
         return buildDialog().also { styleDialog(it) }
     }
@@ -79,31 +70,14 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     // bundle
 
-    fun putBaseBundle(
-        title: String,
-        message: String,
-        @StringRes posBtnTxtRes: Int = this.posBtnTxtRes,
-        @StringRes negBtnTxtRes: Int = this.negBtnTxtRes,
-        tag: String,
-        passValue: String?
-    ): Bundle = Bundle().apply {
-        putString(ARG_TITLE, title)
-        putString(ARG_MESSAGE, message)
-        putInt(ARG_POSITIVE_BUTTON_RES, posBtnTxtRes)
-        putInt(ARG_NEGATIVE_BUTTON_RES, negBtnTxtRes)
-        putString(ARG_TAG, tag)
-        putString(ARG_PASS_VALUE, passValue)
+    fun putBaseBundle(option: DialogOption): Bundle = Bundle().apply {
+        putDialogOption(ARG_DIALOG, option)
     }
 
     protected abstract fun unpackBundle(bundle: Bundle?)
 
     private fun unpackBaseBundle(): Bundle? = arguments?.apply {
-        title = getString(ARG_TITLE, "")
-        message = getString(ARG_MESSAGE, "")
-        posBtnTxtRes = getInt(ARG_POSITIVE_BUTTON_RES, NO_RES)
-        negBtnTxtRes = getInt(ARG_NEGATIVE_BUTTON_RES, NO_RES)
-        dialogTag = getString(ARG_TAG, dialogTag)
-        passValue = getString(ARG_PASS_VALUE, null)
+        option = getDialogOption(ARG_DIALOG)
     }
 
     // build
@@ -121,10 +95,34 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     }
 
     fun show(fm: FragmentManager) {
-        if (!isAdded) super.show(fm, dialogTag)
+        unpackBundle(unpackBaseBundle())
+        if (!isAdded) super.show(fm, option.tag)
     }
 
     // set text
+
+    fun MaterialAlertDialogBuilder.setDialogOptions(
+        option: DialogOption,
+        posBtnListener: (() -> Unit)? = null,
+        neuBtnListener: (() -> Unit)? = null
+    ) {
+        // text
+        setTitleIfNonEmpty(option.title)
+        setMessageIfNonEmpty(option.message)
+
+        // button
+        setPositiveButton(option.posBtnTxtRes) { _ ->
+            catchClassCast {
+                posBtnListener?.invoke()
+            }
+        }
+        setNeutralButton(option.neuBtnTxtRes) { _ ->
+            catchClassCast {
+                neuBtnListener?.invoke()
+            }
+        }
+        setCancelButton(option.negBtnTxtRes)
+    }
 
     protected fun MaterialAlertDialogBuilder.setTitleIfNonEmpty(title: String) {
         if (title != "") setTitle(title)
@@ -136,7 +134,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     // set button
 
-    protected fun AlertDialog.Builder.setPositiveButton(
+    fun AlertDialog.Builder.setPositiveButton(
         @StringRes resId: Int,
         listener: (dialog: DialogInterface) -> Unit
     ): AlertDialog.Builder {
@@ -165,7 +163,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     // set items
 
-    protected fun setItems(
+    fun setItems(
         labels: Array<out String>,
         @DrawableRes iconsRes: IntArray? = null,
         ll: LinearLayout,
@@ -202,7 +200,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         }
     }
 
-    protected fun setSingleChoiceItems(
+    fun setSingleChoiceItems(
         labels: Array<out String>,
         checkedIndex: Int,
         @DrawableRes iconsRes: IntArray? = null,
@@ -265,7 +263,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         }
     }
 
-    protected fun setMultiChoiceItems(
+    fun setMultiChoiceItems(
         labels: Array<out String>,
         itemStates: BooleanArray,
         @DrawableRes iconsRes: IntArray? = null,

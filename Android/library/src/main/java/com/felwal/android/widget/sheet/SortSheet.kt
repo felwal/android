@@ -9,6 +9,7 @@ import com.felwal.android.databinding.FwSheetListBinding
 import com.felwal.android.util.getColorByAttr
 import com.felwal.android.util.getDrawableByAttr
 import com.felwal.android.util.withFilter
+import com.felwal.android.widget.control.SheetOption
 
 private const val ARG_LABELS = "labels"
 private const val ARG_CHECKED_INDEX = "checkedIndex"
@@ -34,8 +35,7 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
         val binding = FwSheetListBinding.inflate(inflater)
         val ll = binding.fwLl
 
-        // title
-        setTitleIfNonEmpty(title, binding)
+        setSheetOptions(option, binding)
 
         // items
         for ((i, label) in labels.withIndex()) {
@@ -82,20 +82,18 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
     companion object {
         @JvmStatic
         fun newInstance(
-            title: String = "",
-            sorter: Sorter<*>,
-            tag: String
-        ): SortSheet = newInstance(title, sorter.labels.toTypedArray(), sorter.selectedIndex, sorter.ascending, tag)
+            option: SheetOption,
+            sorter: Sorter<*>
+        ): SortSheet = newInstance(option, sorter.labels.toTypedArray(), sorter.selectedIndex, sorter.ascending)
 
         @JvmStatic
         fun newInstance(
-            title: String = "",
+            option: SheetOption,
             labels: Array<String>,
             checkedIndex: Int,
             ascending: Boolean,
-            tag: String
         ) = SortSheet().apply {
-            arguments = putBaseBundle(title, tag, null).apply {
+            arguments = putBaseBundle(option).apply {
                 putStringArray(ARG_LABELS, labels)
                 putInt(ARG_CHECKED_INDEX, checkedIndex)
                 putBoolean(ARG_ASCENDING, ascending)
@@ -140,7 +138,7 @@ class Sorter<M : Enum<M>>(vararg val sortModes: SortMode<M>) {
     }
 
     fun setSelection(selectedIndex: Int, orderReversed: Boolean) {
-        this.selectedIndex = selectedIndex
+        this.selectedIndex = selectedIndex.coerceIn(0, sortModes.size - 1)
         this.orderReversed = orderReversed
     }
 

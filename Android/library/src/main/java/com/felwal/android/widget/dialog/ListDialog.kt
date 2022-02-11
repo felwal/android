@@ -1,45 +1,38 @@
 package com.felwal.android.widget.dialog
 
 import android.os.Bundle
-import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.databinding.FwDialogListBinding
-import com.felwal.android.util.orEmpty
+import com.felwal.android.widget.control.DialogOption
+import com.felwal.android.widget.control.ListOption
+import com.felwal.android.widget.control.getListOption
+import com.felwal.android.widget.control.inflateList
+import com.felwal.android.widget.control.putListOption
 
-private const val ARG_LABELS = "labels"
-private const val ARG_ICONS = "icons"
+private const val ARG_LIST = "list"
 
 class ListDialog : SingleChoiceDialog() {
 
     // args
-    private lateinit var labels: Array<out String>
-    @DrawableRes private var iconsRes: IntArray = intArrayOf()
+    private lateinit var listOption: ListOption
 
     // BaseDialog
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
-            labels = getStringArray(ARG_LABELS).orEmpty()
-            iconsRes = getIntArray(ARG_ICONS).orEmpty()
+            listOption = getListOption(ARG_LIST)
         }
     }
 
     override fun buildDialog(): AlertDialog = builder.run {
         val binding = FwDialogListBinding.inflate(inflater)
         setView(binding.root)
-
-        // title & message
-        setTitleIfNonEmpty(title)
-        setMessageIfNonEmpty(message)
-
-        // widget
         setDividers(binding.fwSv, binding.fwVDividerTop, binding.fwVDividerBottom)
 
-        // items
-        setItems(labels, iconsRes, binding.fwLl) { index ->
-            catchClassCast {
-                listener?.onSingleChoiceDialogItemSelected(index, dialogTag, passValue)
-            }
+        setDialogOptions(option)
+
+        inflateList(listOption, binding.fwLl) { index ->
+            listener?.onSingleChoiceDialogItemSelected(index, option.tag, option.passValue)
         }
 
         show().apply {
@@ -52,26 +45,17 @@ class ListDialog : SingleChoiceDialog() {
     companion object {
         @JvmStatic
         fun newInstance(
-            title: String,
-            message: String = "",
-            labels: Array<String>,
-            @DrawableRes icons: IntArray? = null,
-            tag: String,
-            passValue: String? = null
+            option: DialogOption,
+            listOption: ListOption
         ): ListDialog = ListDialog().apply {
-            arguments = putBaseBundle(title, message, NO_RES, NO_RES, tag, passValue).apply {
-                putStringArray(ARG_LABELS, labels)
-                putIntArray(ARG_ICONS, icons.orEmpty())
+            arguments = putBaseBundle(option).apply {
+                putListOption(ARG_LIST, listOption)
             }
         }
     }
 }
 
 fun listDialog(
-    title: String,
-    message: String = "",
-    labels: Array<String>,
-    @DrawableRes icons: IntArray? = null,
-    tag: String,
-    passValue: String? = null
-): ListDialog = ListDialog.newInstance(title, message, labels, icons, tag, passValue)
+    option: DialogOption,
+    listOption: ListOption
+): ListDialog = ListDialog.newInstance(option, listOption)

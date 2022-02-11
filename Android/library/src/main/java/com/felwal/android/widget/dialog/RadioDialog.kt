@@ -1,63 +1,48 @@
 package com.felwal.android.widget.dialog
 
 import android.os.Bundle
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
-import com.felwal.android.R
 import com.felwal.android.databinding.FwDialogListBinding
-import com.felwal.android.util.orEmpty
+import com.felwal.android.widget.control.DialogOption
+import com.felwal.android.widget.control.RadioGroupOption
+import com.felwal.android.widget.control.getRadioGroupOption
+import com.felwal.android.widget.control.inflateRadioGroup
+import com.felwal.android.widget.control.putRadioGroupOption
 
-private const val ARG_LABELS = "labels"
-private const val ARG_CHECKED_INDEX = "checkedIndex"
-private const val ARG_ICONS = "icons"
+private const val ARG_RADIO_GROUP = "radioGroup"
 
 class RadioDialog : SingleChoiceDialog() {
 
     // args
-    private lateinit var labels: Array<out String>
-    private var checkedIndex = 0
-    @DrawableRes private var iconsRes: IntArray = intArrayOf()
+    private lateinit var radioOption: RadioGroupOption
 
     // BaseDialog
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
-            labels = getStringArray(ARG_LABELS).orEmpty()
-            checkedIndex = getInt(ARG_CHECKED_INDEX, 0).coerceIn(0, labels.size)
-            iconsRes = getIntArray(ARG_ICONS).orEmpty()
+            radioOption = getRadioGroupOption(ARG_RADIO_GROUP)
         }
     }
 
     override fun buildDialog(): AlertDialog = builder.run {
         val binding = FwDialogListBinding.inflate(inflater)
         setView(binding.root)
-
-        // title
-        setTitleIfNonEmpty(title)
-
-        // widget
         setDividers(binding.fwSv, binding.fwVDividerTop, binding.fwVDividerBottom)
 
-        // items
-        setSingleChoiceItems(labels, checkedIndex, iconsRes, binding.fwLl) { index ->
+        setDialogOptions(option) {
+            listener?.onSingleChoiceDialogItemSelected(radioOption.checkedIndex, option.tag, option.passValue)
+        }
+
+        inflateRadioGroup(radioOption, binding.fwLl) { index ->
             // there is no positive button; make the dialog simple, i.e. dismiss on item click
-            if (posBtnTxtRes == NO_RES) {
+            if (option.posBtnTxtRes == NO_RES) {
                 catchClassCast {
-                    listener?.onSingleChoiceDialogItemSelected(index, dialogTag, passValue)
+                    listener?.onSingleChoiceDialogItemSelected(index, option.tag, option.passValue)
                 }
                 dialog?.cancel()
             }
-            else checkedIndex = index
+            else radioOption.checkedIndex = index
         }
-
-        // buttons
-        setPositiveButton(posBtnTxtRes) { _ ->
-            catchClassCast {
-                listener?.onSingleChoiceDialogItemSelected(checkedIndex, dialogTag, passValue)
-            }
-        }
-        setCancelButton(negBtnTxtRes)
 
         show().apply {
             fixScrollingDialogCustomPanelPadding()
@@ -69,35 +54,17 @@ class RadioDialog : SingleChoiceDialog() {
     companion object {
         @JvmStatic
         fun newInstance(
-            title: String,
-            labels: Array<String>,
-            checkedIndex: Int,
-            @DrawableRes icons: IntArray? = null,
-            @StringRes posBtnTxtRes: Int? = R.string.fw_dialog_btn_ok,
-            @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String,
-            passValue: String? = null
+            option: DialogOption,
+            radioOption: RadioGroupOption
         ): RadioDialog = RadioDialog().apply {
-            arguments = putBaseBundle(
-                title, "",
-                posBtnTxtRes ?: NO_RES, negBtnTxtRes = negBtnTxtRes,
-                tag = tag, passValue = passValue
-            ).apply {
-                putStringArray(ARG_LABELS, labels)
-                putInt(ARG_CHECKED_INDEX, checkedIndex)
-                putIntArray(ARG_ICONS, icons.orEmpty())
+            arguments = putBaseBundle(option).apply {
+                putRadioGroupOption(ARG_RADIO_GROUP, radioOption)
             }
         }
     }
 }
 
 fun radioDialog(
-    title: String,
-    labels: Array<String>,
-    checkedIndex: Int,
-    @DrawableRes icons: IntArray? = null,
-    @StringRes posBtnTxtRes: Int? = R.string.fw_dialog_btn_ok,
-    @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String,
-    passValue: String? = null
-): RadioDialog = RadioDialog.newInstance(title, labels, checkedIndex, icons, posBtnTxtRes, negBtnTxtRes, tag, passValue)
+    option: DialogOption,
+    radioOption: RadioGroupOption
+): RadioDialog = RadioDialog.newInstance(option, radioOption)

@@ -2,58 +2,42 @@ package com.felwal.android.widget.dialog
 
 import android.os.Bundle
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
-import com.felwal.android.R
 import com.felwal.android.databinding.FwDialogListBinding
-import com.felwal.android.util.asIndicesOfTruths
-import com.felwal.android.util.firsts
 import com.felwal.android.util.orEmpty
-import com.felwal.android.util.seconds
+import com.felwal.android.widget.control.CheckListOption
+import com.felwal.android.widget.control.DialogOption
+import com.felwal.android.widget.control.getCheckListOption
+import com.felwal.android.widget.control.inflateCheckList
+import com.felwal.android.widget.control.putCheckListOption
 
-private const val ARG_LABELS = "labels"
-private const val ARG_ITEM_STATES = "itemStates"
-private const val ARG_ICONS = "icons"
+private const val ARG_CHECK_LIST = "icons"
 
 class CheckDialog : MultiChoiceDialog() {
 
     // args
-    private lateinit var labels: Array<out String>
-    private lateinit var itemStates: BooleanArray
-    @DrawableRes private var iconsRes: IntArray = intArrayOf()
+    private lateinit var checkListOption: CheckListOption
 
     // BaseDialog
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
-            labels = getStringArray(ARG_LABELS).orEmpty()
-            itemStates = getBooleanArray(ARG_ITEM_STATES).orEmpty().copyOf()
-            iconsRes = getIntArray(ARG_ICONS).orEmpty()
+            checkListOption = getCheckListOption(ARG_CHECK_LIST)
         }
     }
 
     override fun buildDialog(): AlertDialog = builder.run {
         val binding = FwDialogListBinding.inflate(inflater)
         setView(binding.root)
-
-        // title
-        setTitleIfNonEmpty(title)
-
-        // widget
         setDividers(binding.fwSv, binding.fwVDividerTop, binding.fwVDividerBottom)
 
-        // items
-        setMultiChoiceItems(labels, itemStates, iconsRes, binding.fwLl) { index, isChecked ->
-            itemStates[index] = isChecked
+        setDialogOptions(option) {
+            listener?.onMultiChoiceDialogItemsSelected(checkListOption.itemStates, option.tag, option.passValue)
         }
 
-        // buttons
-        setPositiveButton(posBtnTxtRes) { _ ->
-            catchClassCast {
-                listener?.onMultiChoiceDialogItemsSelected(itemStates, dialogTag, passValue)
-            }
+        inflateCheckList(checkListOption, binding.fwLl) { index, isChecked ->
+            checkListOption.itemStates[index] = isChecked
         }
-        setCancelButton(negBtnTxtRes)
 
         show().apply {
             fixScrollingDialogCustomPanelPadding()
@@ -65,91 +49,17 @@ class CheckDialog : MultiChoiceDialog() {
     companion object {
         @JvmStatic
         fun newInstance(
-            title: String,
-            vararg items: Pair<String, Boolean>,
-            @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
-            @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String,
-            passValue: String? = null
-        ): CheckDialog = newInstance(
-            title,
-            items.firsts.toTypedArray(), items.seconds.toBooleanArray(), null,
-            posBtnTxtRes, negBtnTxtRes, tag, passValue
-        )
-
-        @JvmStatic
-        fun newInstance(
-            title: String,
-            labels: Array<String>,
-            checkedIndices: IntArray,
-            @DrawableRes icons: IntArray? = null,
-            @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
-            @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String,
-            passValue: String? = null
-        ): CheckDialog = newInstance(
-            title,
-            labels, checkedIndices.asIndicesOfTruths(labels.size), icons,
-            posBtnTxtRes, negBtnTxtRes, tag, passValue
-        )
-
-        @JvmStatic
-        fun newInstance(
-            title: String,
-            labels: Array<String>,
-            itemStates: BooleanArray,
-            @DrawableRes icons: IntArray? = null,
-            @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
-            @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-            tag: String,
-            passValue: String? = null
+            option: DialogOption,
+            checkListOption: CheckListOption
         ): CheckDialog = CheckDialog().apply {
-            arguments = putBaseBundle(title, "", posBtnTxtRes, negBtnTxtRes, tag, passValue).apply {
-                putStringArray(ARG_LABELS, labels)
-                putBooleanArray(ARG_ITEM_STATES, itemStates)
-                putIntArray(ARG_ICONS, icons.orEmpty())
+            arguments = putBaseBundle(option).apply {
+                putCheckListOption(ARG_CHECK_LIST, checkListOption)
             }
         }
     }
 }
 
 fun checkDialog(
-    title: String,
-    vararg items: Pair<String, Boolean>,
-    @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
-    @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String,
-    passValue: String? = null
-): CheckDialog = CheckDialog.newInstance(
-    title, *items,
-    posBtnTxtRes = posBtnTxtRes, negBtnTxtRes = negBtnTxtRes,
-    tag = tag, passValue = passValue
-)
-
-fun checkDialog(
-    title: String,
-    labels: Array<String>,
-    checkedIndices: IntArray,
-    @DrawableRes icons: IntArray? = null,
-    @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
-    @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String,
-    passValue: String? = null
-): CheckDialog = CheckDialog.newInstance(
-    title, labels, checkedIndices, icons,
-    posBtnTxtRes, negBtnTxtRes, tag, passValue
-)
-
-fun checkDialog(
-    title: String,
-    labels: Array<String>,
-    itemStates: BooleanArray,
-    @DrawableRes icons: IntArray? = null,
-    @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
-    @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
-    tag: String,
-    passValue: String? = null
-): CheckDialog = CheckDialog.newInstance(
-    title, labels, itemStates, icons,
-    posBtnTxtRes, negBtnTxtRes, tag, passValue
-)
+    option: DialogOption,
+    checkListOption: CheckListOption
+): CheckDialog = CheckDialog.newInstance(option, checkListOption)
