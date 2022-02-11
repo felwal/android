@@ -27,6 +27,7 @@ private const val ARG_STATES = "States"
 private const val ARG_ICON = "Icon"
 private const val ARG_ICONS = "Icons"
 private const val ARG_CHECKED_INDEX = "CheckedIndex"
+private const val ARG_ASCENDING = "Ascending"
 
 private const val ARG_TEXT = "Text"
 private const val ARG_HINT = "Hint"
@@ -113,6 +114,12 @@ class RadioGroupOption(
     checkedIndex: Int,
     @DrawableRes icons: IntArray? = null
 ) : SingleChoiceListOption(labels, checkedIndex, icons)
+
+class TriRadioGroupOption(
+    labels: Array<String>,
+    checkedIndex: Int,
+    val ascending: Boolean,
+) : SingleChoiceListOption(labels, checkedIndex, null)
 
 //
 
@@ -249,6 +256,18 @@ fun Bundle.getRadioGroupOption(key: String) = RadioGroupOption(
     getStringArray(key + ARG_LABELS) ?: arrayOf(),
     getInt(key + ARG_CHECKED_INDEX),
     getIntArray(key + ARG_ICONS) ?: intArrayOf()
+)
+
+fun Bundle.putTriRadioGroupOption(key: String, option: TriRadioGroupOption) {
+    putStringArray(key + ARG_LABELS, option.labels)
+    putInt(key + ARG_CHECKED_INDEX, option.checkedIndex)
+    putBoolean(key + ARG_ASCENDING, option.ascending)
+}
+
+fun Bundle.getTriRadioGroupOption(key: String) = TriRadioGroupOption(
+    getStringArray(key + ARG_LABELS) ?: arrayOf(),
+    getInt(key + ARG_CHECKED_INDEX),
+    getBoolean(key + ARG_ASCENDING),
 )
 
 fun Bundle.putInputOption(key: String, option: InputOption) {

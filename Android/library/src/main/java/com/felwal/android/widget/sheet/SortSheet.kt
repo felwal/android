@@ -10,24 +10,21 @@ import com.felwal.android.util.getColorByAttr
 import com.felwal.android.util.getDrawableByAttr
 import com.felwal.android.util.withFilter
 import com.felwal.android.widget.control.SheetOption
+import com.felwal.android.widget.control.TriRadioGroupOption
+import com.felwal.android.widget.control.getTriRadioGroupOption
+import com.felwal.android.widget.control.putTriRadioGroupOption
 
-private const val ARG_LABELS = "labels"
-private const val ARG_CHECKED_INDEX = "checkedIndex"
-private const val ARG_ASCENDING = "ascending"
+private const val ARG_TRIRADIO_GROUP = "triRadioGroup"
 
 class SortSheet : BaseSheet<SortSheet.SheetListener>() {
 
-    private lateinit var labels: Array<out String>
-    private var checkedIndex = 0
-    private var ascending = true
+    private lateinit var triRadioOption: TriRadioGroupOption
 
     // BaseSheet
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
-            labels = getStringArray(ARG_LABELS).orEmpty()
-            checkedIndex = getInt(ARG_CHECKED_INDEX)
-            ascending = getBoolean(ARG_ASCENDING)
+            triRadioOption = getTriRadioGroupOption(ARG_TRIRADIO_GROUP)
         }
     }
 
@@ -38,14 +35,14 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
         setSheetOptions(option, binding)
 
         // items
-        for ((i, label) in labels.withIndex()) {
+        for ((i, label) in triRadioOption.labels.withIndex()) {
             val itemBinding = FwItemSheetListBinding.inflate(inflater, ll, false)
             val tv = itemBinding.fwTvLabel
 
             tv.text = label
 
             // style selected item
-            if (i == checkedIndex) {
+            if (i == triRadioOption.checkedIndex) {
                 // label
                 tv.setTextColor(requireContext().getColorByAttr(R.attr.fw_sortSheetHighlightColor))
                 tv.setTypeface(null, Typeface.BOLD)
@@ -53,7 +50,8 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
                 // icon
                 // for some reason tint doesn't override, so we use filter instead
                 val arrow = requireContext().getDrawableByAttr(
-                    if (ascending) R.attr.fw_sortSheetAscendingIcon else R.attr.fw_sortSheetDescendingIcon
+                    if (triRadioOption.ascending) R.attr.fw_sortSheetAscendingIcon
+                    else R.attr.fw_sortSheetDescendingIcon
                 )?.withFilter(requireContext().getColorByAttr(R.attr.fw_sortSheetHighlightColor))
                 itemBinding.fwIvIcon.setImageDrawable(arrow)
             }
@@ -84,19 +82,15 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
         fun newInstance(
             option: SheetOption,
             sorter: Sorter<*>
-        ): SortSheet = newInstance(option, sorter.labels.toTypedArray(), sorter.selectedIndex, sorter.ascending)
+        ): SortSheet = newInstance(option, sorter.toTriRadioGroupOption())
 
         @JvmStatic
         fun newInstance(
             option: SheetOption,
-            labels: Array<String>,
-            checkedIndex: Int,
-            ascending: Boolean,
+            triRadioOption: TriRadioGroupOption
         ) = SortSheet().apply {
             arguments = putBaseBundle(option).apply {
-                putStringArray(ARG_LABELS, labels)
-                putInt(ARG_CHECKED_INDEX, checkedIndex)
-                putBoolean(ARG_ASCENDING, ascending)
+                putTriRadioGroupOption(ARG_TRIRADIO_GROUP, triRadioOption)
             }
         }
     }
@@ -144,5 +138,7 @@ class Sorter<M : Enum<M>>(vararg val sortModes: SortMode<M>) {
 
     fun copy(): Sorter<M> = Sorter(*sortModes).also { it.setSelection(selectedIndex, orderReversed) }
 }
+
+fun Sorter<*>.toTriRadioGroupOption() = TriRadioGroupOption(labels.toTypedArray(), selectedIndex, ascending)
 
 data class SortMode<M : Enum<M>>(val label: String, val mode: M, val ascendingByDefault: Boolean)
