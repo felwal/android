@@ -4,9 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_btn_feature"
+    android:layout_height="@dimen/height_btn"
     android:layout_marginVertical="@dimen/spacing_item_main"
-    android:background="@drawable/shape_button_feature">
+    android:background="@drawable/shape_button">
 
     <TextView
         android:id="@+id/tv"

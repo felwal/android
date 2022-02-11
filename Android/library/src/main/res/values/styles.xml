@@ -144,7 +144,17 @@
     </style>
 
     <!-- widget -->
-    
+
+    <style name="Widget.Felwal.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <!-- for some reason, we have to use AppCompat.CompoundButton
+        to tint the normal state with colorControlNormal. -->
+    </style>
+
+    <style name="Widget.Felwal.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <!-- for some reason, we have to use AppCompat.CompoundButton
+        to tint the normal state with colorControlNormal. -->
+    </style>
+
     <style name="Widget.Felwal.Slider" parent="Widget.MaterialComponents.Slider">
         <!-- match switch halo -->
         <item name="haloRadius">20dp</item>

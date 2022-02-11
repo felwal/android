@@ -11,17 +11,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Demo">
 
-        <activity android:name="com.felwal.android.demo.MainActivity">
+        <activity
+            android:name="com.felwal.android.demo.MainActivity"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
             android:name="com.felwal.android.demo.SettingsActivity"
-            android:parentActivityName="com.felwal.android.demo.MainActivity" />
+            android:parentActivityName="com.felwal.android.demo.MainActivity"
+            android:exported="true" />
 
     </application>
 

@@ -9,7 +9,7 @@
     android:paddingHorizontal="10dp"
     android:paddingVertical="@dimen/spacing_item_main"
     android:layout_marginVertical="@dimen/spacing_item_main"
-    android:background="@drawable/shape_group_feature">
+    android:background="@drawable/shape_group">
 
     <TextView
         android:id="@+id/tv"

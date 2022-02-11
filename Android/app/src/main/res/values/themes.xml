@@ -13,13 +13,13 @@
 
         <!-- primary -->
         <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/fw_white</item>
+        <item name="colorOnPrimary">?android:colorBackground</item>
 
         <!-- secondary -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/fw_black</item>
+        <item name="colorSecondary">@color/teal_700</item>
+        <item name="colorOnSecondary">?android:colorBackground</item>
+
+        <item name="dm_demoButtonColor">@color/button_bg_lt</item>
     </style>
 
 </resources>

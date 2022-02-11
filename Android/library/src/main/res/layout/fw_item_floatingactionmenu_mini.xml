@@ -5,37 +5,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/fw_spacing_diminutive"
-    android:paddingBottom="@dimen/fw_spacing_small"
-    android:paddingEnd="@dimen/fw_spacing_diminutive"
+    android:paddingTop="@dimen/fw_spacing_fam_top_fab"
+    android:paddingBottom="@dimen/fw_spacing_fam_bottom_fab"
+    android:paddingEnd="@dimen/fw_spacing_fam_end_fab_mini"
     android:layout_gravity="end"
     android:visibility="gone"
     android:clipToPadding="false"
     tools:visibility="visible"
-    tools:theme="?fw_floatingActionMenuTheme">
+    tools:theme="@style/Theme.Felwal">
 
-    <LinearLayout
-        android:id="@+id/ll_menu_item"
-        android:layout_width="@dimen/fw_diameter_fab_mini_container"
-        android:layout_height="@dimen/fw_diameter_fab_mini_container"
-        android:layout_gravity="center_horizontal"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_menu_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="?fw_miniIconTint"
         android:clipToPadding="false"
         android:clipChildren="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_menu_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tint="?fw_miniIconTint"
-            android:clipToPadding="false"
-            android:clipChildren="false"
-            app:backgroundTint="?fw_miniFabColor"
-            style="?fw_miniFabStyle" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:backgroundTint="?fw_miniFabColor"
+        style="?fw_miniFabStyle" />
 
     <TextView
         android:id="@+id/tv_menu_item_title"
@@ -43,9 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/fw_spacing_small"
         android:textAppearance="?fw_textAppearance"
-        app:layout_constraintBottom_toBottomOf="@+id/ll_menu_item"
-        app:layout_constraintEnd_toStartOf="@+id/ll_menu_item"
-        app:layout_constraintTop_toTopOf="@+id/ll_menu_item"
+        app:layout_constraintBottom_toBottomOf="@+id/fab_menu_item"
+        app:layout_constraintEnd_toStartOf="@+id/fab_menu_item"
+        app:layout_constraintTop_toTopOf="@+id/fab_menu_item"
         app:layout_constraintVertical_bias="0.4"
         tools:text="Item" />
 

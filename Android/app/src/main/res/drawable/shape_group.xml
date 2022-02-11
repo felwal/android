@@ -9,7 +9,7 @@
             <stroke
                 android:width="@dimen/fw_height_divider"
                 android:color="?android:listDivider" />
-            <corners android:radius="@dimen/corner_radius_btn_feature" />
+            <corners android:radius="@dimen/corner_radius_btn" />
         </shape>
     </item>
 
