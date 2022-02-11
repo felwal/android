@@ -15,6 +15,7 @@ import com.felwal.android.util.string
 import com.felwal.android.util.toast
 
 const val NO_INT_TEXT = -1
+const val NO_LONG_TEXT = -1L
 
 private const val ARG_TEXT = "text"
 private const val ARG_HINT = "hint"
@@ -22,14 +23,14 @@ private const val ARG_HINT = "hint"
 class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
 
     // args
-    private var text = 0
+    private var text = 0L
     private lateinit var hint: String
 
     // BaseDialog
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
-            text = getInt(ARG_TEXT, 0)
+            text = getLong(ARG_TEXT, 0)
             hint = getString(ARG_HINT, "")
         }
     }
@@ -40,7 +41,7 @@ class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
 
         // widget
         binding.fwTf.editText!!.hint = hint
-        if (text != NO_INT_TEXT) binding.fwTf.editText!!.setText(text.toString())
+        if (text != NO_LONG_TEXT) binding.fwTf.editText!!.setText(text.toString())
 
         return builder.run {
             setView(binding.root)
@@ -52,7 +53,7 @@ class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
             // buttons
             setPositiveButton(posBtnTxtRes) { _ ->
                 try {
-                    val input = binding.fwTf.editText!!.string.toInt()
+                    val input = binding.fwTf.editText!!.string.toLong()
                     catchClassCast {
                         listener?.onNumberDialogPositiveClick(input, dialogTag, passValue)
                     }
@@ -70,7 +71,7 @@ class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
     //
 
     interface DialogListener : BaseDialog.DialogListener {
-        fun onNumberDialogPositiveClick(input: Int, tag: String, passValue: String?)
+        fun onNumberDialogPositiveClick(input: Long, tag: String, passValue: String?)
     }
 
     //
@@ -80,7 +81,7 @@ class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
         fun newInstance(
             title: String,
             message: String = "",
-            text: Int = NO_INT_TEXT,
+            text: Long = NO_LONG_TEXT,
             hint: String = "",
             @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
             @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,
@@ -88,7 +89,7 @@ class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
             passValue: String? = null
         ): NumberDialog = NumberDialog().apply {
             arguments = putBaseBundle(title, message, posBtnTxtRes, negBtnTxtRes, tag, passValue).apply {
-                putInt(ARG_TEXT, text)
+                putLong(ARG_TEXT, text)
                 putString(ARG_HINT, hint)
             }
         }
@@ -98,7 +99,7 @@ class NumberDialog : BaseDialog<NumberDialog.DialogListener>() {
 fun numberDialog(
     title: String,
     message: String = "",
-    text: Int = NO_INT_TEXT,
+    text: Long = NO_LONG_TEXT,
     hint: String = "",
     @StringRes posBtnTxtRes: Int = R.string.fw_dialog_btn_ok,
     @StringRes negBtnTxtRes: Int = R.string.fw_dialog_btn_cancel,

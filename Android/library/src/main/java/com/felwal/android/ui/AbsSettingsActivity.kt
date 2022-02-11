@@ -25,6 +25,8 @@ import com.felwal.android.R
 import com.felwal.android.databinding.FwItemSettingsHeaderBinding
 import com.felwal.android.databinding.FwItemSettingsSwitchBinding
 import com.felwal.android.databinding.FwItemSettingsTextBinding
+import com.felwal.android.widget.dialog.NO_INT_TEXT
+import com.felwal.android.widget.dialog.NO_LONG_TEXT
 import com.felwal.android.widget.dialog.checkDialog
 
 abstract class AbsSettingsActivity(
@@ -179,11 +181,11 @@ abstract class AbsSettingsActivity(
         }
     }
 
-    protected inner class IntItem(
+    protected inner class NumberItem(
         title: String,
         private val desc: String? = null,
         private val msg: String = "",
-        private val value: Int,
+        private val value: Long? = null,
         private val hint: String,
         @DrawableRes iconRes: Int = NO_RES,
         private val tag: String
@@ -191,10 +193,10 @@ abstract class AbsSettingsActivity(
 
         override fun inflate(hideDivider: Boolean) {
             inflateDialogItem(
-                title, desc ?: value.toString(), hideDivider, iconRes,
+                title, desc ?: value?.toString() ?: "", hideDivider, iconRes,
                 numberDialog(
                     title = title, message = msg,
-                    text = value, hint = hint,
+                    text = value ?: NO_LONG_TEXT, hint = hint,
                     posBtnTxtRes = R.string.fw_dialog_btn_set,
                     tag = tag
                 )

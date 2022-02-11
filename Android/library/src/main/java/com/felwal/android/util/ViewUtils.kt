@@ -53,7 +53,7 @@ fun TextView.setTextRemoveIfEmpty(value: String) {
 var View.backgroundTint: Int?
     @ColorInt get() = backgroundTintList?.defaultColor
     set(@ColorInt value) {
-        backgroundTintList = if (value != null) ColorStateList.valueOf(value) else null
+        backgroundTintList = if (value != null) value.toColorStateList() else null
     }
 
 // snackbar
@@ -67,6 +67,14 @@ fun View.snackbar(text: String, long: Boolean = true, actionText: String = "", a
 
 @SuppressLint("RestrictedApi")
 fun Menu.setOptionalIconsVisible(visible: Boolean) = (this as? MenuBuilder)?.setOptionalIconsVisible(visible)
+
+val Menu.optionalItems
+    @SuppressLint("RestrictedApi")
+    get() = (this as? MenuBuilder)?.nonActionItems
+
+@SuppressLint("RestrictedApi")
+fun Menu.setOptionalIconsColor(@ColorInt color: Int) =
+    optionalItems?.forEach { it.iconTintList = color.toColorStateList() }
 
 val MenuItem.searchView: SearchView get() = actionView as SearchView
 
