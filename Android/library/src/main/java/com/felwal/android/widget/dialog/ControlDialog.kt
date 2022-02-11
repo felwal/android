@@ -11,6 +11,7 @@ import com.felwal.android.widget.control.putSwitchOption
 
 abstract class ControlDialog<L : BaseDialog.DialogListener> : BaseDialog<L>() {
 
+    // TODO
 
     protected fun buildControlDialog(vararg controls: ControlOption): AlertDialog = builder.run {
         val binding = FwDialogListBinding.inflate(inflater)

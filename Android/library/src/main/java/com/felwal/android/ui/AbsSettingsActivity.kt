@@ -27,7 +27,6 @@ import com.felwal.android.widget.control.CheckListOption
 import com.felwal.android.widget.control.DialogOption
 import com.felwal.android.widget.control.InputOption
 import com.felwal.android.widget.control.RadioGroupOption
-import com.felwal.android.widget.dialog.NO_INT_TEXT
 import com.felwal.android.widget.dialog.NO_LONG_TEXT
 import com.felwal.android.widget.dialog.checkDialog
 

@@ -10,6 +10,9 @@ import com.felwal.android.widget.control.InputOption
 import com.felwal.android.widget.control.getInputOption
 import com.felwal.android.widget.control.putInputOption
 
+const val NO_INT_TEXT = -1
+const val NO_LONG_TEXT = -1L
+
 private const val ARG_INPUT = "input"
 
 class InputDialog : BaseDialog<InputDialog.DialogListener>() {
