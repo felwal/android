@@ -171,7 +171,7 @@ fun Bundle.putDialogOption(key: String, option: DialogOption) {
     putString(key + ARG_MESSAGE, option. message)
     putInt(key + ARG_POS_BTN_RES, option.posBtnTxtRes)
     putInt(key + ARG_NEG_BTN_RES, option.negBtnTxtRes)
-    putInt(key + ARG_NEU_BTN_RES, option.neuBtnTxtRes ?: NO_RES)
+    putInt(key + ARG_NEU_BTN_RES, option.neuBtnTxtRes)
     putString(key + ARG_TAG, option.tag)
     putString(key + ARG_PASS_VALUEG, option.passValue)
 }

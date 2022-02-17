@@ -396,16 +396,14 @@ abstract class MultiChoiceDialog : BaseDialog<MultiChoiceDialog.DialogListener>(
 //
 
 val AlertDialog.titleTextView: TextView?
-    get() =
-        context.resources.getIdentifier("alertTitle", "id", context.packageName)
-            .takeIf { it > 0 }
-            ?.let { titleId -> findViewById(titleId) }
+    get() = context.resources.getIdentifier("alertTitle", "id", context.packageName)
+        .takeIf { it > 0 }
+        ?.let { titleId -> findViewById(titleId) }
 
 val AlertDialog.titleTextViewAndroid: TextView?
-    get() =
-        context.resources.getIdentifier("alertTitle", "id", "android")
-            .takeIf { it > 0 }
-            ?.let { titleId -> findViewById(titleId) }
+    get() = context.resources.getIdentifier("alertTitle", "id", "android")
+        .takeIf { it > 0 }
+        ?.let { titleId -> findViewById(titleId) }
 
 val AlertDialog.messageTextView: TextView? get() = findViewById(android.R.id.message)
 

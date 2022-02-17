@@ -10,6 +10,12 @@
     <dimen name="height_btn">35dp</dimen>
     <dimen name="corner_radius_btn">5dp</dimen>
 
+    <!-- elevation -->
+
+    <dimen name="fw_elev_ab">4dp</dimen>
+    <dimen name="fw_elev_fab">6dp</dimen>
+    <dimen name="fw_elev_bnb">8dp</dimen>
+
     <!-- typography -->
 
     <dimen name="type_subtitle2">14sp</dimen>
