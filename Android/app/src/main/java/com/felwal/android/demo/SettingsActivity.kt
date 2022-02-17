@@ -101,7 +101,7 @@ class SettingsActivity :
     override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String, passValue: String?) {
     }
 
-    override fun onTextDialogPositiveClick(input: String, tag: String, passValue: String?) {
+    override fun onInputDialogPositiveClick(input: String, tag: String, passValue: String?) {
     }
 
     override fun onSliderDialogPositiveClick(input: Float, tag: String, passValue: String?) {

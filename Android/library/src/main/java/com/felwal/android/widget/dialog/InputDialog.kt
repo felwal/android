@@ -1,7 +1,6 @@
 package com.felwal.android.widget.dialog
 
 import android.os.Bundle
-import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
 import com.felwal.android.databinding.FwDialogTextBinding
 import com.felwal.android.util.string
@@ -41,7 +40,7 @@ class InputDialog : BaseDialog<InputDialog.DialogListener>() {
 
             setDialogOptions(option) {
                 val input = binding.fwTf.editText!!.string.trim { it == ' ' }
-                listener?.onTextDialogPositiveClick(input, option.tag, option.passValue)
+                listener?.onInputDialogPositiveClick(input, option.tag, option.passValue)
             }
 
             show()
@@ -51,7 +50,7 @@ class InputDialog : BaseDialog<InputDialog.DialogListener>() {
     //
 
     interface DialogListener : BaseDialog.DialogListener {
-        fun onTextDialogPositiveClick(input: String, tag: String, passValue: String?)
+        fun onInputDialogPositiveClick(input: String, tag: String, passValue: String?)
     }
 
     //
