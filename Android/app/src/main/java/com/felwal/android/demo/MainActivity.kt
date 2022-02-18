@@ -11,6 +11,7 @@ import com.felwal.android.demo.databinding.ItemMainBreakBinding
 import com.felwal.android.demo.databinding.ItemMainButtonBinding
 import com.felwal.android.demo.databinding.ItemMainGroupBinding
 import com.felwal.android.demo.databinding.ItemMainHeaderBinding
+import com.felwal.android.util.FLog
 import com.felwal.android.util.asIndicesOfTruths
 import com.felwal.android.util.contentView
 import com.felwal.android.util.getColorByAttr
@@ -46,6 +47,8 @@ import com.felwal.android.widget.sheet.Sorter
 import com.felwal.android.widget.sheet.checkSheet
 import com.felwal.android.widget.sheet.listSheet
 import com.felwal.android.widget.sheet.radioSheet
+
+val log = FLog("Demo")
 
 class MainActivity :
     AppCompatActivity(),

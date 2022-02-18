@@ -23,13 +23,11 @@ import com.felwal.android.util.backgroundTint
 import com.felwal.android.util.contentView
 import com.felwal.android.util.crossfadeIn
 import com.felwal.android.util.crossfadeOut
+import com.felwal.android.util.log
 import com.felwal.android.util.getActivity
 import com.felwal.android.util.getColorByAttr
-import com.felwal.android.util.getDrawableByAttrWithFilter
 import com.felwal.android.util.getDrawableCompat
-import com.felwal.android.util.getDrawableCompatWithFilter
 import com.felwal.android.util.layoutInflater
-import com.felwal.android.util.w
 import com.felwal.android.util.withFilter
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -172,7 +170,7 @@ class FloatingActionMenu(context: Context, attrs: AttributeSet) : ConstraintLayo
 
         itemBindings.add(itemBinding)
 
-        if (itemBindings.size > 6) w(
+        if (itemBindings.size > 6) log.w(
             "A fab menu should per Material guidelines not contain more than 6 items: " +
             "https://material.io/components/buttons-floating-action-button#types-of-transitions"
         )
