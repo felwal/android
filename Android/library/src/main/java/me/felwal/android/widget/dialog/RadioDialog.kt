@@ -36,9 +36,7 @@ class RadioDialog : SingleChoiceDialog() {
         inflateRadioGroup(radioOption, binding.fwLl) { index ->
             // there is no positive button; make the dialog simple, i.e. dismiss on item click
             if (option.posBtnTxtRes == NO_RES) {
-                catchClassCast {
-                    listener?.onSingleChoiceDialogItemSelected(index, option.tag, option.passValue)
-                }
+                listener?.onSingleChoiceDialogItemSelected(index, option.tag, option.passValue)
                 dialog?.cancel()
             }
             else radioOption.checkedIndex = index

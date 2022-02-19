@@ -35,9 +35,7 @@ class RadioSheet : SingleChoiceSheet() {
     }
 
     override fun onDismiss(dialog: DialogInterface) {
-        catchClassCast {
-            listener?.onSingleChoiceSheetItemSelected(radioOption.checkedIndex, option.tag, option.passValue)
-        }
+        listener?.onSingleChoiceSheetItemSelected(radioOption.checkedIndex, option.tag, option.passValue)
         super.onDismiss(dialog)
     }
 

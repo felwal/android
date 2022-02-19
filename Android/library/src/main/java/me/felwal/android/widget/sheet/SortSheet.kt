@@ -59,9 +59,7 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
             ll.addView(itemBinding.root)
 
             itemBinding.root.setOnClickListener {
-                catchClassCast {
-                    listener?.onSortSheetItemClick(i)
-                }
+                listener?.onSortSheetItemClick(i)
                 dismiss()
             }
         }

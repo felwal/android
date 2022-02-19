@@ -5,13 +5,17 @@ import android.widget.LinearLayout
 import me.felwal.android.demo.databinding.ActivitySettingsBinding
 import me.felwal.android.ui.AbsSettingsActivity
 import me.felwal.android.util.snackbar
+import me.felwal.android.widget.dialog.AlertDialog
 import me.felwal.android.widget.dialog.InputDialog
+import me.felwal.android.widget.dialog.MultiChoiceDialog
 import me.felwal.android.widget.dialog.SingleChoiceDialog
 import me.felwal.android.widget.dialog.SliderDialog
 
 class SettingsActivity :
     AbsSettingsActivity(dividerMode = DividerMode.AFTER_SECTION, indentEverything = true),
+    AlertDialog.DialogListener,
     SingleChoiceDialog.DialogListener,
+    MultiChoiceDialog.DialogListener,
     InputDialog.DialogListener,
     SliderDialog.DialogListener {
 
@@ -98,12 +102,13 @@ class SettingsActivity :
 
     // dialog
 
-    override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String, passValue: String?) {
-    }
+    override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String, passValue: String?) {}
 
-    override fun onInputDialogPositiveClick(input: String, tag: String, passValue: String?) {
-    }
+    override fun onMultiChoiceDialogItemsSelected(itemStates: BooleanArray, tag: String, passValue: String?) {}
 
-    override fun onSliderDialogPositiveClick(input: Float, tag: String, passValue: String?) {
-    }
+    override fun onInputDialogPositiveClick(input: String, tag: String, passValue: String?) {}
+
+    override fun onSliderDialogPositiveClick(input: Float, tag: String, passValue: String?) {}
+
+    override fun onAlertDialogPositiveClick(tag: String, passValue: String?) {}
 }

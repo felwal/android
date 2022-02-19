@@ -104,8 +104,8 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     fun MaterialAlertDialogBuilder.setDialogOptions(
         option: DialogOption,
-        posBtnListener: (() -> Unit)? = null,
-        neuBtnListener: (() -> Unit)? = null
+        neuBtnListener: (() -> Unit)? = null,
+        posBtnListener: (() -> Unit)? = null
     ) {
         // text
         setTitleIfNonEmpty(option.title)
@@ -113,14 +113,10 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
         // button
         setPositiveButton(option.posBtnTxtRes) { _ ->
-            catchClassCast {
-                posBtnListener?.invoke()
-            }
+            posBtnListener?.invoke()
         }
         setNeutralButton(option.neuBtnTxtRes) { _ ->
-            catchClassCast {
-                neuBtnListener?.invoke()
-            }
+            posBtnListener?.invoke()
         }
         setCancelButton(option.negBtnTxtRes)
     }
@@ -362,17 +358,6 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     private fun updateDividers(vList: View, vDividerTop: View?, vDividerBottom: View?) {
         if (hasTitle) vDividerTop?.isInvisible = !vList.canScrollUp()
         if (hasButtons) vDividerBottom?.isInvisible = !vList.canScrollDown()
-    }
-
-    protected fun catchClassCast(action: () -> Unit) {
-        try {
-            action()
-        }
-        catch (e: ClassCastException) {
-            // listener was not successfully safe-casted to L.
-            // all we need to do here is prevent a crash if the listener was not implemented.
-            Log.w("Dialog", "Conext was not successfully safe-casted as DialogListener")
-        }
     }
 
     //

@@ -28,9 +28,11 @@ import me.felwal.android.widget.control.ListOption
 import me.felwal.android.widget.control.RadioGroupOption
 import me.felwal.android.widget.control.SheetOption
 import me.felwal.android.widget.dialog.AlertDialog
+import me.felwal.android.widget.dialog.InputDialog
 import me.felwal.android.widget.dialog.MultiChoiceDialog
 import me.felwal.android.widget.dialog.NO_RES
 import me.felwal.android.widget.dialog.SingleChoiceDialog
+import me.felwal.android.widget.dialog.SliderDialog
 import me.felwal.android.widget.dialog.alertDialog
 import me.felwal.android.widget.dialog.checkDialog
 import me.felwal.android.widget.dialog.chipDialog
@@ -57,7 +59,9 @@ class MainActivity :
     SingleChoiceDialog.DialogListener,
     MultiChoiceDialog.DialogListener,
     SingleChoiceSheet.SheetListener,
-    MultiChoiceSheet.SheetListener {
+    MultiChoiceSheet.SheetListener,
+    SliderDialog.DialogListener,
+    InputDialog.DialogListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -375,8 +379,7 @@ class MainActivity :
 
     // dialog listener
 
-    override fun onAlertDialogPositiveClick(tag: String, passValue: String?) {
-    }
+    override fun onAlertDialogPositiveClick(tag: String, passValue: String?) {}
 
     override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String, passValue: String?) {
         //updateDayNight(selectedIndex == 1)
@@ -386,6 +389,10 @@ class MainActivity :
     override fun onMultiChoiceDialogItemsSelected(itemStates: BooleanArray, tag: String, passValue: String?) {
         contentView?.snackbar(itemStates.toIndicesOfTruths().contentToString())
     }
+
+    override fun onSliderDialogPositiveClick(input: Float, tag: String, passValue: String?) {}
+
+    override fun onInputDialogPositiveClick(input: String, tag: String, passValue: String?) {}
 
     // sheet listener
 

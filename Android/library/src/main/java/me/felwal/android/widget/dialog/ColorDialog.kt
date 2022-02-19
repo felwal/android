@@ -62,9 +62,7 @@ class ColorDialog : SingleChoiceDialog() {
 
                 // set listener
                 ivColor.setOnClickListener {
-                    catchClassCast {
-                        listener?.onSingleChoiceDialogItemSelected(position, option.tag, option.passValue)
-                    }
+                    listener?.onSingleChoiceDialogItemSelected(position, option.tag, option.passValue)
                     dialog?.cancel()
                 }
 

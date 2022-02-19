@@ -243,17 +243,6 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
         }
     }
 
-    protected fun catchClassCast(action: () -> Unit) {
-        try {
-            action()
-        }
-        catch (e: ClassCastException) {
-            // listener was not successfully safe-casted to L.
-            // all we need to do here is prevent a crash if the listener was not implemented.
-            Log.w("Sheet", "Conext was not successfully safe-casted as SheetListener")
-        }
-    }
-
     //
 
     interface SheetListener

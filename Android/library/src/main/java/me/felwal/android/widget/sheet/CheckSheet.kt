@@ -35,9 +35,7 @@ class CheckSheet : MultiChoiceSheet() {
     }
 
     override fun onDismiss(dialog: DialogInterface) {
-        catchClassCast {
-            listener?.onMultiChoiceSheetItemsSelected(checkListOption.itemStates, option.tag, option.passValue)
-        }
+        listener?.onMultiChoiceSheetItemsSelected(checkListOption.itemStates, option.tag, option.passValue)
         super.onDismiss(dialog)
     }
 
