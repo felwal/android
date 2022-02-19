@@ -1,13 +1,17 @@
 package me.felwal.android.util
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.ColorInt
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.PopupMenu
 import com.google.android.material.snackbar.Snackbar
 
@@ -123,3 +127,16 @@ fun Context.popup(
     setOnMenuItemClickListener(listener)
     show()
 }
+
+//
+
+@SuppressLint("RestrictedApi")
+fun Menu.setOptionalIconsVisible(visible: Boolean) = (this as? MenuBuilder)?.setOptionalIconsVisible(visible)
+
+val Menu.optionalItems
+    @SuppressLint("RestrictedApi")
+    get() = (this as? MenuBuilder)?.nonActionItems
+
+@SuppressLint("RestrictedApi")
+fun Menu.setOptionalIconsColor(@ColorInt color: Int) =
+    optionalItems?.forEach { it.iconTintList = color.toColorStateList() }
