@@ -4,12 +4,9 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.ContextWrapper
-import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.Layout
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,17 +16,14 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.children
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.felwal.android.R
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 
 const val ANIM_DURATION = 100L
@@ -57,13 +51,6 @@ var View.backgroundTint: Int?
     set(@ColorInt value) {
         backgroundTintList = if (value != null) value.toColorStateList() else null
     }
-
-// snackbar
-
-fun View.snackbar(text: String, long: Boolean = true, actionText: String = "", action: ((it: View) -> Unit)? = null) =
-    Snackbar.make(this, text, if (long) Snackbar.LENGTH_LONG else Snackbar.LENGTH_SHORT)
-        .setAction(actionText, action)
-        .show()
 
 // menu
 
@@ -150,7 +137,6 @@ val TabLayout.tabs get() = (getChildAt(0) as ViewGroup).children
 
 fun TabLayout.setTabsBorderlessRipple() = tabs.forEach { it.setBorderlessItemRipple() }
 
-
 /**
  * The root view of the layout set via [Activity.setContentView].
  *
@@ -162,8 +148,6 @@ val Activity.contentView: View? get() = window.decorView.rootView.rootView
     ?.getChildAt(0)
     ?.getChildAt(1)
     ?.getChildAt(0)
-
-val Context.layoutInflater: LayoutInflater get() = LayoutInflater.from(this)
 
 fun <T, VH : RecyclerView.ViewHolder> ListAdapter<T, VH>.submitListKeepScroll(
     list: List<T>,

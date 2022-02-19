@@ -97,8 +97,9 @@ fun Context.snackbar(
     .apply { if (listener != null) setAction(actionText ?: "Action", listener) }
     .show()
 
-fun View.snackbar(text: String, long: Boolean = false) =
+fun View.snackbar(text: String, long: Boolean = true, actionText: String = "", action: ((it: View) -> Unit)? = null) =
     Snackbar.make(this, text, if (long) Snackbar.LENGTH_LONG else Snackbar.LENGTH_SHORT)
+        .setAction(actionText, action)
         .show()
 
 // popup menu
