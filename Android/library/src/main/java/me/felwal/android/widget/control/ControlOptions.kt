@@ -47,7 +47,19 @@ class DialogOption(
     @StringRes val neuBtnTxtRes: Int = NO_RES,
     val tag: String,
     val passValue: String? = null
-)
+) {
+    companion object {
+        fun simple(
+            title: String,
+            message: String = "",
+            @StringRes posBtnTxtRes: Int = NO_RES,
+            @StringRes negBtnTxtRes: Int = NO_RES,
+            @StringRes neuBtnTxtRes: Int = NO_RES,
+            tag: String,
+            passValue: String? = null
+        ) = DialogOption(title, message, posBtnTxtRes, negBtnTxtRes, neuBtnTxtRes, tag, passValue)
+    }
+}
 
 class SheetOption(
     val title: String,
