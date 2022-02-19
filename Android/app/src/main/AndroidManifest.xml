@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.felwal.android.demo">
+    package="me.felwal.android.demo">
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,7 @@
         android:theme="@style/Theme.Demo">
 
         <activity
-            android:name="com.felwal.android.demo.MainActivity"
+            android:name="me.felwal.android.demo.MainActivity"
             android:exported="true">
 
             <intent-filter>
@@ -22,8 +22,8 @@
         </activity>
 
         <activity
-            android:name="com.felwal.android.demo.SettingsActivity"
-            android:parentActivityName="com.felwal.android.demo.MainActivity"
+            android:name="me.felwal.android.demo.SettingsActivity"
+            android:parentActivityName="me.felwal.android.demo.MainActivity"
             android:exported="true" />
 
     </application>
