@@ -102,9 +102,9 @@ class FloatingActionMenu(context: Context, attrs: AttributeSet) : ConstraintLayo
 
                 // icon drawables
                 closedIconSrc = getDrawable(R.styleable.FloatingActionMenu_fw_closedIconSrc)
-                    ?: context.getDrawableCompat(R.drawable.fw_ic_plus_24)
+                    ?: context.getDrawableCompat(R.drawable.fw_ic_add_24)
                 openedIconSrc = getDrawable(R.styleable.FloatingActionMenu_fw_openedIconSrc)
-                    ?: context.getDrawableCompat(R.drawable.fw_ic_cross_24)
+                    ?: context.getDrawableCompat(R.drawable.fw_ic_clear_24)
 
                 //
                 overlayAlpha = getFloat(R.styleable.FloatingActionMenu_fw_overlayAlpha, 96f)

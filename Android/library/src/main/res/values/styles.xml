@@ -116,8 +116,8 @@
         <item name="fw_openedIconTint">?colorControlNormal</item>
         <item name="fw_miniIconTint">?colorOnSecondary</item>
 
-        <item name="fw_closedIconSrc">@drawable/fw_ic_plus_24</item>
-        <item name="fw_openedIconSrc">@drawable/fw_ic_cross_24</item>
+        <item name="fw_closedIconSrc">@drawable/fw_ic_add_24</item>
+        <item name="fw_openedIconSrc">@drawable/fw_ic_clear_24</item>
 
         <item name="fw_textAppearance">@style/TextAppearance.Felwal.Dialog.Item</item>
 

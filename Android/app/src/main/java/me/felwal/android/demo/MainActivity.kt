@@ -169,7 +169,7 @@ class MainActivity :
             Btn("Crash") {
                 listDialog(
                     diop("Felwal keeps stopping"),
-                    ListOption(arrayOf("Close app"), intArrayOf(R.drawable.fw_ic_cross_24))
+                    ListOption(arrayOf("Close app"), intArrayOf(R.drawable.fw_ic_clear_24))
                 ).show(fm)
             }
         )
