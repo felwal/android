@@ -12,9 +12,9 @@ class AlertDialog : BaseDialog<AlertDialog.DialogListener>() {
 
     override fun buildDialog(): AndroidXAlertDialog = builder.run {
         setDialogOptions(option, {
-            listener?.onAlertDialogPositiveClick(option.tag, option.passValue)
-        }, {
             listener?.onAlertDialogNeutralClick(option.tag, option.passValue)
+        }, {
+            listener?.onAlertDialogPositiveClick(option.tag, option.passValue)
         })
 
         show()

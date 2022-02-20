@@ -102,7 +102,10 @@ class SettingsActivity :
 
     // dialog
 
-    override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String, passValue: String?) {}
+    override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String, passValue: String?) {
+        updateDayNight(selectedIndex == 1)
+        reflateViews()
+    }
 
     override fun onMultiChoiceDialogItemsSelected(itemStates: BooleanArray, tag: String, passValue: String?) {}
 

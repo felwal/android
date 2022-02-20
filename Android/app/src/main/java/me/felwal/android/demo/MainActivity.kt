@@ -52,6 +52,10 @@ import me.felwal.android.widget.sheet.radioSheet
 
 val log = FLog("Demo")
 
+fun updateDayNight(day: Boolean) = AppCompatDelegate.setDefaultNightMode(
+    if (day) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+)
+
 class MainActivity :
     AppCompatActivity(),
     AlertDialog.DialogListener,
@@ -357,10 +361,6 @@ class MainActivity :
 
     // tool
 
-    private fun updateDayNight(day: Boolean) = AppCompatDelegate.setDefaultNightMode(
-        if (day) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
-    )
-
     private fun diop(title: String = "", message: String = ""): DialogOption =
         DialogOption(title, message, tag = "")
 
@@ -379,7 +379,9 @@ class MainActivity :
 
     // dialog listener
 
-    override fun onAlertDialogPositiveClick(tag: String, passValue: String?) {}
+    override fun onAlertDialogPositiveClick(tag: String, passValue: String?) {
+        updateDayNight(false)
+    }
 
     override fun onSingleChoiceDialogItemSelected(selectedIndex: Int, tag: String, passValue: String?) {
         //updateDayNight(selectedIndex == 1)

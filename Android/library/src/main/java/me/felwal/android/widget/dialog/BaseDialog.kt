@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
@@ -48,8 +47,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     protected lateinit var option: DialogOption
 
     protected open val hasButtons
-        get() =
-            option.posBtnTxtRes != NO_RES || option.negBtnTxtRes != NO_RES || option.neuBtnTxtRes != NO_RES
+        get() = option.posBtnTxtRes != NO_RES || option.negBtnTxtRes != NO_RES || option.neuBtnTxtRes != NO_RES
 
     private val hasTitle get() = option.title.isNotEmpty()
 
@@ -66,7 +64,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         super.onAttach(c)
 
         @Suppress("UNCHECKED_CAST")
-        listener = c as? L
+        listener = c as L
     }
 
     // bundle
@@ -116,7 +114,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
             posBtnListener?.invoke()
         }
         setNeutralButton(option.neuBtnTxtRes) { _ ->
-            posBtnListener?.invoke()
+            neuBtnListener?.invoke()
         }
         setCancelButton(option.negBtnTxtRes)
     }
@@ -135,7 +133,10 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         @StringRes resId: Int,
         listener: (dialog: DialogInterface) -> Unit
     ): AlertDialog.Builder {
-        if (resId != NO_RES) setPositiveButton(resId) { dialog, _ -> listener(dialog) }
+        if (resId != NO_RES) setPositiveButton(resId) { dialog, _ ->
+            listener(dialog)
+            dismiss()
+        }
         return this
     }
 
@@ -143,7 +144,10 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         @StringRes resId: Int,
         listener: (dialog: DialogInterface) -> Unit
     ): AlertDialog.Builder {
-        if (resId != NO_RES) setNeutralButton(resId) { dialog, _ -> listener(dialog) }
+        if (resId != NO_RES) setNeutralButton(resId) { dialog, _ ->
+            listener(dialog)
+            dismiss()
+        }
         return this
     }
 

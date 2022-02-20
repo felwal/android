@@ -37,7 +37,7 @@ class RadioDialog : SingleChoiceDialog() {
             // there is no positive button; make the dialog simple, i.e. dismiss on item click
             if (option.posBtnTxtRes == NO_RES) {
                 listener?.onSingleChoiceDialogItemSelected(index, option.tag, option.passValue)
-                dialog?.cancel()
+                dismiss()
             }
             else radioOption.checkedIndex = index
         }

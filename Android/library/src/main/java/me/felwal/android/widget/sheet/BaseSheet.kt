@@ -47,7 +47,7 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
         super.onAttach(c)
 
         @Suppress("UNCHECKED_CAST")
-        listener = c as? L
+        listener = c as L
     }
 
     // bundle
