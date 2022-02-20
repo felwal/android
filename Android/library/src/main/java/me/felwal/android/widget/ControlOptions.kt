@@ -7,10 +7,10 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import me.felwal.android.R
 import me.felwal.android.util.asIndicesOfTruths
-import me.felwal.android.widget.dialog.BaseDialog
+import me.felwal.android.fragment.dialog.BaseDialog
 
-import me.felwal.android.widget.dialog.NO_RES
-import me.felwal.android.widget.sheet.BaseSheet
+import me.felwal.android.fragment.dialog.NO_RES
+import me.felwal.android.fragment.sheet.BaseSheet
 
 private const val ARG_TITLE = "Title"
 private const val ARG_MESSAGE = "Message"

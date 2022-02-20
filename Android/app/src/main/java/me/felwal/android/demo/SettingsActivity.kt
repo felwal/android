@@ -3,13 +3,13 @@ package me.felwal.android.demo
 import android.os.Bundle
 import android.widget.LinearLayout
 import me.felwal.android.demo.databinding.ActivitySettingsBinding
-import me.felwal.android.ui.AbsSettingsActivity
+import me.felwal.android.fragment.app.AbsSettingsActivity
 import me.felwal.android.util.snackbar
-import me.felwal.android.widget.dialog.AlertDialog
-import me.felwal.android.widget.dialog.InputDialog
-import me.felwal.android.widget.dialog.MultiChoiceDialog
-import me.felwal.android.widget.dialog.SingleChoiceDialog
-import me.felwal.android.widget.dialog.SliderDialog
+import me.felwal.android.fragment.dialog.AlertDialog
+import me.felwal.android.fragment.dialog.InputDialog
+import me.felwal.android.fragment.dialog.MultiChoiceDialog
+import me.felwal.android.fragment.dialog.SingleChoiceDialog
+import me.felwal.android.fragment.dialog.SliderDialog
 
 class SettingsActivity :
     AbsSettingsActivity(dividerMode = DividerMode.AFTER_SECTION, indentEverything = true),

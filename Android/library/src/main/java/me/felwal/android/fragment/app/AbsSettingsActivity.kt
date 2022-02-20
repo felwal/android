@@ -1,4 +1,4 @@
-package me.felwal.android.ui
+package me.felwal.android.fragment.app
 
 import android.view.View
 import android.view.ViewGroup
@@ -21,14 +21,14 @@ import me.felwal.android.widget.control.CheckListOption
 import me.felwal.android.widget.control.DialogOption
 import me.felwal.android.widget.control.InputOption
 import me.felwal.android.widget.control.RadioGroupOption
-import me.felwal.android.widget.dialog.BaseDialog
-import me.felwal.android.widget.dialog.NO_LONG_TEXT
-import me.felwal.android.widget.dialog.NO_RES
-import me.felwal.android.widget.dialog.alertDialog
-import me.felwal.android.widget.dialog.checkDialog
-import me.felwal.android.widget.dialog.inputDialog
-import me.felwal.android.widget.dialog.radioDialog
-import me.felwal.android.widget.dialog.sliderDialog
+import me.felwal.android.fragment.dialog.BaseDialog
+import me.felwal.android.fragment.dialog.NO_LONG_TEXT
+import me.felwal.android.fragment.dialog.NO_RES
+import me.felwal.android.fragment.dialog.alertDialog
+import me.felwal.android.fragment.dialog.checkDialog
+import me.felwal.android.fragment.dialog.inputDialog
+import me.felwal.android.fragment.dialog.radioDialog
+import me.felwal.android.fragment.dialog.sliderDialog
 
 abstract class AbsSettingsActivity(
     private val dividerMode: DividerMode,

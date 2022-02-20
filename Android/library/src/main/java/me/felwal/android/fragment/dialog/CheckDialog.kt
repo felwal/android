@@ -1,4 +1,4 @@
-package me.felwal.android.widget.dialog
+package me.felwal.android.fragment.dialog
 
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog

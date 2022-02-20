@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import me.felwal.android.demo.databinding.ActivityMainBinding
 import me.felwal.android.demo.databinding.ItemMainBreakBinding
 import me.felwal.android.demo.databinding.ItemMainButtonBinding
 import me.felwal.android.demo.databinding.ItemMainGroupBinding
 import me.felwal.android.demo.databinding.ItemMainHeaderBinding
 import me.felwal.android.lang.Trilean
-import me.felwal.android.util.FLog
 import me.felwal.android.util.asIndicesOfTruths
 import me.felwal.android.util.contentView
 import me.felwal.android.util.getColorByAttr
@@ -27,34 +25,28 @@ import me.felwal.android.widget.control.InputOption
 import me.felwal.android.widget.control.ListOption
 import me.felwal.android.widget.control.RadioGroupOption
 import me.felwal.android.widget.control.SheetOption
-import me.felwal.android.widget.dialog.AlertDialog
-import me.felwal.android.widget.dialog.InputDialog
-import me.felwal.android.widget.dialog.MultiChoiceDialog
-import me.felwal.android.widget.dialog.NO_RES
-import me.felwal.android.widget.dialog.SingleChoiceDialog
-import me.felwal.android.widget.dialog.SliderDialog
-import me.felwal.android.widget.dialog.alertDialog
-import me.felwal.android.widget.dialog.checkDialog
-import me.felwal.android.widget.dialog.chipDialog
-import me.felwal.android.widget.dialog.colorDialog
-import me.felwal.android.widget.dialog.inputDialog
-import me.felwal.android.widget.dialog.listDialog
-import me.felwal.android.widget.dialog.radioDialog
-import me.felwal.android.widget.dialog.sliderDialog
-import me.felwal.android.widget.sheet.MultiChoiceSheet
-import me.felwal.android.widget.sheet.SingleChoiceSheet
-import me.felwal.android.widget.sheet.SortMode
-import me.felwal.android.widget.sheet.SortSheet
-import me.felwal.android.widget.sheet.Sorter
-import me.felwal.android.widget.sheet.checkSheet
-import me.felwal.android.widget.sheet.listSheet
-import me.felwal.android.widget.sheet.radioSheet
-
-val log = FLog("Demo")
-
-fun updateDayNight(day: Boolean) = AppCompatDelegate.setDefaultNightMode(
-    if (day) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
-)
+import me.felwal.android.fragment.dialog.AlertDialog
+import me.felwal.android.fragment.dialog.InputDialog
+import me.felwal.android.fragment.dialog.MultiChoiceDialog
+import me.felwal.android.fragment.dialog.NO_RES
+import me.felwal.android.fragment.dialog.SingleChoiceDialog
+import me.felwal.android.fragment.dialog.SliderDialog
+import me.felwal.android.fragment.dialog.alertDialog
+import me.felwal.android.fragment.dialog.checkDialog
+import me.felwal.android.fragment.dialog.chipDialog
+import me.felwal.android.fragment.dialog.colorDialog
+import me.felwal.android.fragment.dialog.inputDialog
+import me.felwal.android.fragment.dialog.listDialog
+import me.felwal.android.fragment.dialog.radioDialog
+import me.felwal.android.fragment.dialog.sliderDialog
+import me.felwal.android.fragment.sheet.MultiChoiceSheet
+import me.felwal.android.fragment.sheet.SingleChoiceSheet
+import me.felwal.android.fragment.sheet.SortMode
+import me.felwal.android.fragment.sheet.SortSheet
+import me.felwal.android.fragment.sheet.Sorter
+import me.felwal.android.fragment.sheet.checkSheet
+import me.felwal.android.fragment.sheet.listSheet
+import me.felwal.android.fragment.sheet.radioSheet
 
 class MainActivity :
     AppCompatActivity(),

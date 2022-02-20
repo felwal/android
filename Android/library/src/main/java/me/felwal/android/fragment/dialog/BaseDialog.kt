@@ -1,4 +1,4 @@
-package me.felwal.android.widget.dialog
+package me.felwal.android.fragment.dialog
 
 import android.app.Dialog
 import android.content.Context

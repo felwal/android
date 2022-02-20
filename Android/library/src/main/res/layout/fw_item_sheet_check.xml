@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/fw_height_item"
     android:background="?selectableItemBackground"
-    tools:context=".ui.AbsSettingsActivity">
+    tools:context=".fragment.app.AbsSettingsActivity">
 
     <CheckBox
         android:id="@+id/fw_cb_start"

@@ -1,8 +1,7 @@
-package me.felwal.android.widget.sheet
+package me.felwal.android.fragment.sheet
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,7 @@ import me.felwal.android.util.getDrawableCompat
 import me.felwal.android.widget.control.SheetOption
 import me.felwal.android.widget.control.getSheetOption
 import me.felwal.android.widget.control.putSheetOption
-import me.felwal.android.widget.dialog.NO_RES
+import me.felwal.android.fragment.dialog.NO_RES
 
 private const val ARG_SHEET = "title"
 
