@@ -44,9 +44,9 @@ fun View.setBorderlessItemRipple() =
 fun View.setActionItemRipple() =
     setBackgroundResource(context.getResIdByAttr(android.R.attr.actionBarItemBackground))
 
-fun View.canScrollUp() = canScrollVertically(-1)
+fun View.canScrollUp(): Boolean = canScrollVertically(-1)
 
-fun View.canScrollDown() = canScrollVertically(1)
+fun View.canScrollDown(): Boolean = canScrollVertically(1)
 
 fun View.getActivity(): Activity? {
     var c = context
@@ -57,11 +57,13 @@ fun View.getActivity(): Activity? {
     return null
 }
 
-fun View.getChildAt(index: Int): View? = (this as? ViewGroup)?.getChildAt(index)
+fun View.getChildAt(index: Int): View? =
+    (this as? ViewGroup)?.getChildAt(index)
 
 // misc
 
-fun Layout.getStartOfLine(index: Int): Int = getLineStart(getLineForOffset(index))
+fun Layout.getStartOfLine(index: Int): Int =
+    getLineStart(getLineForOffset(index))
 
 /**
  * The root view of the layout set via [Activity.setContentView].

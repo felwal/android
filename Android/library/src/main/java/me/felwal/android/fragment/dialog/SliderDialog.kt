@@ -15,10 +15,10 @@ private const val ARG_VALUE = "value"
 class SliderDialog : BaseDialog<SliderDialog.DialogListener>() {
 
     // args
-    private var min = 0f
-    private var max = 0f
-    private var step = 0f
-    private var value = 0f
+    private var min: Float = 0f
+    private var max: Float = 0f
+    private var step: Float = 0f
+    private var value: Float = 0f
 
     // BaseDialog
 

@@ -14,7 +14,7 @@ import me.felwal.android.util.asIndicesOfTruths
 import me.felwal.android.util.contentView
 import me.felwal.android.util.getColorByAttr
 import me.felwal.android.util.launchActivity
-import me.felwal.android.util.multiplyAlphaComponent
+import me.felwal.android.util.withAlphaComponentMultiplied
 import me.felwal.android.util.popup
 import me.felwal.android.util.snackbar
 import me.felwal.android.util.toIndicesOfTruths
@@ -194,13 +194,13 @@ class MainActivity :
             Btn("Color") {
                 colorDialog(
                     diOp("Color dialog"),
-                    IntArray(20) { getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f) }, 0
+                    IntArray(20) { getColorByAttr(R.attr.colorOnSurface).withAlphaComponentMultiplied(0.15f) }, 0
                 ).show(fm)
             },
             Btn("No title") {
                 colorDialog(
                     diOp(),
-                    IntArray(4) { getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f) }, 0,
+                    IntArray(4) { getColorByAttr(R.attr.colorOnSurface).withAlphaComponentMultiplied(0.15f) }, 0,
                 ).show(fm)
             }
         )

@@ -188,7 +188,7 @@ fun Bundle.putDialogOption(key: String, option: DialogOption) {
     putString(key + ARG_PASS_VALUEG, option.passValue)
 }
 
-fun Bundle.getDialogOption(key: String) = DialogOption(
+fun Bundle.getDialogOption(key: String): DialogOption = DialogOption(
     title = getString(key + ARG_TITLE, ""),
     message = getString(key + ARG_MESSAGE, ""),
     posBtnTxtRes = getInt(key + ARG_POS_BTN_RES),
@@ -205,7 +205,7 @@ fun Bundle.putSheetOption(key: String, option: SheetOption) {
     putString(key + ARG_PASS_VALUEG, option.passValue)
 }
 
-fun Bundle.getSheetOption(key: String) = SheetOption(
+fun Bundle.getSheetOption(key: String): SheetOption = SheetOption(
     title = getString(key + ARG_TITLE, ""),
     message = getString(key + ARG_MESSAGE, ""),
     tag = getString(key + ARG_TAG, ""),
@@ -218,7 +218,7 @@ fun Bundle.putCheckBoxOption(key: String, option: CheckBoxOption) {
     option.icon?.let { putInt(key + ARG_ICON, it) }
 }
 
-fun Bundle.getCheckBoxOption(key: String) = CheckBoxOption(
+fun Bundle.getCheckBoxOption(key: String): CheckBoxOption = CheckBoxOption(
     getString(key + ARG_LABEL, ""),
     getBoolean(key + ARG_STATE),
     getInt(key + ARG_ICON)
@@ -229,7 +229,7 @@ fun Bundle.putListOption(key: String, option: ListOption) {
     putIntArray(key + ARG_ICONS, option.icons)
 }
 
-fun Bundle.getListOption(key: String) = ListOption(
+fun Bundle.getListOption(key: String): ListOption = ListOption(
     getStringArray(key + ARG_LABELS) ?: arrayOf(),
     getIntArray(key + ARG_ICONS) ?: intArrayOf()
 )
@@ -240,7 +240,7 @@ fun Bundle.putSwitchOption(key: String, option: SwitchOption) {
     option.icon?.let { putInt(key + ARG_ICON, it) }
 }
 
-fun Bundle.getSwitchOption(key: String) = SwitchOption(
+fun Bundle.getSwitchOption(key: String): SwitchOption = SwitchOption(
     getString(key + ARG_LABEL, ""),
     getBoolean(key + ARG_STATE),
     getInt(key + ARG_ICON)
@@ -252,7 +252,7 @@ fun Bundle.putCheckListOption(key: String, option: CheckListOption) {
     putIntArray(key + ARG_ICONS, option.icons)
 }
 
-fun Bundle.getCheckListOption(key: String) = CheckListOption(
+fun Bundle.getCheckListOption(key: String): CheckListOption = CheckListOption(
     getStringArray(key + ARG_LABELS) ?: arrayOf(),
     getBooleanArray(key + ARG_STATES) ?: booleanArrayOf(),
     getIntArray(key + ARG_ICONS) ?: intArrayOf()
@@ -264,7 +264,7 @@ fun Bundle.putRadioGroupOption(key: String, option: RadioGroupOption) {
     putIntArray(key + ARG_ICONS, option.icons)
 }
 
-fun Bundle.getRadioGroupOption(key: String) = RadioGroupOption(
+fun Bundle.getRadioGroupOption(key: String): RadioGroupOption = RadioGroupOption(
     getStringArray(key + ARG_LABELS) ?: arrayOf(),
     getInt(key + ARG_CHECKED_INDEX),
     getIntArray(key + ARG_ICONS) ?: intArrayOf()
@@ -276,7 +276,7 @@ fun Bundle.putTriRadioGroupOption(key: String, option: TriRadioGroupOption) {
     putBoolean(key + ARG_ASCENDING, option.ascending)
 }
 
-fun Bundle.getTriRadioGroupOption(key: String) = TriRadioGroupOption(
+fun Bundle.getTriRadioGroupOption(key: String): TriRadioGroupOption = TriRadioGroupOption(
     getStringArray(key + ARG_LABELS) ?: arrayOf(),
     getInt(key + ARG_CHECKED_INDEX),
     getBoolean(key + ARG_ASCENDING),
@@ -288,7 +288,7 @@ fun Bundle.putInputOption(key: String, option: InputOption) {
     putInt(key + ARG_INPUT_TYPE, option.inputType)
 }
 
-fun Bundle.getInputOption(key: String) = InputOption(
+fun Bundle.getInputOption(key: String): InputOption = InputOption(
     getString(key + ARG_TEXT, ""),
     getString(key + ARG_HINT, ""),
     getInt(key + ARG_INPUT_TYPE, EditorInfo.TYPE_CLASS_TEXT or EditorInfo.TYPE_TEXT_FLAG_CAP_SENTENCES)

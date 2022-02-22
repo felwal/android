@@ -13,7 +13,10 @@ private const val ARG_LIST = "list"
 
 class ListSheet : SingleChoiceSheet() {
 
+    // args
     private lateinit var listOption: ListOption
+
+    //
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
@@ -45,7 +48,7 @@ class ListSheet : SingleChoiceSheet() {
         fun newInstance(
             option: SheetOption,
             listOption: ListOption
-        ) = ListSheet().apply {
+        ): ListSheet = ListSheet().apply {
             arguments = putBaseBundle(option).apply {
                 putListOption(ARG_LIST, listOption)
             }

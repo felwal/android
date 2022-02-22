@@ -12,6 +12,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
 import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.view.menu.MenuItemImpl
 import androidx.appcompat.widget.PopupMenu
 import com.google.android.material.snackbar.Snackbar
 
@@ -111,7 +112,7 @@ fun View.snackbar(text: String, long: Boolean = true, actionText: String = "", a
 fun <C> C.popup(
     anchor: View,
     @MenuRes menuRes: Int
-) where C : Context, C : PopupMenu.OnMenuItemClickListener =
+): PopupMenu where C : Context, C : PopupMenu.OnMenuItemClickListener =
     PopupMenu(this, anchor).apply {
         menuInflater.inflate(menuRes, menu)
         setOnMenuItemClickListener(this@popup)
@@ -122,7 +123,7 @@ fun Context.popup(
     anchor: View,
     @MenuRes menuRes: Int,
     listener: ((MenuItem) -> Boolean)? = null
-) = PopupMenu(this, anchor).apply {
+): PopupMenu = PopupMenu(this, anchor).apply {
     menuInflater.inflate(menuRes, menu)
     setOnMenuItemClickListener(listener)
     show()
@@ -131,9 +132,10 @@ fun Context.popup(
 //
 
 @SuppressLint("RestrictedApi")
-fun Menu.setOptionalIconsVisible(visible: Boolean) = (this as? MenuBuilder)?.setOptionalIconsVisible(visible)
+fun Menu.setOptionalIconsVisible(visible: Boolean) =
+    (this as? MenuBuilder)?.setOptionalIconsVisible(visible)
 
-val Menu.optionalItems
+val Menu.optionalItems: ArrayList<MenuItemImpl>?
     @SuppressLint("RestrictedApi")
     get() = (this as? MenuBuilder)?.nonActionItems
 

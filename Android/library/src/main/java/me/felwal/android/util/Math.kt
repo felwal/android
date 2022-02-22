@@ -3,18 +3,29 @@ package me.felwal.android.util
 class MathUtils private constructor() {
     companion object {
 
-        fun heaviside(value: Number) = if (value.toFloat() > 0) 1 else 0
+        fun heaviside(value: Number): Int =
+            if (value.toFloat() > 0) 1
+            else 0
 
-        fun heaviside(unity: Boolean?) = if (unity == true) 1 else 0
+        fun heaviside(unity: Boolean?): Int =
+            if (unity == true) 1
+            else 0
 
-        fun signum(value: Number) = if (value.toFloat() > 0) 1 else if (value.toFloat() < 0) -1 else 0
+        fun signum(value: Number): Int =
+            if (value.toFloat() > 0) 1
+            else if (value.toFloat() < 0) -1
+            else 0
 
-        fun signum(positive: Boolean?) = if (positive == true) 1 else if (positive == false) -1 else 0
+        fun signum(positive: Boolean?): Int =
+            if (positive == true) 1
+            else if (positive == false) -1
+            else 0
     }
 }
 
-fun Boolean?.toInt() = MathUtils.heaviside(this)
+val Boolean?.sign: Int
+    get() = MathUtils.signum(this)
 
-val Boolean?.sign get() = MathUtils.signum(this)
+fun Boolean?.toInt(): Int = MathUtils.heaviside(this)
 
-fun Int.toBoolean() = equals(1)
+fun Int.toBoolean(): Boolean = equals(1)

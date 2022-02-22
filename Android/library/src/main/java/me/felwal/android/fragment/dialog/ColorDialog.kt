@@ -22,7 +22,7 @@ class ColorDialog : SingleChoiceDialog() {
 
     // args
     @ColorInt private lateinit var colors: IntArray
-    private var checkedIndex = 0
+    private var checkedIndex: Int = 0
 
     // BaseDialog
 

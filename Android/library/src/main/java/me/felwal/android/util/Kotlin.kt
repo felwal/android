@@ -12,6 +12,6 @@ suspend fun <T> withIO(block: suspend CoroutineScope.() -> T): T = withContext(D
 
 // experiment
 
-operator fun ((Int) -> Any).get(x: Int) = invoke(x)
+operator fun ((Int) -> Any).get(x: Int): Any = invoke(x)
 
 fun <T> Any.to() = this as T

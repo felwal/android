@@ -28,7 +28,7 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
     protected lateinit var inflater: LayoutInflater
     protected var listener: L? = null
 
-    // arguments
+    // args
     protected lateinit var option: SheetOption
 
     // DialogFragment

@@ -18,9 +18,7 @@ fun Context.copyToClipboard(text: CharSequence) {
     tryToast(R.string.fw_toast_i_copied_to_clipboard)
 }
 
-fun Activity.hideKeyboard() {
-    currentFocus?.hideKeyboard()
-}
+fun Activity.hideKeyboard() = currentFocus?.hideKeyboard()
 
 fun View.showKeyboard() {
     requestFocus()
@@ -36,8 +34,11 @@ fun View.hideKeyboard() {
 
 // orientation
 
-val Context.orientation: Int get() = resources.configuration.orientation
+val Context.orientation: Int
+    get() = resources.configuration.orientation
 
-val Context.isPortrait: Boolean get() = orientation == Configuration.ORIENTATION_PORTRAIT
+val Context.isPortrait: Boolean
+    get() = orientation == Configuration.ORIENTATION_PORTRAIT
 
-val Context.isLandscape: Boolean get() = orientation == Configuration.ORIENTATION_LANDSCAPE
+val Context.isLandscape: Boolean
+    get() = orientation == Configuration.ORIENTATION_LANDSCAPE

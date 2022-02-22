@@ -14,7 +14,10 @@ private const val ARG_CHECK_LIST = "checkList"
 
 class CheckSheet : MultiChoiceSheet() {
 
+    // args
     private lateinit var checkListOption: CheckListOption
+
+    //
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {

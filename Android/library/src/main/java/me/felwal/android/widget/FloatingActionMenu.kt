@@ -8,9 +8,11 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewPropertyAnimator
+import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -33,21 +35,27 @@ import me.felwal.android.util.withFilter
 
 class FloatingActionMenu(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
 
-    var isMenuOpen = false
+    var isMenuOpen: Boolean = false
 
     private val animators: MutableList<ViewPropertyAnimator> = mutableListOf()
 
-    private val inflater = context.layoutInflater
+    private val inflater: LayoutInflater = context.layoutInflater
 
-    private var binding = FwViewFloatingactionmenuBinding.inflate(inflater, this, true)
+    private var binding: FwViewFloatingactionmenuBinding =
+        FwViewFloatingactionmenuBinding.inflate(inflater, this, true)
     private var itemBindings: MutableList<FwItemFloatingactionmenuMiniBinding> = mutableListOf()
     private lateinit var overlayBinding: FwItemFloatingactionmenuOverlayBinding
 
-    val fab get() = binding.fwFab
-    val overlay get() = overlayBinding.root
-    val miniFabs get() = itemBindings.map { it.fabMenuItem }
-    val closedImageView get() = binding.fwIvFabClosedIcon
-    val openedImageView get() = binding.fwIvFabOpenedIcon
+    val fab: FloatingActionButton
+        get() = binding.fwFab
+    val overlay: View
+        get() = overlayBinding.root
+    val miniFabs: List<FloatingActionButton>
+        get() = itemBindings.map { it.fabMenuItem }
+    val closedImageView: ImageView
+        get() = binding.fwIvFabClosedIcon
+    val openedImageView: ImageView
+        get() = binding.fwIvFabOpenedIcon
 
     @ColorInt private var closedFabColor: Int
     @ColorInt private var openedFabColor: Int

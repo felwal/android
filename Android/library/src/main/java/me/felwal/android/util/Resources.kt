@@ -29,7 +29,8 @@ import kotlin.math.roundToInt
 
 // get res
 
-fun Context.getDrawableCompat(@DrawableRes id: Int): Drawable? = AppCompatResources.getDrawable(this, id)
+fun Context.getDrawableCompat(@DrawableRes id: Int): Drawable? =
+    AppCompatResources.getDrawable(this, id)
 
 fun Context.getBoolean(@BoolRes id: Int): Boolean = resources.getBoolean(id)
 
@@ -112,9 +113,11 @@ fun Context.getDrawableByAttrWithFilter(@AttrRes id: Int, @AttrRes colorAttr: In
 
 // drawable
 
-fun Drawable.withTint(@ColorInt tint: Int): Drawable = mutate().also { setTint(tint) }
+fun Drawable.withTint(@ColorInt tint: Int): Drawable =
+    mutate().also { setTint(tint) }
 
-fun Drawable.withFilter(@ColorInt tint: Int): Drawable = mutate().also { setColorFilter(tint, PorterDuff.Mode.SRC_IN) }
+fun Drawable.withFilter(@ColorInt tint: Int): Drawable =
+    mutate().also { setColorFilter(tint, PorterDuff.Mode.SRC_IN) }
 
 fun Drawable.toBitmap(): Bitmap? {
     (this as? BitmapDrawable)?.bitmap?.let { return it }
@@ -137,10 +140,10 @@ fun Drawable.toBitmap(): Bitmap? {
 
 // color
 
-fun Int.toColorStateList() = ColorStateList.valueOf(this)
+fun Int.toColorStateList(): ColorStateList = ColorStateList.valueOf(this)
 
 @ColorInt
-fun Int.multiplyAlphaComponent(@FloatRange(from = 0.0, to = 1.0) factor: Float): Int {
+fun Int.withAlphaComponentMultiplied(@FloatRange(from = 0.0, to = 1.0) factor: Float): Int {
     val alpha = (Color.alpha(this) * factor).roundToInt().coerceIn(0, 255)
     return Color.argb(alpha, Color.red(this), Color.green(this), Color.blue(this))
 }
@@ -151,22 +154,18 @@ val Int.pxToDp: Int @Dp get() = round(toFloat().pxToDp).toInt()
 
 val Int.pxTpSp: Int @Sp get() = round(toFloat().pxToSp).toInt()
 
-val Int.dpToPx: Int @Px get() = round(toFloat().dpTpPx).toInt()
+val Int.dpToPx: Int @Px get() = round(toFloat().dpToPx).toInt()
 
 val Int.spToPx: Int @Px get() = round(toFloat().spToPx).toInt()
 
 val Float.pxToDp: Float
-    @Dp get() =
-        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, this, Resources.getSystem().displayMetrics)
+    @Dp get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, this, Resources.getSystem().displayMetrics)
 
 val Float.pxToSp: Float
-    @Sp get() =
-        this / Resources.getSystem().displayMetrics.scaledDensity
+    @Sp get() = this / Resources.getSystem().displayMetrics.scaledDensity
 
-val Float.dpTpPx: Float
-    @Px get() =
-        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, Resources.getSystem().displayMetrics)
+val Float.dpToPx: Float
+    @Px get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, Resources.getSystem().displayMetrics)
 
 val Float.spToPx: Float
-    @Px get() =
-        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, this, Resources.getSystem().displayMetrics)
+    @Px get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, this, Resources.getSystem().displayMetrics)

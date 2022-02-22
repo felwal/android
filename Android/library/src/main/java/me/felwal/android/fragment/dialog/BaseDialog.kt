@@ -46,10 +46,11 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     // args
     protected lateinit var option: DialogOption
 
-    protected open val hasButtons
+    protected open val hasButtons: Boolean
         get() = option.posBtnTxtRes != NO_RES || option.negBtnTxtRes != NO_RES || option.neuBtnTxtRes != NO_RES
 
-    private val hasTitle get() = option.title.isNotEmpty()
+    private val hasTitle: Boolean
+        get() = option.title.isNotEmpty()
 
     // lifecycle
 
@@ -399,8 +400,11 @@ val AlertDialog.titleTextViewAndroid: TextView?
         .takeIf { it > 0 }
         ?.let { titleId -> findViewById(titleId) }
 
-val AlertDialog.messageTextView: TextView? get() = findViewById(android.R.id.message)
+val AlertDialog.messageTextView: TextView?
+    get() = findViewById(android.R.id.message)
 
-val AlertDialog.customPanel: FrameLayout? get() = findViewById(R.id.customPanel)
+val AlertDialog.customPanel: FrameLayout?
+    get() = findViewById(R.id.customPanel)
 
-val AlertDialog.contentPanel: FrameLayout? get() = findViewById(R.id.contentPanel)
+val AlertDialog.contentPanel: FrameLayout?
+    get() = findViewById(R.id.contentPanel)

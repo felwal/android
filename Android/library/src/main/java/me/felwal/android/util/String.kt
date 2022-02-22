@@ -5,7 +5,7 @@ fun CharSequence.split(
     lowerLimit: Int,
     upperLimit: Int = 0,
     ignoreCase: Boolean = false
-): List<String?> = split(*delimiters, ignoreCase = ignoreCase, limit = upperLimit)
+): List<String?> =split(*delimiters, ignoreCase = ignoreCase, limit = upperLimit)
     .toMutableList()
     .toNullable()
     .apply { fillUp(null, lowerLimit) }

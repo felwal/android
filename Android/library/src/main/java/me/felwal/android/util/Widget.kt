@@ -2,6 +2,7 @@ package me.felwal.android.util
 
 import android.text.Editable
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
@@ -15,9 +16,11 @@ import com.google.android.material.tabs.TabLayout
 
 // menu
 
-val MenuItem.searchView: SearchView get() = actionView as SearchView
+val MenuItem.searchView: SearchView
+    get() = actionView as SearchView
 
-val SearchView.closeIcon: ImageView get() = findViewById(androidx.appcompat.R.id.search_close_btn)
+val SearchView.closeIcon: ImageView
+    get() = findViewById(androidx.appcompat.R.id.search_close_btn)
 
 // textview
 
@@ -28,9 +31,11 @@ fun TextView.setTextRemoveIfEmpty(value: String) {
 
 // edittext
 
-val EditText.string: String get() = text.toString()
+val EditText.string: String
+    get() = text.toString()
 
-fun Editable.copy(): Editable = Editable.Factory.getInstance().newEditable(this)
+fun Editable.copy(): Editable =
+    Editable.Factory.getInstance().newEditable(this)
 
 /**
  * Creates a copy of the [EditText]'s [Editable] ([EditText.getText]), executes the [block]
@@ -62,9 +67,11 @@ fun EditText.makeMultilinePreventEnter() = apply {
 
 //
 
-val TabLayout.tabs get() = (getChildAt(0) as ViewGroup).children
+val TabLayout.tabs: Sequence<View>
+    get() = (getChildAt(0) as ViewGroup).children
 
-fun TabLayout.setTabsBorderlessRipple() = tabs.forEach { it.setBorderlessItemRipple() }
+fun TabLayout.setTabsBorderlessRipple() =
+    tabs.forEach { it.setBorderlessItemRipple() }
 
 fun <T, VH : RecyclerView.ViewHolder> ListAdapter<T, VH>.submitListKeepScroll(
     list: List<T>,

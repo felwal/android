@@ -18,9 +18,10 @@ private const val ARG_TRIRADIO_GROUP = "triRadioGroup"
 
 class SortSheet : BaseSheet<SortSheet.SheetListener>() {
 
+    // args
     private lateinit var triRadioOption: TriRadioGroupOption
 
-    // BaseSheet
+    //
 
     override fun unpackBundle(bundle: Bundle?) {
         bundle?.apply {
@@ -91,7 +92,7 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
         fun newInstance(
             option: SheetOption,
             triRadioOption: TriRadioGroupOption
-        ) = SortSheet().apply {
+        ): SortSheet = SortSheet().apply {
             arguments = putBaseBundle(option).apply {
                 putTriRadioGroupOption(ARG_TRIRADIO_GROUP, triRadioOption)
             }
@@ -101,11 +102,11 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
 
 class Sorter<M : Enum<M>>(vararg val sortModes: SortMode<M>) {
 
-    private val arrows = charArrayOf('↓', '↑')
+    private val arrows: CharArray = charArrayOf('↓', '↑')
 
-    var orderReversed = false
+    var orderReversed: Boolean = false
         private set
-    var selectedIndex = 0
+    var selectedIndex: Int = 0
         private set
 
     val ascending: Boolean
@@ -139,9 +140,11 @@ class Sorter<M : Enum<M>>(vararg val sortModes: SortMode<M>) {
         this.orderReversed = orderReversed
     }
 
-    fun copy(): Sorter<M> = Sorter(*sortModes).also { it.setSelection(selectedIndex, orderReversed) }
+    fun copy(): Sorter<M> =
+        Sorter(*sortModes).also { it.setSelection(selectedIndex, orderReversed) }
 }
 
-fun Sorter<*>.toTriRadioGroupOption() = TriRadioGroupOption(labels.toTypedArray(), selectedIndex, ascending)
+fun Sorter<*>.toTriRadioGroupOption(): TriRadioGroupOption =
+    TriRadioGroupOption(labels.toTypedArray(), selectedIndex, ascending)
 
 data class SortMode<M : Enum<M>>(val label: String, val mode: M, val ascendingByDefault: Boolean)
