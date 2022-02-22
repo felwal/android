@@ -138,7 +138,7 @@ class MainActivity :
                     .show(fm)
             },
             Btn("Binary") {
-                alertDialog(diop("Alert dialog", "Message"))
+                alertDialog(diOp("Alert dialog", "Message"))
                     .show(fm)
             },
             Btn("Ternary") {
@@ -151,31 +151,31 @@ class MainActivity :
 
         group("List",
             Btn("List") {
-                listDialog(diop("List dialog"), ListOption(labels(12), icons(12)))
+                listDialog(diOps("List dialog"), ListOption(labels(12), icons(12)))
                     .show(fm)
             },
             Btn("No icons") {
-                listDialog(diop("List dialog"), ListOption(labels(12)))
+                listDialog(diOps("List dialog"), ListOption(labels(12)))
                     .show(fm)
             },
             Btn("No title") {
-                listDialog(diop(), ListOption(labels(3), icons(3)))
+                listDialog(diOps(), ListOption(labels(3), icons(3)))
                     .show(fm)
             },
             Btn("Long no title") {
-                listDialog(diop(), ListOption(labels(12), icons(12)))
+                listDialog(diOps(), ListOption(labels(12), icons(12)))
                     .show(fm)
             },
             Btn("Crash") {
                 listDialog(
-                    diop("Felwal keeps stopping"),
+                    diOps("Felwal keeps stopping"),
                     ListOption(arrayOf("Close app"), intArrayOf(R.drawable.fw_ic_clear_24))
                 ).show(fm)
             }
         )
         group("Radio",
             Btn("Confirmation") {
-                radioDialog(diop("Radio dialog"), RadioGroupOption(labels(9), 0))
+                radioDialog(diOp("Radio dialog"), RadioGroupOption(labels(9), 0))
                     .show(fm)
             },
             Btn("Simple") {
@@ -186,20 +186,20 @@ class MainActivity :
                     .show(fm)
             },
             Btn("Icons") {
-                radioDialog(diop("Radio dialog"), RadioGroupOption(labels(3), 0, icons(3)))
+                radioDialog(diOp("Radio dialog"), RadioGroupOption(labels(3), 0, icons(3)))
                     .show(fm)
             }
         )
         group("Color",
             Btn("Color") {
                 colorDialog(
-                    diop("Color dialog"),
+                    diOp("Color dialog"),
                     IntArray(20) { getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f) }, 0
                 ).show(fm)
             },
             Btn("No title") {
                 colorDialog(
-                    diop(),
+                    diOp(),
                     IntArray(4) { getColorByAttr(R.attr.colorOnSurface).multiplyAlphaComponent(0.15f) }, 0,
                 ).show(fm)
             }
@@ -209,30 +209,30 @@ class MainActivity :
 
         group("Check",
             Btn("Check") {
-                checkDialog(diop("Check dialog"), CheckListOption(labels(9), intArrayOf(0)))
+                checkDialog(diOp("Check dialog"), CheckListOption(labels(9), intArrayOf(0)))
                     .show(fm)
             },
             Btn("Icons") {
                 checkDialog(
-                    diop("Check dialog"),
+                    diOp("Check dialog"),
                     CheckListOption(labels(3), intArrayOf(0), icons(3))
                 )
                     .show(fm)
             },
             Btn("Permission") {
                 checkDialog(
-                    diop("Allow Felwal to make and manage phone calls?"),
+                    diOp("Allow Felwal to make and manage phone calls?"),
                     CheckListOption(arrayOf("Don't ask again"), intArrayOf())
                 ).show(fm)
             }
         )
         group("Chip",
             Btn("Chip") {
-                chipDialog(diop("Chip dialog"), labels(18), intArrayOf().asIndicesOfTruths(18))
+                chipDialog(diOp("Chip dialog"), labels(18), intArrayOf().asIndicesOfTruths(18))
                     .show(fm)
             },
             Btn("No title") {
-                chipDialog(diop(), labels(3), intArrayOf().asIndicesOfTruths(3))
+                chipDialog(diOp(), labels(3), intArrayOf().asIndicesOfTruths(3))
                     .show(fm)
             }
         )
@@ -240,19 +240,19 @@ class MainActivity :
         sectionBreak()
 
         btn("Slider") {
-            sliderDialog(diop("Slider dialog"), min = 0f, max = 10f, step = 1f, value = 5f)
+            sliderDialog(diOp("Slider dialog"), min = 0f, max = 10f, step = 1f, value = 5f)
                 .show(fm)
         }
         btn("Number") {
-            inputDialog(diop("Number dialog"), InputOption(10, "Hint"))
+            inputDialog(diOp("Number dialog"), InputOption(10, "Hint"))
                 .show(fm)
         }
         btn("Decimal") {
-            inputDialog(diop("Decimal dialog"), InputOption(10f, "Hint"))
+            inputDialog(diOp("Decimal dialog"), InputOption(10f, "Hint"))
                 .show(fm)
         }
         btn("Text") {
-            inputDialog(diop("Text dialog"), InputOption("Text", "Hint"))
+            inputDialog(diOp("Text dialog"), InputOption("Text", "Hint"))
                 .show(fm)
         }
 
@@ -262,30 +262,30 @@ class MainActivity :
 
         group("List",
             Btn("List") {
-                listSheet(shop("List sheet"), ListOption(labels(3), icons(3)))
+                listSheet(shOp("List sheet"), ListOption(labels(3), icons(3)))
                     .show(fm)
             },
             Btn("No title") {
-                listSheet(shop(), ListOption(labels(3), icons(3)))
+                listSheet(shOp(), ListOption(labels(3), icons(3)))
                     .show(fm)
             },
             Btn("No icons") {
-                listSheet(shop("List sheet"), ListOption(labels(3)))
+                listSheet(shOp("List sheet"), ListOption(labels(3)))
                     .show(fm)
             }
         )
         group("Radio",
             Btn("Radio") {
-                radioSheet(shop("Radio sheet"), RadioGroupOption(labels(3), 0))
+                radioSheet(shOp("Radio sheet"), RadioGroupOption(labels(3), 0))
                     .show(fm)
             },
             Btn("Icons") {
-                radioSheet(shop("Radio sheet"), RadioGroupOption(labels(3), 0, icons(3)))
+                radioSheet(shOp("Radio sheet"), RadioGroupOption(labels(3), 0, icons(3)))
                     .show(fm)
             }
         )
         btn("Sort") {
-            SortSheet.newInstance(shop("Sort by"), sorter)
+            SortSheet.newInstance(shOp("Sort by"), sorter)
                 .show(fm)
         }
 
@@ -293,19 +293,19 @@ class MainActivity :
 
         group("Check",
             Btn("Check") {
-                checkSheet(shop("Check sheet"), CheckListOption(labels(3), intArrayOf(0)))
+                checkSheet(shOp("Check sheet"), CheckListOption(labels(3), intArrayOf(0)))
                     .show(fm)
             },
             Btn("Icons") {
-                checkSheet(shop("Check sheet"), CheckListOption(labels(3), intArrayOf(0), icons(3)))
+                checkSheet(shOp("Check sheet"), CheckListOption(labels(3), intArrayOf(0), icons(3)))
                     .show(fm)
             },
             Btn("Long") {
-                checkSheet(shop("Check sheet"), CheckListOption(labels(18), intArrayOf(0), icons(18)))
+                checkSheet(shOp("Check sheet"), CheckListOption(labels(18), intArrayOf(0), icons(18)))
                     .show(fm)
             },
             Btn("Long no title") {
-                checkSheet(shop(), CheckListOption(labels(18), intArrayOf(0), icons(18)))
+                checkSheet(shOp(), CheckListOption(labels(18), intArrayOf(0), icons(18)))
                     .show(fm)
             }
         )
@@ -353,10 +353,13 @@ class MainActivity :
 
     // tool
 
-    private fun diop(title: String = "", message: String = ""): DialogOption =
+    private fun diOp(title: String = "", message: String = ""): DialogOption =
         DialogOption(title, message, tag = "")
 
-    private fun shop(title: String = "", message: String = ""): SheetOption =
+    private fun diOps(title: String = "", message: String = ""): DialogOption =
+        DialogOption.simple(title, message, tag = "")
+
+    private fun shOp(title: String = "", message: String = ""): SheetOption =
         SheetOption(title, message, tag = "")
 
     private fun labels(count: Int) = Array(count) { "Item" }
