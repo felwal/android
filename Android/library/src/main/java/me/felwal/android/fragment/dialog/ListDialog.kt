@@ -40,6 +40,11 @@ class ListDialog : SingleChoiceDialog() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putListOption(ARG_LIST, listOption)
+    }
+
     //
 
     companion object {

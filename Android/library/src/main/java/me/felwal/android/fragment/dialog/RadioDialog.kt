@@ -16,6 +16,8 @@ class RadioDialog : SingleChoiceDialog() {
     // args
     private lateinit var radioOption: RadioGroupOption
 
+    private lateinit var binding: FwDialogListBinding
+
     // BaseDialog
 
     override fun unpackBundle(bundle: Bundle?) {
@@ -25,7 +27,7 @@ class RadioDialog : SingleChoiceDialog() {
     }
 
     override fun buildDialog(): AlertDialog = builder.run {
-        val binding = FwDialogListBinding.inflate(inflater)
+        binding = FwDialogListBinding.inflate(inflater)
         setView(binding.root)
         setDividers(binding.fwSv, binding.fwVDividerTop, binding.fwVDividerBottom)
 
@@ -45,6 +47,11 @@ class RadioDialog : SingleChoiceDialog() {
         show().apply {
             fixScrollingDialogCustomPanelPadding()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putRadioGroupOption(ARG_RADIO_GROUP, radioOption)
     }
 
     //

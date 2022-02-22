@@ -19,6 +19,8 @@ class InputDialog : BaseDialog<InputDialog.DialogListener>() {
     // args
     private lateinit var inputOption: InputOption
 
+    private lateinit var binding: FwDialogTextBinding
+
     // BaseDialog
 
     override fun unpackBundle(bundle: Bundle?) {
@@ -28,7 +30,7 @@ class InputDialog : BaseDialog<InputDialog.DialogListener>() {
     }
 
     override fun buildDialog(): AlertDialog {
-        val binding = FwDialogTextBinding.inflate(inflater)
+        binding = FwDialogTextBinding.inflate(inflater)
         binding.fwTf.editText!!.inputType = inputOption.inputType
 
         // widget
@@ -45,6 +47,15 @@ class InputDialog : BaseDialog<InputDialog.DialogListener>() {
 
             show()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        binding.fwTf.editText?.string?.trim { it == ' ' }?.let {
+            inputOption.text = it
+        }
+        outState.putInputOption(ARG_INPUT, inputOption)
     }
 
     //

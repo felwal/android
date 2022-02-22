@@ -39,6 +39,11 @@ class RadioSheet : SingleChoiceSheet() {
         super.onDismiss(dialog)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putRadioGroupOption(ARG_RADIO_GROUP, radioOption)
+    }
+
     //
 
     companion object {

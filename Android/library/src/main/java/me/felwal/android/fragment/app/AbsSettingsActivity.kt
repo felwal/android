@@ -12,6 +12,14 @@ import me.felwal.android.R
 import me.felwal.android.databinding.FwItemSettingsHeaderBinding
 import me.felwal.android.databinding.FwItemSettingsSwitchBinding
 import me.felwal.android.databinding.FwItemSettingsTextBinding
+import me.felwal.android.fragment.dialog.BaseDialog
+import me.felwal.android.fragment.dialog.NO_LONG_TEXT
+import me.felwal.android.fragment.dialog.NO_RES
+import me.felwal.android.fragment.dialog.alertDialog
+import me.felwal.android.fragment.dialog.checkDialog
+import me.felwal.android.fragment.dialog.inputDialog
+import me.felwal.android.fragment.dialog.radioDialog
+import me.felwal.android.fragment.dialog.sliderDialog
 import me.felwal.android.util.getDimension
 import me.felwal.android.util.getDrawableCompat
 import me.felwal.android.util.hideOrRemove
@@ -21,14 +29,6 @@ import me.felwal.android.widget.control.CheckListOption
 import me.felwal.android.widget.control.DialogOption
 import me.felwal.android.widget.control.InputOption
 import me.felwal.android.widget.control.RadioGroupOption
-import me.felwal.android.fragment.dialog.BaseDialog
-import me.felwal.android.fragment.dialog.NO_LONG_TEXT
-import me.felwal.android.fragment.dialog.NO_RES
-import me.felwal.android.fragment.dialog.alertDialog
-import me.felwal.android.fragment.dialog.checkDialog
-import me.felwal.android.fragment.dialog.inputDialog
-import me.felwal.android.fragment.dialog.radioDialog
-import me.felwal.android.fragment.dialog.sliderDialog
 
 abstract class AbsSettingsActivity(
     private val dividerMode: DividerMode,

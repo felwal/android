@@ -136,7 +136,7 @@ class TriRadioGroupOption(
 //
 
 class InputOption(
-    val text: String = "",
+    var text: String = "",
     val hint: String = "",
     val inputType: Int = EditorInfo.TYPE_CLASS_TEXT or EditorInfo.TYPE_TEXT_FLAG_CAP_SENTENCES
 ) : ControlOption() {

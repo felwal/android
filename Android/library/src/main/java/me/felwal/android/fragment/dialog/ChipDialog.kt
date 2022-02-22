@@ -55,6 +55,14 @@ class ChipDialog : MultiChoiceDialog() {
         show()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.apply {
+            putStringArray(ARG_LABELS, labels)
+            putBooleanArray(ARG_ITEM_STATES, itemStates)
+        }
+    }
+
     //
 
     companion object {

@@ -51,11 +51,13 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     private val hasTitle get() = option.title.isNotEmpty()
 
-    // DialogFragment
+    // lifecycle
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         builder = MaterialAlertDialogBuilder(requireActivity())
         inflater = requireActivity().layoutInflater
+
+        unpackBundle(unpackBaseBundle(savedInstanceState ?: arguments))
 
         return buildDialog().also { styleDialog(it) }
     }
@@ -75,8 +77,13 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
     protected abstract fun unpackBundle(bundle: Bundle?)
 
-    private fun unpackBaseBundle(): Bundle? = arguments?.apply {
+    private fun unpackBaseBundle(bundle: Bundle?): Bundle? = bundle?.apply {
         option = getDialogOption(ARG_DIALOG)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putDialogOption(ARG_DIALOG, option)
     }
 
     // build
@@ -94,7 +101,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
     }
 
     fun show(fm: FragmentManager) {
-        unpackBundle(unpackBaseBundle())
+        unpackBundle(unpackBaseBundle(arguments))
         if (!isAdded) super.show(fm, option.tag)
     }
 
@@ -216,7 +223,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         val itemBindings = mutableListOf<FwItemDialogRadioBinding>()
 
         for ((i, label) in labels.withIndex()) {
-            val itemBinding = FwItemDialogRadioBinding.inflate(layoutInflater, ll, false)
+            val itemBinding = FwItemDialogRadioBinding.inflate(layoutInflater, ll, true)
 
             // label
             itemBinding.fwTvLabel.text = label
@@ -242,9 +249,6 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
                 itemBinding.fwRbEnd.isChecked = true
             }
 
-            ll.addView(itemBinding.root)
-            itemBindings.add(itemBinding)
-
             itemBinding.root.setOnClickListener {
                 // dont reselect the same item twice
                 if (!itemBinding.fwRbStart.isChecked) {
@@ -261,6 +265,8 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
 
                 listener(i)
             }
+
+            itemBindings.add(itemBinding)
         }
     }
 
@@ -279,7 +285,7 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
         }
 
         for ((i, label) in labels.withIndex()) {
-            val itemBinding = FwItemDialogCheckBinding.inflate(layoutInflater, ll, false)
+            val itemBinding = FwItemDialogCheckBinding.inflate(layoutInflater, ll, true)
 
             // label
             itemBinding.fwTvLabel.text = label
@@ -302,8 +308,6 @@ abstract class BaseDialog<L : BaseDialog.DialogListener> : DialogFragment() {
             // selection
             itemBinding.fwCbStart.isChecked = itemStates[i]
             itemBinding.fwCbEnd.isChecked = itemStates[i]
-
-            ll.addView(itemBinding.root)
 
             itemBinding.root.setOnClickListener {
                 // toggle

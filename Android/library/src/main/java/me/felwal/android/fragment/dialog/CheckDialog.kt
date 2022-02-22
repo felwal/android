@@ -42,6 +42,11 @@ class CheckDialog : MultiChoiceDialog() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putCheckListOption(ARG_CHECK_LIST, checkListOption)
+    }
+
     //
 
     companion object {

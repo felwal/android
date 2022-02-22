@@ -63,7 +63,7 @@ class ColorDialog : SingleChoiceDialog() {
                 // set listener
                 ivColor.setOnClickListener {
                     listener?.onSingleChoiceDialogItemSelected(position, option.tag, option.passValue)
-                    dialog?.cancel()
+                    dismiss()
                 }
 
                 return clItem
@@ -71,6 +71,14 @@ class ColorDialog : SingleChoiceDialog() {
         }
 
         show()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.apply {
+            putIntArray(ARG_COLORS, colors)
+            putInt(ARG_CHECKED_INDEX, checkedIndex)
+        }
     }
 
     //

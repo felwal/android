@@ -73,6 +73,11 @@ class SortSheet : BaseSheet<SortSheet.SheetListener>() {
         fun onSortSheetItemClick(checkedIndex: Int)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putTriRadioGroupOption(ARG_TRIRADIO_GROUP, triRadioOption)
+    }
+
     //
 
     companion object {

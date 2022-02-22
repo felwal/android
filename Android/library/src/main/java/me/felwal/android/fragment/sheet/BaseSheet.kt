@@ -15,11 +15,11 @@ import me.felwal.android.databinding.FwItemSheetCheckBinding
 import me.felwal.android.databinding.FwItemSheetListBinding
 import me.felwal.android.databinding.FwItemSheetRadioBinding
 import me.felwal.android.databinding.FwSheetListBinding
+import me.felwal.android.fragment.dialog.NO_RES
 import me.felwal.android.util.getDrawableCompat
 import me.felwal.android.widget.control.SheetOption
 import me.felwal.android.widget.control.getSheetOption
 import me.felwal.android.widget.control.putSheetOption
-import me.felwal.android.fragment.dialog.NO_RES
 
 private const val ARG_SHEET = "title"
 
@@ -39,6 +39,8 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        unpackBundle(unpackBaseBundle())
+
         return buildSheet()
     }
 
@@ -59,6 +61,11 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
 
     private fun unpackBaseBundle(): Bundle? = arguments?.apply {
         option = getSheetOption(ARG_SHEET)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSheetOption(ARG_SHEET, option)
     }
 
     // build
