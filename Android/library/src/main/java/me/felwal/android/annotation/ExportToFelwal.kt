@@ -20,4 +20,4 @@ package me.felwal.android.annotation
     AnnotationTarget.FILE,
     AnnotationTarget.TYPEALIAS
 )
-annotation class BumpFelwalAndRemove
+annotation class ExportToFelwal
