@@ -1,12 +1,15 @@
 package me.felwal.android.fragment.app
 
+import android.content.ActivityNotFoundException
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
 import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import me.felwal.android.R
 import me.felwal.android.databinding.FwItemSettingsHeaderBinding
@@ -22,9 +25,14 @@ import me.felwal.android.fragment.dialog.radioDialog
 import me.felwal.android.fragment.dialog.sliderDialog
 import me.felwal.android.util.getDimension
 import me.felwal.android.util.getDrawableCompat
+import me.felwal.android.util.getResIdByAttr
 import me.felwal.android.util.hideOrRemove
+import me.felwal.android.util.launchActivity
+import me.felwal.android.util.log
+import me.felwal.android.util.openLink
 import me.felwal.android.util.setItemRipple
 import me.felwal.android.util.setTextRemoveIfEmpty
+import me.felwal.android.util.toast
 import me.felwal.android.widget.control.CheckListOption
 import me.felwal.android.widget.control.DialogOption
 import me.felwal.android.widget.control.InputOption
@@ -107,15 +115,42 @@ abstract class AbsSettingsActivity(
         }
     }
 
-    protected inner class ActionItem(
+    protected open inner class ActionItem(
         title: String,
-        private val desc: String = "",
+        protected val desc: String = "",
         @DrawableRes iconRes: Int = NO_RES,
-        private val onClick: () -> Unit
+        protected val onClick: () -> Unit
     ) : SettingItem(title, iconRes) {
 
         override fun inflate(hideDivider: Boolean) {
             inflateClickItem(title, desc, hideDivider, iconRes) {
+                onClick()
+            }
+        }
+    }
+
+    protected inner class LaunchItem(
+        title: String,
+        desc: String = "",
+        iconRes: Int = NO_RES,
+        activity: Class<*>
+    ) : ActionItem(title, desc, iconRes, { launchActivity(activity) }) {
+
+        override fun inflate(hideDivider: Boolean) {
+            inflateClickItem(title, desc, hideDivider, iconRes, getResIdByAttr(R.attr.fw_settingItemLaunchIcon)) {
+                onClick()
+            }
+        }
+    }
+
+    protected inner class LinkItem(
+        title: String,
+        desc: String = "",
+        iconRes: Int = NO_RES,
+        link: String
+    ) : ActionItem(title, desc, iconRes, { openLink(link) }) {
+        override fun inflate(hideDivider: Boolean) {
+            inflateClickItem(title, desc, hideDivider, iconRes, getResIdByAttr(R.attr.fw_settingItemLinkIcon)) {
                 onClick()
             }
         }
@@ -349,9 +384,10 @@ abstract class AbsSettingsActivity(
         value: String,
         hideDivider: Boolean,
         @DrawableRes iconRes: Int,
+        @DrawableRes endIconRes: Int = NO_RES,
         listener: View.OnClickListener?
     ) {
-        val itemBinding = inflateTextView(title, value, hideDivider, iconRes)
+        val itemBinding = inflateTextView(title, value, hideDivider, iconRes, endIconRes)
         itemBinding.root.setOnClickListener(listener)
     }
 
@@ -361,7 +397,8 @@ abstract class AbsSettingsActivity(
         title: String,
         value: String,
         hideDivider: Boolean,
-        @DrawableRes iconRes: Int
+        @DrawableRes iconRes: Int,
+        @DrawableRes endIconRes: Int = NO_RES
     ): FwItemSettingsTextBinding =
         FwItemSettingsTextBinding.inflate(layoutInflater, llItemContainer, true).apply {
             // text
@@ -378,6 +415,14 @@ abstract class AbsSettingsActivity(
                 ivIcon.setImageDrawable(icon)
             }
             else ivIcon.hideOrRemove(indentEverything)
+
+            // end icon
+            if (endIconRes != NO_RES) {
+                val icon = getDrawableCompat(endIconRes)
+                ivIconEnd.setImageDrawable(icon)
+                ivIconEnd.isVisible = true
+            }
+            else ivIconEnd.isGone = true
         }
 
     private fun inflateSwitchView(

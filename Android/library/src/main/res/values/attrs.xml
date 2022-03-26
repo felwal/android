@@ -29,6 +29,8 @@
     <attr name="fw_settingItemTextAppearance" format="reference" />
     <attr name="fw_settingDescTextAppearance" format="reference" />
     <attr name="fw_settingItemIconTint" format="color|reference" />
+    <attr name="fw_settingItemLaunchIcon" format="color|reference" />
+    <attr name="fw_settingItemLinkIcon" format="color|reference" />
 
     <!-- views -->
 

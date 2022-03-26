@@ -10,6 +10,7 @@ import me.felwal.android.fragment.dialog.InputDialog
 import me.felwal.android.fragment.dialog.MultiChoiceDialog
 import me.felwal.android.fragment.dialog.SingleChoiceDialog
 import me.felwal.android.fragment.dialog.SliderDialog
+import me.felwal.android.util.launchActivity
 
 class SettingsActivity :
     AbsSettingsActivity(dividerMode = DividerMode.AFTER_SECTION, indentEverything = true),
@@ -49,6 +50,16 @@ class SettingsActivity :
                     title = "Action",
                     iconRes = R.drawable.fw_ic_arrow_up_24,
                     onClick = { snackbar(binding.root, "Action") }
+                ),
+                LaunchItem(
+                    title = "Launch activity",
+                    iconRes = R.drawable.fw_ic_arrow_up_24,
+                    activity = SettingsActivity::class.java
+                ),
+                LinkItem(
+                    title = "Open link",
+                    iconRes = R.drawable.fw_ic_arrow_up_24,
+                    link = "https://felwal.github.io"
                 )
             ),
             ItemSection(
