@@ -24,6 +24,8 @@ class SettingsActivity :
     private lateinit var binding: ActivitySettingsBinding
     override val llItemContainer: LinearLayout get() = binding.ll
 
+    private val ic = R.drawable.ic_item
+    
     // lifecycle
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,22 +45,22 @@ class SettingsActivity :
                 BooleanItem(
                     title = "Boolean",
                     value = false,
-                    iconRes = R.drawable.fw_ic_check_24,
+                    iconRes = ic,
                     onSwitch = {}
                 ),
                 ActionItem(
                     title = "Action",
-                    iconRes = R.drawable.fw_ic_arrow_up_24,
+                    iconRes = ic,
                     onClick = { snackbar(binding.root, "Action") }
                 ),
                 LaunchItem(
                     title = "Launch activity",
-                    iconRes = R.drawable.fw_ic_arrow_up_24,
+                    iconRes = ic,
                     activity = SettingsActivity::class.java
                 ),
                 LinkItem(
                     title = "Open link",
-                    iconRes = R.drawable.fw_ic_arrow_up_24,
+                    iconRes = ic,
                     link = "https://felwal.github.io"
                 )
             ),
@@ -69,20 +71,20 @@ class SettingsActivity :
                     desc = "Description",
                     msg = "Message",
                     dialogBtnRes = R.string.fw_dialog_btn_ok,
-                    iconRes = R.drawable.fw_ic_arrow_down_24,
+                    iconRes = ic,
                     tag = "tag"
                 ),
                 ConfirmationItem(
                     "Confirmation",
                     dialogPosBtnRes = R.string.fw_dialog_btn_ok,
-                    iconRes = R.drawable.fw_ic_check_24,
+                    iconRes = ic,
                     tag = "tag"
                 ),
                 StringItem(
                     title = "String",
                     value = "Value",
                     hint = "Hint hint",
-                    iconRes = R.drawable.fw_ic_arrow_up_24,
+                    iconRes = ic,
                     tag = "tag"
                 ),
                 SliderItem(
@@ -91,7 +93,7 @@ class SettingsActivity :
                     max = 20f,
                     step = 1f,
                     value = 10f,
-                    iconRes = R.drawable.fw_ic_arrow_down_24,
+                    iconRes = ic,
                     tag = "tag"
                 ),
                 SingleSelectionItem(
@@ -104,7 +106,7 @@ class SettingsActivity :
                     title = "Multi selection",
                     values = arrayOf("Item", "Item"),
                     selectedIndices = intArrayOf(0),
-                    iconRes = R.drawable.fw_ic_check_24,
+                    iconRes = ic,
                     tag = "tag"
                 )
             )

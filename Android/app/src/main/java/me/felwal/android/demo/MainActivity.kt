@@ -68,6 +68,7 @@ class MainActivity :
         SortMode("Name", Trilean.NEU, false),
         SortMode("Avg distance", Trilean.POS, true)
     )
+    private val ic = R.drawable.ic_item
 
     //
 
@@ -86,15 +87,15 @@ class MainActivity :
     private fun initFam() {
         // fam
         binding.fam.apply {
-            addItem("Item", R.drawable.fw_ic_check_24) {
+            addItem("Item", ic) {
                 snackbar("item clicked")
                 closeMenu()
             }
-            addItem("Item", R.drawable.fw_ic_arrow_up_24) {
+            addItem("Item", ic) {
                 snackbar("item clicked")
                 closeMenu()
             }
-            addItem("Item", R.drawable.fw_ic_arrow_down_24) {
+            addItem("Item", ic) {
                 snackbar("item clicked")
                 closeMenu()
             }
@@ -364,13 +365,7 @@ class MainActivity :
 
     private fun labels(count: Int) = Array(count) { "Item" }
 
-    private fun icons(count: Int): IntArray = IntArray(count) { i ->
-        when (i % 3) {
-            0 -> R.drawable.fw_ic_check_24
-            1 -> R.drawable.fw_ic_arrow_up_24
-            else -> R.drawable.fw_ic_arrow_down_24
-        }
-    }
+    private fun icons(count: Int): IntArray = IntArray(count) { ic }
 
     // dialog listener
 
