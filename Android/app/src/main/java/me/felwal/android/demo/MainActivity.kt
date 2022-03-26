@@ -9,22 +9,6 @@ import me.felwal.android.demo.databinding.ItemMainBreakBinding
 import me.felwal.android.demo.databinding.ItemMainButtonBinding
 import me.felwal.android.demo.databinding.ItemMainGroupBinding
 import me.felwal.android.demo.databinding.ItemMainHeaderBinding
-import me.felwal.android.lang.Trilean
-import me.felwal.android.util.asIndicesOfTruths
-import me.felwal.android.util.contentView
-import me.felwal.android.util.getColorByAttr
-import me.felwal.android.util.launchActivity
-import me.felwal.android.util.withAlphaComponentMultiplied
-import me.felwal.android.util.popup
-import me.felwal.android.util.snackbar
-import me.felwal.android.util.toIndicesOfTruths
-import me.felwal.android.util.toast
-import me.felwal.android.widget.control.CheckListOption
-import me.felwal.android.widget.control.DialogOption
-import me.felwal.android.widget.control.InputOption
-import me.felwal.android.widget.control.ListOption
-import me.felwal.android.widget.control.RadioGroupOption
-import me.felwal.android.widget.control.SheetOption
 import me.felwal.android.fragment.dialog.AlertDialog
 import me.felwal.android.fragment.dialog.InputDialog
 import me.felwal.android.fragment.dialog.MultiChoiceDialog
@@ -47,6 +31,22 @@ import me.felwal.android.fragment.sheet.Sorter
 import me.felwal.android.fragment.sheet.checkSheet
 import me.felwal.android.fragment.sheet.listSheet
 import me.felwal.android.fragment.sheet.radioSheet
+import me.felwal.android.lang.Trilean
+import me.felwal.android.util.asIndicesOfTruths
+import me.felwal.android.util.contentView
+import me.felwal.android.util.getColorByAttr
+import me.felwal.android.util.launchActivity
+import me.felwal.android.util.popup
+import me.felwal.android.util.snackbar
+import me.felwal.android.util.toIndicesOfTruths
+import me.felwal.android.util.toast
+import me.felwal.android.util.withAlphaComponentMultiplied
+import me.felwal.android.widget.control.CheckListOption
+import me.felwal.android.widget.control.DialogOption
+import me.felwal.android.widget.control.InputOption
+import me.felwal.android.widget.control.ListOption
+import me.felwal.android.widget.control.RadioGroupOption
+import me.felwal.android.widget.control.SheetOption
 
 class MainActivity :
     AppCompatActivity(),

@@ -1,6 +1,5 @@
 package me.felwal.android.fragment.app
 
-import android.content.ActivityNotFoundException
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -28,11 +27,9 @@ import me.felwal.android.util.getDrawableCompat
 import me.felwal.android.util.getResIdByAttr
 import me.felwal.android.util.hideOrRemove
 import me.felwal.android.util.launchActivity
-import me.felwal.android.util.log
 import me.felwal.android.util.openLink
 import me.felwal.android.util.setItemRipple
 import me.felwal.android.util.setTextRemoveIfEmpty
-import me.felwal.android.util.toast
 import me.felwal.android.widget.control.CheckListOption
 import me.felwal.android.widget.control.DialogOption
 import me.felwal.android.widget.control.InputOption
