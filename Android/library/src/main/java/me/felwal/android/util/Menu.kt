@@ -11,10 +11,12 @@ import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
+import androidx.appcompat.graphics.drawable.DrawableWrapper
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.view.menu.MenuItemImpl
 import androidx.appcompat.widget.PopupMenu
 import com.google.android.material.snackbar.Snackbar
+import me.felwal.android.R
 
 // toast
 
@@ -129,7 +131,7 @@ fun Context.popup(
     show()
 }
 
-//
+// optional icons
 
 @SuppressLint("RestrictedApi")
 fun Menu.setOptionalIconsVisible(visible: Boolean) =
@@ -142,3 +144,34 @@ val Menu.optionalItems: ArrayList<MenuItemImpl>?
 @SuppressLint("RestrictedApi")
 fun Menu.setOptionalIconsColor(@ColorInt color: Int) =
     optionalItems?.forEach { it.iconTintList = color.toColorStateList() }
+
+/**
+ * Call this from [Activity.onPrepareOptionsMenu]; the colors need updating every time.
+ */
+fun Menu.prepareOptionalIcons(c: Context) = setOptionalIconsColor(c.getColorByAttr(R.attr.colorControlNormal));
+
+fun Menu.createOptionalIcons() = setOptionalIconsVisible(true)
+
+// checked icons
+
+/**
+ * https://stackoverflow.com/a/57756011
+ *
+ * Fixes checked state being ignored by injecting checked state directly into drawable
+ * */
+@SuppressLint("RestrictedApi")
+class CheckDrawableWrapper(val menuItem: MenuItem) : DrawableWrapper(menuItem.icon) {
+    @SuppressLint("RestrictedApi")
+    override fun setState(stateSet: IntArray) = super.setState(
+        // inject checked state into drawable state set
+        if (menuItem.isChecked) stateSet + android.R.attr.state_checked
+        else stateSet
+    )
+}
+
+/**
+ * https://stackoverflow.com/a/57756011
+ *
+ * Wrap icon drawable with [CheckDrawableWrapper].
+ * */
+fun MenuItem.fixIconCheckState() = apply { icon = CheckDrawableWrapper(this) }

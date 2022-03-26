@@ -32,6 +32,15 @@ fun <E> MutableList<E>.removeAllFrom(index: Int) =
 fun <E> MutableList<E>.removeAllTo(index: Int) =
     removeAll(0..index)
 
+operator fun IntArray.minus(element: Int): IntArray =
+    (toMutableList() - element).toIntArray()
+
+operator fun BooleanArray.minus(element: Boolean): BooleanArray =
+    (toMutableList() - element).toBooleanArray()
+
+inline operator fun <reified E> Array<E>.minus(element: E): Array<E> =
+    (toMutableList() - element).toTypedArray()
+
 // indices
 
 fun <E> List<E>.indicesOf(sublist: List<E>): List<Int> =

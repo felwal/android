@@ -32,6 +32,8 @@ import kotlin.math.roundToInt
 fun Context.getDrawableCompat(@DrawableRes id: Int): Drawable? =
     AppCompatResources.getDrawable(this, id)
 
+fun Context.getBitmap(@DrawableRes id: Int): Bitmap? = getDrawableCompat(id)?.toBitmap()
+
 fun Context.getBoolean(@BoolRes id: Int): Boolean = resources.getBoolean(id)
 
 @Px
@@ -78,6 +80,8 @@ fun Context.getResIdByAttr(@AttrRes attr: Int): Int {
 fun Context.getColorByAttr(@AttrRes attr: Int): Int = getColor(getResIdByAttr(attr))
 
 fun Context.getDrawableByAttr(@AttrRes attr: Int): Drawable? = getDrawableCompat(getResIdByAttr(attr))
+
+fun Context.getBitmapByAttr(@AttrRes attr: Int): Bitmap? = getBitmap(getResIdByAttr(attr))
 
 fun Context.getBooleanByAttr(@AttrRes attr: Int): Boolean = getBoolean(getResIdByAttr(attr))
 
