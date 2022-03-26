@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingVertical="@dimen/fw_spacing_sheet_vertical"
+            android:paddingBottom="@dimen/fw_spacing_sheet_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -30,10 +30,8 @@
             <TextView
                 android:id="@+id/fw_tv_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:layout_marginHorizontal="@dimen/fw_spacing_small"
-                android:layout_marginTop="@dimen/fw_spacing_tiny"
-                android:paddingBottom="@dimen/fw_spacing_small"
                 android:gravity="center_vertical"
                 android:textAppearance="@style/TextAppearance.Felwal.Dialog.Title"
                 tools:text="Title"
@@ -51,24 +49,7 @@
                 style="@style/Widget.Felwal.Divider"
                 tools:visibility="visible"/>
 
-            <!--<include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />
-            <include layout="@layout/fw_item_sheet_list" />-->
+            <!--<include layout="@layout/fw_item_sheet_list" />-->
 
         </LinearLayout>
 

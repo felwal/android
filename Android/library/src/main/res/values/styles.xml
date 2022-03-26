@@ -192,9 +192,9 @@
 
     <style name="TextAppearance.Felwal.Dialog" />
 
-    <style name="TextAppearance.Felwal.Dialog.Title">
-        <item name="android:textSize">@dimen/fw_type_dialog_title</item>
-        <!--<item name="android:textStyle">bold</item>-->
+    <style name="TextAppearance.Felwal.Dialog.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <!--<item name="android:textSize">@dimen/fw_type_dialog_title</item>
+        <item name="android:textStyle">bold</item>-->
     </style>
 
     <style name="TextAppearance.Felwal.Dialog.Body">

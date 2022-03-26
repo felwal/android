@@ -242,7 +242,7 @@ abstract class BaseSheet<L : BaseSheet.SheetListener> : BottomSheetDialogFragmen
     protected fun setTitleIfNonEmpty(title: String, binding: FwSheetListBinding) {
         if (title == "") {
             binding.fwTvTitle.isGone = true
-            binding.fwVDivider.isGone = true
+            binding.fwVDivider.isInvisible = true
         }
         else {
             binding.fwTvTitle.text = title
