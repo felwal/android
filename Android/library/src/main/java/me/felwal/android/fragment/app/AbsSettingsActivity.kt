@@ -130,11 +130,18 @@ abstract class AbsSettingsActivity(
         title: String,
         desc: String = "",
         iconRes: Int = NO_RES,
-        activity: Class<*>
-    ) : ActionItem(title, desc, iconRes, { launchActivity(activity) }) {
+        onClick: () -> Unit
+    ) : ActionItem(title, desc, iconRes, onClick) {
+
+        constructor(
+            title: String,
+            desc: String = "",
+            iconRes: Int = NO_RES,
+            activity: Class<*>
+        ) : this(title, desc, iconRes, { launchActivity(activity) })
 
         override fun inflate(hideDivider: Boolean) {
-            inflateClickItem(title, desc, hideDivider, iconRes, getResIdByAttr(R.attr.fw_settingItemLaunchIcon)) {
+            inflateClickItem(title, desc, hideDivider, iconRes, getResIdByAttr(R.attr.fw_settingItemOpenActivityIcon)) {
                 onClick()
             }
         }
@@ -144,10 +151,18 @@ abstract class AbsSettingsActivity(
         title: String,
         desc: String = "",
         iconRes: Int = NO_RES,
-        link: String
-    ) : ActionItem(title, desc, iconRes, { openLink(link) }) {
+        onClick: () -> Unit
+    ) : ActionItem(title, desc, iconRes, onClick) {
+
+        constructor(
+            title: String,
+            desc: String = "",
+            iconRes: Int = NO_RES,
+            link: String
+        ) : this(title, desc, iconRes, { openLink(link) })
+
         override fun inflate(hideDivider: Boolean) {
-            inflateClickItem(title, desc, hideDivider, iconRes, getResIdByAttr(R.attr.fw_settingItemLinkIcon)) {
+            inflateClickItem(title, desc, hideDivider, iconRes, getResIdByAttr(R.attr.fw_settingItemOpenLinkIcon)) {
                 onClick()
             }
         }
@@ -417,7 +432,7 @@ abstract class AbsSettingsActivity(
             if (endIconRes != NO_RES) {
                 val icon = getDrawableCompat(endIconRes)
                 ivIconEnd.setImageDrawable(icon)
-                ivIconEnd.isVisible = true
+                ivIconEnd.isVisible = icon != null
             }
             else ivIconEnd.isGone = true
         }
